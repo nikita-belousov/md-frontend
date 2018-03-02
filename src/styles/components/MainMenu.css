@@ -1,0 +1,72 @@
+@value primary-gradient, secondary from './../libs/colors.css';
+@value family, family-bold from './../libs/typography.css';
+
+.wrapper {
+  padding-top: 4em;
+}
+
+.bg {
+  background: primary-gradient;
+  padding: 3px 0;
+  color: #fff;
+
+  a {
+    color: #fff;
+    border-bottom-color: rgba(#fff, .4);
+
+    &:hover {
+      border-bottom-color: #fff;
+    }
+  }
+}
+
+ul.navigation {
+  display: flex;
+  list-style: none;
+  flex-wrap: wrap;
+  padding-left: 0;
+
+  li {
+    margin-right: 2.5em;
+  }
+}
+
+.nav-link {
+  composes: link--alt from './common/Link.css';
+
+  line-height: 2.2;
+  font-weight: 600;
+}
+
+.nav-link--active {
+  composes: nav-link;
+
+  border: 0;
+  color: secondary !important;
+}
+
+.dropdown-wrapper {
+  position: absolute;
+  margin-top: 5px;
+  margin-left: -15px;
+  width: 260px;
+}
+
+.dropdown {
+  list-style: none;
+  padding-left: 0;
+
+  li {
+    margin: .6em 0;
+  }
+
+  a {
+    font-family: family;
+    font-weight: normal;
+  }
+
+  a.main {
+    font-family: family-bold;
+    font-weight: 600;
+  }
+}

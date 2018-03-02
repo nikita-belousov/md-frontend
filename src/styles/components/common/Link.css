@@ -1,0 +1,49 @@
+@value primary from './../../libs/colors.css';
+@value secondary from './../../libs/colors.css';
+
+a, link, .link {
+  cursor: pointer;
+  color: primary;
+  outline: 0;
+  border-bottom: 1px solid rgba(#2ac4ff, .4);
+  text-decoration: none;
+  transition: border-bottom-color ease-in-out .2s;
+  font-weight: 600;
+
+  &:hover, &:active, &:focus {
+    outline: 0;
+  }
+
+  &:hover {
+    border-bottom-color: #2ac4ff;
+  }
+}
+
+.active {
+  color: secondary;
+  border-bottom: 0 !important;
+  cursor: default;
+}
+
+.link--alt {
+  composes: link;
+
+  color: #fff;
+  border-bottom: 1px solid rgba(#fff, .4);
+
+  &:hover {
+    border-bottom-color: #fff;
+  }
+}
+
+.dashed-link {
+  composes: link;
+
+  border-bottom-style: dashed;
+}
+
+.dashed-link--alt {
+  composes: link--alt;
+
+  border-bottom-style: dashed;
+}

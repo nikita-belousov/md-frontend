@@ -1,0 +1,21 @@
+@value primary, grey from './../../libs/colors.css';
+
+.wrapper {
+  width: 20px;
+  display: inline-block;
+  cursor: pointer;
+
+  svg {
+    fill: grey;
+
+    &:hover {
+      fill: primary;
+    }
+  }
+}
+
+.wrapper--next {
+  composes: wrapper;
+
+  transform: rotate(180deg);
+}

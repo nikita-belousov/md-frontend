@@ -1,0 +1,27 @@
+.section-wrapper {
+  padding: 40px 0;
+}
+
+.news-obj {
+  padding-right: 40px;
+}
+
+.arrow-prev {
+  transform: translate(-15px, -60%);
+}
+.arrow-next {
+  transform: translate(15px, -60%);
+}
+
+.bottom-line {
+  display: flex;
+  margin-top: 8px;
+
+  .data {
+    margin-right: 20px;
+  }
+
+  .views span {
+    margin-right: 4px;
+  }
+}

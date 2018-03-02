@@ -1,0 +1,11 @@
+.paragraph {
+  font-size: 12pt;
+  line-height: 1.8;
+}
+
+.paragraph--small {
+  composes: paragraph;
+
+  font-size: 11pt;
+  line-height: 1.4;
+}

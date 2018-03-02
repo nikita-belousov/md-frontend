@@ -1,0 +1,17 @@
+.wrapper {
+  width: 260px;
+}
+
+.inner {
+  margin-top: -10px;
+}
+
+.p-wrapper {
+  padding-right: 2em;
+  padding-top: .2em;
+}
+
+.checkmark-icon {
+  display: inline-block;
+  margin-right: .4em;
+}

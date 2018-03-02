@@ -1,0 +1,31 @@
+@value family-bold from './../../libs/typography.css';
+
+.wrapper {
+  padding-top: 20px;
+}
+
+.caption {
+  font-family: 'fira-sans', Helvetica, sans-serif;
+  font-size: 29pt;
+}
+
+.slider-wrapper {
+  display: flex;
+  overflow-x: visible;
+}
+
+
+.arrow-prev {
+  transform: translate(-15px, -60%);
+}
+
+.arrow-next {
+  transform: translate(15px, -60%);
+}
+
+.more-about {
+  font-family: family-bold;
+  text-align: center;
+  padding-top: 40px;
+  font-size: 14pt;
+}
