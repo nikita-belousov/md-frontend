@@ -7,19 +7,18 @@ const withFetch = (WrappedComponent) => {
     constructor(props) {
       super(props)
       this.state = { fetchedData: null }
-      this.getData()
+      this.getData(this.props.api)
     }
 
-    getData() {
-      fetch(process.env.REACT_APP_API_ROOT + this.props.api)
+    componentWillReceiveProps(nextProps) {
+      this.getData(nextProps.api)
+    }
+
+    getData(api) {
+      return fetch(`${process.env.REACT_APP_API_ROOT}/${api}`)
         .then(data => data.json())
-        .then(json => {
-          if (json.statusCode === 404) {
-            this.context.onPageNotFound()
-          } else {
-            this.setState(prev => ({ fetchedData: json }))
-          }
-        })
+        .then(json => this.setState({ fetchedData: json }))
+        .catch(console.log)
     }
 
     renderNotFound() {
@@ -31,8 +30,10 @@ const withFetch = (WrappedComponent) => {
     }
 
     render() {
-      const { api, ...restProps } = this.props
+      const { fetchedData } = this.state
+      if (!fetchedData) return null
 
+      const { api, ...restProps } = this.props
       return (
         <WrappedComponent
           fetchedData={this.state.fetchedData}

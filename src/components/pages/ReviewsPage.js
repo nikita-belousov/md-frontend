@@ -1,14 +1,15 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import styles from '../../styles/components/pages/Reviews.css'
+import styles from '../../styles/components/pages/ReviewsPage.css'
 
 import withFetch from './../HOCs/withFetch'
 import Link from './../common/Link'
 import NarrowPage from './NarrowPage'
-import Review from './../Review'
+import Reviews from './../Reviews'
 import LeaveFeedbackPopup from './../LeaveFeedbackPopup'
+import Pagination from './../common/Pagination'
 
-class Reviews extends Component {
+class ReviewsPage extends Component {
   state = { leaveFeedbackPopup: false }
 
   handleLeaveFeedbackClick = (e) => {
@@ -39,7 +40,6 @@ class Reviews extends Component {
 
   render() {
     const { leaveFeedbackPopup } = this.state
-    const { fetchedData } = this.props
 
     return (
       <NarrowPage heading='отзывы'>
@@ -55,13 +55,16 @@ class Reviews extends Component {
           </div>
           {leaveFeedbackPopup && this.renderPopup()}
         </div>
-        {(fetchedData && fetchedData.length > 0)
-          && fetchedData.map(review =>
-            <Review {...review} />
-        )}
+        <div className={styles['reviews']}>
+          <Pagination
+            itemsComponent={Reviews}
+            itemsOnPage={7}
+            api={'reviews'}
+          />
+        </div>
       </NarrowPage>
     )
   }
 }
 
-export default withFetch(Reviews)
+export default ReviewsPage

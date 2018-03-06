@@ -46,3 +46,10 @@
   display: flex;
   justify-content: center;
 }
+
+.success-text {
+  
+  > * {
+    margin: 0;
+  }
+}

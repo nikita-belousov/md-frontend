@@ -67,6 +67,16 @@
     color: success;
   }
 }
+.button--regular--disabled {
+  composes: button--regular;
+  opacity: .5;
+  cursor: default;
+
+  &:hover {
+    background: transparent;
+    color: primary;
+  }
+}
 
 /* ---- primary ---- */
 .button--primary {
@@ -81,6 +91,8 @@
 }
 
 /* ---- popup ---- */
+@value bg: linear-gradient(to bottom, #2588a2 0%, #236a7e 100%);
+@value bg-inversed: linear-gradient(to top, #2588a2 0%, #236a7e 100%);
 .button--popup {
   composes: button;
   width: 100%;
@@ -89,18 +101,18 @@
   color: #fff;
   font-weight: 600;
   font-size: inherit;
-  background: linear-gradient(to bottom, #2588a2 0%, #236a7e 100%);
+  background: bg;
   font-weight: 600;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 11px;
 
   &:active {
-    background: linear-gradient(to top, #2588a2 0%, #236a7e 100%);
+    background: bg-inversed;
   }
 }
 .button--popup--loading {
   composes: button--popup;
-  background: linear-gradient(to top, #2588a2 0%, #236a7e 100%);
+  background: bg-inversed;
 }
 .button--popup--finished {
   composes: button--popup--loading;
@@ -109,8 +121,9 @@
 .button--popup--disabled {
   composes: button--popup;
   cursor: default;
+  opacity: .5;
 
   &:active {
-    background: inherit;
+    background: bg;
   }
 }

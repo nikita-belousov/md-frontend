@@ -53,11 +53,7 @@ class Modal extends Component {
                       {children}
                     </div>
                   </div>
-                  <div className={styles['footer']}>
-                    <div className={styles['inner']}>
-                      {renderFooter()}
-                    </div>
-                  </div>
+                  <div className={styles['footer']}></div>
                 </div>
               </ClosesOnExternalClick>
             </div>

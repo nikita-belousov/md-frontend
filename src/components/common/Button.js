@@ -22,33 +22,25 @@ class Button extends Component {
       </div>
     )
   }
-
+  
   render() {
-    const {
-      loadingTime,
-      successText,
-      children,
-      type,
-      width,
-      btnState,
-      ...restProps
-    } = this.props
+    const { successText, children, type, width, getState, ...restProps } = this.props
+    const state =  getState ? getState() : 'normal'
 
     return (
       <button
-        className={styles[this.classes[btnState]]}
-        style={{ width }}
+        className={styles[this.classes[state]]}
+        style={{ width: this.props.width }}
         {...restProps}
       >
-        {btnState === 'loading' ? this.renderLoader()
-          : btnState === 'finished' ? successText : children}
+        {state === 'loading'
+          ? this.renderLoader()
+            : state === 'finished'
+              ? successText
+              : this.props.children}
       </button>
     )
   }
-}
-
-Button.defaultProps = {
-  btnState: 'normal'
 }
 
 export default Button

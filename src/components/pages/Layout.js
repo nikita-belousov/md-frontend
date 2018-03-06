@@ -38,8 +38,8 @@ class Layout extends Component {
             <div className='current-page'>
               {this.props.children}
             </div>
-            <CountReview />
-            <NewsSlider api='/news' />
+            <CountReview reviewsToShow={10} />
+            <NewsSlider api='news?_sort=published:desc' />
             <Footer />
           </div>
         </MuiThemeProvider>

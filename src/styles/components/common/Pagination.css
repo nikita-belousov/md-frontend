@@ -1,0 +1,20 @@
+.pagination {
+  padding-top: 3.6em;
+  display: flex;
+  justify-content: center;
+
+  ul {
+    list-style: none;
+    display: flex;
+
+    li.arrow > a {
+      border: 0;
+      text-decoration: 0;
+    }
+
+    li {
+      font-size: 16pt;
+      margin: 0 .8em;
+    }
+  }
+}

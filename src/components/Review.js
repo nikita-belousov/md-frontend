@@ -76,22 +76,22 @@ class Review extends Component {
 
   render() {
     let {
-      name,
-      published,
+      author,
       rating,
+      datePublished,
       review,
       response
     } = this.props
 
     const { fullMode } = this.state
-    const date = new Date(published)
+    const date = new Date(datePublished)
 
     return (
       <div className={styles['wrapper']}>
         <div className={styles['review']}>
           <div className={styles['top-row']}>
             <div className={styles['author']}>
-              {name}
+              {author}
             </div>
             <div className={styles['date']}>
               {date.toLocaleDateString(

@@ -33,7 +33,7 @@ const navLinks = [
   },
   {
     title: 'Отзывы',
-    path: '/reviews'
+    path: '/reviews/pages/0'
   }
 ]
 

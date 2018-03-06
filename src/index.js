@@ -13,7 +13,7 @@ import Layout from './components/pages/Layout'
 import NotFound from './components/pages/NotFound'
 import HomePage from './components/pages/HomePage'
 import Pricelist from './components/pages/Pricelist'
-import Reviews from './components/pages/Reviews'
+import ReviewsPage from './components/pages/ReviewsPage'
 import Staff from './components/pages/Staff'
 import Contacts from './components/pages/Contacts'
 import SpecialPage from './components/pages/SpecialPage'
@@ -25,6 +25,10 @@ import './styles/myfonts.css'
 import styles from './styles/components/App.css'
 
 class App extends Component {
+  static childContextTypes = {
+    onPageNotFound: PropTypes.func
+  }
+
   state = { pageNotFound: false }
 
   getChildContext() {
@@ -52,10 +56,10 @@ class App extends Component {
               </Layout>
             } />
           <Route
-            exact path='/reviews'
+            path='/reviews'
             render={props =>
               <Layout>
-                <Reviews api='/reviews' />
+                <ReviewsPage />
               </Layout>
             } />
           <Route
@@ -77,14 +81,14 @@ class App extends Component {
             exact path='/news/:id'
             render={props =>
               <Layout>
-                <NewsPage api={`/news/${props.match.params.id}`} />
+                <NewsPage api={`news/${props.match.params.id}`} />
               </Layout>
             } />
           <Route
             exact path='/special/:id'
             render={props =>
               <Layout>
-                <SpecialPage api={`/special/${props.match.params.id}`} />
+                <SpecialPage api={`special/${props.match.params.id}`} />
               </Layout>
             } />
 
@@ -99,10 +103,6 @@ class App extends Component {
      ? <NotFound />
      : this.renderRoutes()
   }
-}
-
-App.childContextTypes = {
-  onPageNotFound: PropTypes.func
 }
 
 ReactDOM.render(

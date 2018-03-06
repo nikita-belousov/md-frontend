@@ -9,7 +9,7 @@ import _ from 'lodash'
 
 class ChangingReviews extends Component {
   state = { current: 0 }
-  quantity = 10
+  quantity = 4
 
   componentDidMount() {
     this.interval = setInterval(() => {
@@ -40,7 +40,7 @@ class ChangingReviews extends Component {
           </div>
         </div>
       )
-    } else return words.join(' ')
+    } else return review.review
   }
 
   renderReview(num) {
@@ -54,7 +54,7 @@ class ChangingReviews extends Component {
           </div>
           <div className={styles['author']}>
             <div className={styles['name']}>
-              {fetchedData[num].name}
+              {fetchedData[num].author}
             </div>
             <div className={styles['rating']}>
               <StaticRating value={fetchedData[num].rating} />
@@ -68,9 +68,8 @@ class ChangingReviews extends Component {
   render() {
     const { fetchedData } = this.props
 
-    return (fetchedData && fetchedData.length > 0)
-      && this.renderReview(this.state.current)
+    return this.renderReview(this.state.current)
   }
 }
 
-export default withFetch(ChangingReviews, 'reviews?_sort=published:desc')
+export default withFetch(ChangingReviews)

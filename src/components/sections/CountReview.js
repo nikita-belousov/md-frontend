@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import styles from './../../styles/components/sections/CountReview.css'
 import FontAwesome from 'react-fontawesome'
 
+import Form from './../containers/Form'
 import TextInput from './../common/TextInput'
 import Button from './../common/Button'
 import Container from './../Container'
@@ -9,7 +10,17 @@ import CallbackPopup from './../CallbackPopup'
 import ChangingReviews from './../ChangingReviews'
 
 class CountReview extends Component {
-  state = { callbackForm: false }
+  state = {
+    callbackForm: false
+  }
+
+  onCountFormSubmit = (data) => {
+    this.problemValue = data.problem
+    this.setState(prev => ({
+      ...prev,
+      callbackForm: true
+    }))
+  }
 
   handleBtnCLick = (e) => {
     e.nativeEvent.preventDefault()
@@ -23,15 +34,33 @@ class CountReview extends Component {
     }))
   }
 
+  onCallbackClose = () => {
+    this.setState(prev => ({
+      ...prev,
+      callbackForm: false
+    }))
+  }
+
+  onCallbackSubmit = (data) => {
+    emailjs.send(
+      process.env.REACT_APP_MAIL_SERVICE,
+      '_count_price',
+      {
+        problem: this.problemValue,
+        name: _.capitalize(data.name),
+        phone: data.phone
+      }
+    )
+    .then(console.log)
+    .catch(console.log)
+  }
+
   renderPopupForm() {
     return (
       <div className={styles['popup-wrapper']}>
         <CallbackPopup
-          onClose={() => {
-            this.setState(prevState => ({
-              callbackForm: false
-            }))
-          }}
+          onClose={this.onCallbackClose}
+          onSubmit={this.onCallbackSubmit}
         />
       </div>
     )
@@ -39,6 +68,13 @@ class CountReview extends Component {
 
   render() {
     const { callbackForm } = this.state
+    const reviewsToShow = this.props.reviewsToShow || 10
+
+    const constraints = {
+      problem: {
+        presence: { allowEmpty: false },
+      }
+    }
 
     return (
       <div className={styles['background']}>
@@ -50,22 +86,27 @@ class CountReview extends Component {
               </h3>
               <div className={styles['count-price']}>
                 <div className={styles['count-inner']}>
-                  <div className={styles['input-group']}>
-                    <div className={styles['problem-input']}>
-                      <TextInput
-                        type='textarea'
-                        name='problem-desc'
-                        label='Опишите вашу проблему'
-                        rows='6'
-                      />
+                  <Form
+                    onSubmit={this.onCountFormSubmit}
+                    constraints={constraints}
+                  >
+                    <div className={styles['input-group']}>
+                      <div className={styles['problem-input']}>
+                        <TextInput
+                          type='textarea'
+                          name='problem'
+                          label='Опишите вашу проблему'
+                          rows='6'
+                        />
+                      </div>
                     </div>
-                  </div>
-                  <div  className={styles['count-btn']}>
-                    <Button onClick={this.handleBtnCLick}>
-                      Рассчитать
-                    </Button>
-                    {callbackForm && this.renderPopupForm()}
-                  </div>
+                    <div  className={styles['count-btn']}>
+                      <Button formSubmit>
+                        Рассчитать
+                      </Button>
+                    </div>
+                  </Form>
+                  {callbackForm && this.renderPopupForm()}
                 </div>
               </div>
             </div>
@@ -75,7 +116,7 @@ class CountReview extends Component {
                   О нас пишут
                 </h3>
                 <ChangingReviews
-                  api='/reviews'
+                  api={`reviews?_sort=datePublished:desc&_limit=${reviewsToShow}`}
                   interval={10000}
                   maxLength={25}
                 />

@@ -44,15 +44,32 @@ class FloatingSection extends React.Component {
     }))
   }
 
+  onCallbackClose = () => {
+    this.setState(prev => ({
+      ...prev,
+      callbackForm: false
+    }))
+  }
+
+  onCallbackSubmit(data) {
+    emailjs.send(
+      process.env.REACT_APP_MAIL_SERVICE,
+      '_callback',
+      {
+        name: _.capitalize(data.name),
+        phone: data.phone
+      }
+    )
+    .then(console.log)
+    .catch(console.log)
+  }
+
   renderPopupForm() {
     return (
       <div className={styles['wrapper-call']}>
         <CallbackPopup
-          onClose={() => {
-            this.setState(prevState => ({
-              callbackForm: false
-            }))
-          }}
+          onClose={this.onCallbackClose}
+          onSubmit={this.onCallbackSubmit}
         />
       </div>
     )

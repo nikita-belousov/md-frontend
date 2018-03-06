@@ -4,7 +4,6 @@ import _ from 'lodash'
 import styles from './../styles/components/AppointmentModal.css'
 
 import Form from './containers/Form'
-
 import Modal from './Modal'
 import Button from './common/Button'
 import TextInput from './common/TextInput'
@@ -25,9 +24,59 @@ const LOADING_TIME = 2500
 const SUCCESS_TEXT = 'Спасибо, %username%! Через несколько минут с вами свяжется администратор клиники для уточнения деталей приема.'
 
 class AppointmentModal extends Component {
-  renderForm() {
+  state = {
+    contentState: 'form' // or 'success'
+  }
+
+  onFormSubmit = (data) => {
+    emailjs.send(
+      process.env.REACT_APP_MAIL_SERVICE,
+      '_appointment',
+      {
+        name: _.capitalize(data.name),
+        phone: data.phone,
+        problem: data.problem
+      }
+    )
+    .then(console.log)
+    .catch(console.log)
+
+    this.userName = data.name
+    setTimeout(() => {
+      this.setState({ contentState: 'success' })
+    }, LOADING_TIME)
+  }
+
+  renderSuccess() {
+    const text = SUCCESS_TEXT.replace(
+      '%username%',
+      _.capitalize(this.userName.trim())
+    )
+
     return (
-      <form className={styles['form']}>
+      <div className={styles['success-text']}>
+        <Paragraph type='small'>
+          {text}
+        </Paragraph>
+      </div>
+    )
+  }
+
+  renderForm() {
+    const textConstraints = {
+      presence: {
+        allowEmpty: false
+      }
+    }
+    const phoneConstraints = {
+      presence: {
+        allowEmpty: false
+      },
+      format: /\+7 \(9\d{2}\) \d{3} \d{2} \d{2}/
+    }
+
+    return (
+      <div className={styles['form']}>
         <div className={styles['input-group']}>
           <div className={styles['input-row']}>
             <div className={styles['label']}>
@@ -37,7 +86,10 @@ class AppointmentModal extends Component {
             </div>
             <div className={styles['field']}>
               <div className={styles['tiny-wrapper']}>
-                <TextInput name='name' />
+                <TextInput
+                  name='name'
+                  constraints={textConstraints}
+                />
               </div>
             </div>
           </div>
@@ -54,6 +106,7 @@ class AppointmentModal extends Component {
                   name='phone'
                   mask="+7 (999) 999 99 99"
                   maskChar="_"
+                  constraints={phoneConstraints}
                 />
               </div>
             </div>
@@ -88,48 +141,37 @@ class AppointmentModal extends Component {
               type='textarea'
               name='problem'
               rows='5'
+              constraints={textConstraints}
             />
           </div>
         </div>
-      </form>
-    )
-  }
-
-  renderSucceess() {
-    const text = SUCCESS_TEXT.replace(
-      '%username%',
-      this.state.inputData.name.trim()
-    )
-
-    return <Paragraph type='small'>{text}</Paragraph>
-  }
-
-  renderFooter = () => {
-    return (
-      <div className={styles['footer-wrapper']}>
-        <Button
-          width='10em'
-          successText='Вы записаны'
-        >
-          Записаться
-        </Button>
       </div>
     )
   }
 
   render() {
     return (
-      <div>
-        <Form>
-          <Modal
-            heading={'Запись на прием'}
-            renderFooter={this.renderFooter}
-            onClose={this.props.onClose}
+      <Modal
+        heading={'Запись на прием'}
+        onClose={this.props.onClose}
+      >
+        <Form
+          withLoading
+          onSubmit={this.onFormSubmit}
+          loadingTime={LOADING_TIME}
+        >
+          {this.state.contentState === 'form'
+            ? this.renderForm()
+            : this.renderSuccess()}
+          <Button
+            formSubmit
+            width='10em'
+            successText='Вы записаны'
           >
-            {this.renderForm()}
-          </Modal>
+            Записаться
+          </Button>
         </Form>
-      </div>
+      </Modal>
     )
   }
 }

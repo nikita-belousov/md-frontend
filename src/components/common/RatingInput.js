@@ -2,15 +2,16 @@ import React from 'react'
 import styles from '../../styles/components/common/RaitingInput.css'
 import StarRating from './../StarRating'
 
-const RatingInput = props => {
-  return (
-    <div>
-      <div className={styles['label']}>
-        {props.label}
-      </div>
-      <StarRating {...props} />
+const RatingInput = props => (
+  <div>
+    <div className={styles['label']}>
+      {props.label}
     </div>
-  )
-}
+    <StarRating
+      initialRating={props.value}
+      onChange={value => props.onChange({ target: { name: props.name, value  } })}
+    />
+  </div>
+)
 
 export default RatingInput

@@ -32,7 +32,6 @@ class Popup extends Component {
             <div className={styles['inner']}>
               {this.props.children}
             </div>
-            {this.props.renderButton()}
           </div>
         </ReactCSSTransitionGroup>
       </ClosesOnExternalClick>

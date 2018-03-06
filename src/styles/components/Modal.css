@@ -20,6 +20,12 @@
 .inner {
   padding: 25px;
   position: relative;
+
+  button {
+    position: relative;
+    margin: 0 auto -48px;
+    top: 48px;
+  }
 }
 
 .heading {
@@ -61,4 +67,8 @@
 
 .content {
   background: #eaf2ed;
+}
+
+.footer {
+  height: 95px;
 }

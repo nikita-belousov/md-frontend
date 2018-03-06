@@ -6,73 +6,96 @@ import { recursiveReactMap } from '../../utils'
 import TextInput from './../common/TextInput'
 import Select from './../common/Select'
 import Checkbox from './../common/Checkbox'
+import RatingInput from '../common/RatingInput'
 import Button from './../common/Button'
 
-const INPUT_TYPES = [TextInput, Checkbox, Select]
+const INPUT_TYPES = [TextInput, Checkbox, Select, RatingInput]
 
 class Form extends Component {
   constructor(props) {
     super(props)
+    this.constraints = {}
     this.state = this.getInitalState()
   }
 
+  componentDidMount() {
+    this.validate()
+  }
+
   getInitalState() {
-    let state = {
+    let prepState = {
       inputData: {},
       errors: [],
-      submitEnabled: null,
-      submittingState: null
+      formState: null
     }
 
     recursiveReactMap(this.props.children, child => {
       if (INPUT_TYPES.includes(child.type)) {
-        state = {
-          ...state,
+        const { name, constraints } = child.props
+
+        prepState = {
+          ...prepState,
           inputData: {
-            ...state.inputData,
-            [child.props.name]: ''
+            ...prepState.inputData,
+            [name]: ''
           }
         }
       }
     })
 
-    return state
+    return prepState
   }
 
-  renderChildren() {
-    return recursiveReactMap(this.props.children, child => {
-      if (INPUT_TYPES.includes(child.type)) {
-        const newProps = {
-          onChange: this.updateInputData,
-          value: this.state.inputData[child.props.name]
-        }
-        return React.cloneElement(child, newProps)
-      }
-      return child
-    })
+  getBtnState = () => {
+    switch(this.state.formState) {
+      case null:
+        return 'disabled'
+        break
+      case 'pending':
+        return 'loading'
+        break
+      case 'submitted':
+        return 'finished'
+        break
+      case 'canSubmit':
+      default:
+        return 'normal'
+    }
+  }
+
+  trySubmit = () => {
+    if (this.state.formState === 'canSubmit') {
+      this.submit()
+    }
   }
 
   submit = () => {
-    // send stuff
+    this.props.onSubmit(this.state.inputData)
 
-    this.setState(prev => ({
-      ...prev,
-      submittingState: 'pending'
-    }), setTimeout(() => {
+    if (this.props.withLoading) {
       this.setState(prev => ({
         ...prev,
-        submittingState: 'submitted'
-      }))
-    }, 2500))
+        formState: 'pending'
+      }), () => {
+        setTimeout(() => {
+          this.setState(prev => ({
+            ...prev,
+            formState: 'submitted'
+          }))
+        }, this.props.loadingTime || 0)
+      })
+    }
   }
 
   validate = () => {
-    const { inputData, submitEnabled } = this.state
+    const { inputData, formState } = this.state
 
-    const result = validateJS(inputData, this.constraints)
-    if (result && submitEnabled) {
+    const canSubmit = (formState === 'canSubmit')
+    const result = validateJS(inputData, this.props.constraints)
+
+    if (result && canSubmit) {
       this.disableSubmit()
-    } else if (!result && !submitEnabled) {
+    } else if (!result && !canSubmit) {
       this.enableSubmit()
     }
   }
@@ -80,14 +103,14 @@ class Form extends Component {
   enableSubmit() {
     this.setState(prev => ({
       ...prev,
-      submitEnabled: true
+      formState: 'canSubmit'
     }))
   }
 
   disableSubmit() {
     this.setState(prev => ({
       ...prev,
-      submitEnabled: false
+      formState: null
     }))
   }
 
@@ -112,6 +135,27 @@ class Form extends Component {
         errors: _.filter(prev.errors, n => n !== name)
       }))
     }
+  }
+
+  renderChildren() {
+    return recursiveReactMap(this.props.children, child => {
+      if (INPUT_TYPES.includes(child.type)) {
+        const inputProps = {
+          onChange: this.updateInputData,
+          value: this.state.inputData[child.props.name]
+        }
+        return React.cloneElement(child, inputProps)
+      }
+      if(child.props.formSubmit) {
+        const btnProps = {
+          onClick: this.trySubmit,
+          getState: this.getBtnState
+        }
+        return React.cloneElement(child, btnProps)
+      }
+
+      return child
+    })
   }
 
   render() {
