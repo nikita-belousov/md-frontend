@@ -4,9 +4,13 @@ import NarrowPage from './../pages/NarrowPage'
 
 const withFetch = (WrappedComponent) => {
   class Enhancement extends Component {
+    static contextTypes = {
+      onPageNotFound: PropTypes.func
+    }
+
     constructor(props) {
       super(props)
-      this.state = { fetchedData: null }
+      this.state = { fetchedData: [] }
       this.getData(this.props.api)
     }
 
@@ -30,10 +34,10 @@ const withFetch = (WrappedComponent) => {
     }
 
     render() {
-      const { fetchedData } = this.state
-      if (!fetchedData) return null
+      if (!this.state.fetchedData.length > 0) return null
 
       const { api, ...restProps } = this.props
+
       return (
         <WrappedComponent
           fetchedData={this.state.fetchedData}
@@ -41,10 +45,6 @@ const withFetch = (WrappedComponent) => {
         />
       )
     }
-  }
-
-  Enhancement.contextTypes = {
-    onPageNotFound: PropTypes.func
   }
 
   return Enhancement

@@ -66,8 +66,6 @@ class ChangingReviews extends Component {
   }
 
   render() {
-    const { fetchedData } = this.props
-
     return this.renderReview(this.state.current)
   }
 }
