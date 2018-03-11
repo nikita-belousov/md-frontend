@@ -4,10 +4,6 @@ import NarrowPage from './../pages/NarrowPage'
 
 const withFetch = (WrappedComponent) => {
   class Enhancement extends Component {
-    static contextTypes = {
-      onPageNotFound: PropTypes.func
-    }
-
     constructor(props) {
       super(props)
       this.state = { fetchedData: [] }
@@ -19,18 +15,10 @@ const withFetch = (WrappedComponent) => {
     }
 
     getData(api) {
-      return fetch(`${process.env.REACT_APP_API_ROOT}/${api}`)
+      fetch(`${process.env.REACT_APP_API_ROOT}/${api}`)
         .then(data => data.json())
         .then(json => this.setState({ fetchedData: json }))
         .catch(console.log)
-    }
-
-    renderNotFound() {
-      return (
-        <NarrowPage heading='Упс...'>
-          Страница по вашему запросу не найдена :(
-        </NarrowPage>
-      )
     }
 
     render() {

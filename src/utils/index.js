@@ -23,3 +23,12 @@ export function formatDate(dateStr) {
     { year: 'numeric', month: 'long', day: 'numeric' }
   )
 }
+
+export function getAbsoluteCoords(elem) {
+  const box = elem.getBoundingClientRect()
+
+  return {
+    top: Math.round(box.top + window.pageYOffset),
+    left: Math.round(box.left + window.pageXOffset)
+  }
+}

@@ -4,41 +4,35 @@ import Paragraph from './common/Paragraph'
 import styles from './../styles/components/SpecialCard.css'
 
 class SpecialCard extends Component {
-  state = {
-    isHovered: false
-  }
-
   render() {
-    const { id, title, description, url, image, color } = this.props
+    const { id, title, description, url, image, color, isBig } = this.props
 
     const imageUrl = require(`./../assets/images/specials/${image}`)
     const bgStyle = {
-      backgroundImage: `linear-gradient(to bottom, transparent 0%, ${color} 40%, ${color} 100%),
-                   url(${imageUrl})`
+      backgroundImage: isBig
+        ? `linear-gradient(to left, transparent 0%, ${color} 60%, ${color} 100%), url(${imageUrl})`
+        : `linear-gradient(to bottom, transparent 0%, ${color} 60%, ${color} 100%), url(${imageUrl})`
     }
 
     return (
       <div className={styles['wrapper']}>
-        <div
-          className={styles['card']}
-          style={bgStyle}
-        >
-          <div className={styles['inner']}>
-            <div className={styles['caption']}>
-              {title}
-            </div>
-            <div className={styles['description']}>
-              <Paragraph type='small'>
-                {description}
-              </Paragraph>
-            </div>
-            <div className={styles['more']} href="#">
-              <Link type='alt' href={`/special/${id}`}>
-                Подробнее
-              </Link>
+        <Link href='#'>
+          <div
+            className={isBig ? styles['card--big'] : styles['card']}
+            style={bgStyle}
+          >
+            <div className={styles['inner']}>
+              <div className={styles['caption']}>
+                {title}
+              </div>
+              <div className={styles['description']}>
+                <Paragraph type='small'>
+                  {description}
+                </Paragraph>
+              </div>
             </div>
           </div>
-        </div>
+        </Link>
       </div>
     )
   }

@@ -18,7 +18,7 @@ class Specials extends Component {
     speed: 500,
     draggable: false,
     autoplay: true,
-    autoplaySpeed: 2000,
+    autoplaySpeed: 3000,
     nextArrow: <div><NavArrow className={styles["arrow-next"]} type="next" /></div>,
     prevArrow: <div><NavArrow className={styles["arrow-prev"]} type="prev" /></div>
   }

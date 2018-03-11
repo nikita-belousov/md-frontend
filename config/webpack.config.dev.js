@@ -1,5 +1,6 @@
 'use strict';
 
+var path = require("path");
 var autoprefixer = require('autoprefixer');
 var lost = require('lost');
 var modulesValues = require('postcss-modules-values');
@@ -80,7 +81,9 @@ module.exports = {
     alias: {
       // Support React Native Web
       // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
-      'react-native': 'react-native-web'
+      'react-native': 'react-native-web',
+      'utils': path.resolve('./src/utils'),
+      'lodash': 'lodash'
     }
   },
 
@@ -196,7 +199,9 @@ module.exports = {
     // to restart the development server for Webpack to discover it. This plugin
     // makes the discovery automatic so you don't have to restart.
     // See https://github.com/facebookincubator/create-react-app/issues/186
-    new WatchMissingNodeModulesPlugin(paths.appNodeModules)
+    new WatchMissingNodeModulesPlugin(paths.appNodeModules),
+    new webpack.ProvidePlugin({ 'utils': 'utils' }),
+    new webpack.ProvidePlugin({ '_': 'lodash' })
   ],
   // Some libraries import Node modules but don't use them in the browser.
   // Tell Webpack to provide empty mocks for them so importing them works.

@@ -1,575 +1,13 @@
 import React, { Component } from 'react'
 import _ from 'lodash'
 import scrollToWithAnimation from 'scrollto-with-animation'
-
 import styles from '../../styles/components/pages/Pricelist.css'
+
+import withFetch from '../HOCs/withFetch'
 import NarrowPage from './NarrowPage'
 import TextInput from '../common/TextInput'
 import Paragraph from '../common/Paragraph'
 import Checkbox from '../common/Checkbox'
-
-const pricelistData = [
-  {
-    title: 'имплантация',
-    services: [
-      {
-        title: 'консультация',
-        price: 400,
-        isSocial: false
-      },
-      {
-        title: 'радиовизиография',
-        price: 300,
-        isSocial: true
-      },
-      {
-        title: 'панорамный снимок верхней и нижней челюсти (ортопантомограмма)',
-        price: 1000,
-        isSocial: true
-      },
-      {
-        title: 'анализ ОПТГ',
-        price: 400,
-        isSocial: true
-      },
-      {
-        title: 'распечатывание компьютерного снимка для пациента',
-        price: 200,
-        isSocial: true
-      },
-      {
-        title: 'анестезия аппликационная',
-        price: 100,
-        isSocial: true
-      },
-      {
-        title: 'анестезия инфильтрационная, проводниковая',
-        price: 400,
-        isSocial: true
-      },
-      {
-        title: 'наложение девитализирующего средства, прием с острой болью',
-        price: 1200,
-        isSocial: false
-      },
-      {
-        title: 'трепанация коронки, удаление старой пломбы более 1/2 зуба, удаление части зуба',
-        price: 600,
-        isSocial: false
-      },
-      {
-        title: 'постановка коффердама',
-        price: 500,
-        isSocial: false
-      },
-      {
-        title: 'восстановление матрицы Palodent Plus',
-        price: 400,
-        isSocial: false
-      },
-      {
-        title: 'изолирующая прокладка Ионосит',
-        price: 400,
-        isSocial: false
-      },
-      {
-        title: 'лечебная кальцийсодержащая прокладка Dycal',
-        price: 500,
-        isSocial: false
-      }
-    ]
-  },
-  {
-    title: 'ортопедия',
-    services: [
-      {
-        title: 'консультация',
-        price: 400,
-        isSocial: false
-      },
-      {
-        title: 'радиовизиография',
-        price: 300,
-        isSocial: false
-      },
-      {
-        title: 'панорамный снимок верхней и нижней челюсти (ортопантомограмма)',
-        price: 1000,
-        isSocial: false
-      },
-      {
-        title: 'анализ ОПТГ',
-        price: 400,
-        isSocial: false
-      },
-      {
-        title: 'распечатывание компьютерного снимка для пациента',
-        price: 200,
-        isSocial: false
-      },
-      {
-        title: 'анестезия аппликационная',
-        price: 100,
-        isSocial: false
-      },
-      {
-        title: 'анестезия инфильтрационная, проводниковая',
-        price: 400,
-        isSocial: false
-      },
-      {
-        title: 'наложение девитализирующего средства, прием с острой болью',
-        price: 1200,
-        isSocial: false
-      },
-      {
-        title: 'трепанация коронки, удаление старой пломбы более 1/2 зуба, удаление части зуба',
-        price: 600,
-        isSocial: false
-      },
-      {
-        title: 'постановка коффердама',
-        price: 500,
-        isSocial: false
-      },
-      {
-        title: 'восстановление матрицы Palodent Plus',
-        price: 400,
-        isSocial: false
-      },
-      {
-        title: 'изолирующая прокладка Ионосит',
-        price: 400,
-        isSocial: false
-      },
-      {
-        title: 'лечебная кальцийсодержащая прокладка Dycal',
-        price: 500,
-        isSocial: false
-      }
-    ]
-  },
-  {
-    title: 'ортодонтия',
-    services: [
-      {
-        title: 'консультация',
-        price: 400,
-        isSocial: false
-      },
-      {
-        title: 'радиовизиография',
-        price: 300,
-        isSocial: false
-      },
-      {
-        title: 'панорамный снимок верхней и нижней челюсти (ортопантомограмма)',
-        price: 1000,
-        isSocial: false
-      },
-      {
-        title: 'анализ ОПТГ',
-        price: 400,
-        isSocial: true
-      },
-      {
-        title: 'распечатывание компьютерного снимка для пациента',
-        price: 200,
-        isSocial: true
-      },
-      {
-        title: 'анестезия аппликационная',
-        price: 100,
-        isSocial: true
-      },
-      {
-        title: 'анестезия инфильтрационная, проводниковая',
-        price: 400,
-        isSocial: false
-      },
-      {
-        title: 'наложение девитализирующего средства, прием с острой болью',
-        price: 1200,
-        isSocial: false
-      },
-      {
-        title: 'трепанация коронки, удаление старой пломбы более 1/2 зуба, удаление части зуба',
-        price: 600,
-        isSocial: false
-      },
-      {
-        title: 'постановка коффердама',
-        price: 500,
-        isSocial: false
-      },
-      {
-        title: 'восстановление матрицы Palodent Plus',
-        price: 400,
-        isSocial: false
-      },
-      {
-        title: 'изолирующая прокладка Ионосит',
-        price: 400,
-        isSocial: false
-      },
-      {
-        title: 'лечебная кальцийсодержащая прокладка Dycal',
-        price: 500,
-        isSocial: false
-      }
-    ]
-  },
-  {
-    title: 'терапевтия',
-    services: [
-      {
-        title: 'консультация',
-        price: 400,
-        isSocial: false
-      },
-      {
-        title: 'радиовизиография',
-        price: 300,
-        isSocial: false
-      },
-      {
-        title: 'панорамный снимок верхней и нижней челюсти (ортопантомограмма)',
-        price: 1000,
-        isSocial: false
-      },
-      {
-        title: 'анализ ОПТГ',
-        price: 400,
-        isSocial: false
-      },
-      {
-        title: 'распечатывание компьютерного снимка для пациента',
-        price: 200,
-        isSocial: false
-      },
-      {
-        title: 'анестезия аппликационная',
-        price: 100,
-        isSocial: false
-      },
-      {
-        title: 'анестезия инфильтрационная, проводниковая',
-        price: 400,
-        isSocial: false
-      },
-      {
-        title: 'наложение девитализирующего средства, прием с острой болью',
-        price: 1200,
-        isSocial: false
-      },
-      {
-        title: 'трепанация коронки, удаление старой пломбы более 1/2 зуба, удаление части зуба',
-        price: 600,
-        isSocial: false
-      },
-      {
-        title: 'постановка коффердама',
-        price: 500,
-        isSocial: false
-      },
-      {
-        title: 'восстановление матрицы Palodent Plus',
-        price: 400,
-        isSocial: false
-      },
-      {
-        title: 'изолирующая прокладка Ионосит',
-        price: 400,
-        isSocial: false
-      },
-      {
-        title: 'лечебная кальцийсодержащая прокладка Dycal',
-        price: 500,
-        isSocial: false
-      }
-    ]
-  },
-  {
-    title: 'эстетика',
-    services: [
-      {
-        title: 'консультация',
-        price: 400,
-        isSocial: false
-      },
-      {
-        title: 'радиовизиография',
-        price: 300,
-        isSocial: false
-      },
-      {
-        title: 'панорамный снимок верхней и нижней челюсти (ортопантомограмма)',
-        price: 1000,
-        isSocial: false
-      },
-      {
-        title: 'анализ ОПТГ',
-        price: 400,
-        isSocial: false
-      },
-      {
-        title: 'распечатывание компьютерного снимка для пациента',
-        price: 200,
-        isSocial: false
-      },
-      {
-        title: 'анестезия аппликационная',
-        price: 100,
-        isSocial: false
-      },
-      {
-        title: 'анестезия инфильтрационная, проводниковая',
-        price: 400,
-        isSocial: false
-      },
-      {
-        title: 'наложение девитализирующего средства, прием с острой болью',
-        price: 1200,
-        isSocial: false
-      },
-      {
-        title: 'трепанация коронки, удаление старой пломбы более 1/2 зуба, удаление части зуба',
-        price: 600,
-        isSocial: false
-      },
-      {
-        title: 'постановка коффердама',
-        price: 500,
-        isSocial: false
-      },
-      {
-        title: 'восстановление матрицы Palodent Plus',
-        price: 400,
-        isSocial: false
-      },
-      {
-        title: 'изолирующая прокладка Ионосит',
-        price: 400,
-        isSocial: false
-      },
-      {
-        title: 'лечебная кальцийсодержащая прокладка Dycal',
-        price: 500,
-        isSocial: false
-      }
-    ]
-  },
-  {
-    title: 'хирургия',
-    services: [
-      {
-        title: 'консультация',
-        price: 400,
-        isSocial: false
-      },
-      {
-        title: 'радиовизиография',
-        price: 300,
-        isSocial: true
-      },
-      {
-        title: 'панорамный снимок верхней и нижней челюсти (ортопантомограмма)',
-        price: 1000,
-        isSocial: true
-      },
-      {
-        title: 'анализ ОПТГ',
-        price: 400,
-        isSocial: true
-      },
-      {
-        title: 'распечатывание компьютерного снимка для пациента',
-        price: 200,
-        isSocial: true
-      },
-      {
-        title: 'анестезия аппликационная',
-        price: 100,
-        isSocial: true
-      },
-      {
-        title: 'анестезия инфильтрационная, проводниковая',
-        price: 400,
-        isSocial: true
-      },
-      {
-        title: 'наложение девитализирующего средства, прием с острой болью',
-        price: 1200,
-        isSocial: false
-      },
-      {
-        title: 'трепанация коронки, удаление старой пломбы более 1/2 зуба, удаление части зуба',
-        price: 600,
-        isSocial: false
-      },
-      {
-        title: 'постановка коффердама',
-        price: 500,
-        isSocial: false
-      },
-      {
-        title: 'восстановление матрицы Palodent Plus',
-        price: 400,
-        isSocial: false
-      },
-      {
-        title: 'изолирующая прокладка Ионосит',
-        price: 400,
-        isSocial: false
-      },
-      {
-        title: 'лечебная кальцийсодержащая прокладка Dycal',
-        price: 500,
-        isSocial: false
-      }
-    ]
-  },
-  {
-    title: 'гигиена',
-    services: [
-      {
-        title: 'консультация',
-        price: 400,
-        isSocial: false
-      },
-      {
-        title: 'радиовизиография',
-        price: 300,
-        isSocial: false
-      },
-      {
-        title: 'панорамный снимок верхней и нижней челюсти (ортопантомограмма)',
-        price: 1000,
-        isSocial: false
-      },
-      {
-        title: 'анализ ОПТГ',
-        price: 400,
-        isSocial: false
-      },
-      {
-        title: 'распечатывание компьютерного снимка для пациента',
-        price: 200,
-        isSocial: false
-      },
-      {
-        title: 'анестезия аппликационная',
-        price: 100,
-        isSocial: false
-      },
-      {
-        title: 'анестезия инфильтрационная, проводниковая',
-        price: 400,
-        isSocial: false
-      },
-      {
-        title: 'наложение девитализирующего средства, прием с острой болью',
-        price: 1200,
-        isSocial: false
-      },
-      {
-        title: 'трепанация коронки, удаление старой пломбы более 1/2 зуба, удаление части зуба',
-        price: 600,
-        isSocial: false
-      },
-      {
-        title: 'постановка коффердама',
-        price: 500,
-        isSocial: false
-      },
-      {
-        title: 'восстановление матрицы Palodent Plus',
-        price: 400,
-        isSocial: false
-      },
-      {
-        title: 'изолирующая прокладка Ионосит',
-        price: 400,
-        isSocial: false
-      },
-      {
-        title: 'лечебная кальцийсодержащая прокладка Dycal',
-        price: 500,
-        isSocial: false
-      }
-    ]
-  },
-  {
-    title: 'детская стоматология',
-    services: [
-      {
-        title: 'консультация',
-        price: 400,
-        isSocial: false
-      },
-      {
-        title: 'радиовизиография',
-        price: 300,
-        isSocial: false
-      },
-      {
-        title: 'панорамный снимок верхней и нижней челюсти (ортопантомограмма)',
-        price: 1000,
-        isSocial: false
-      },
-      {
-        title: 'анализ ОПТГ',
-        price: 400,
-        isSocial: false
-      },
-      {
-        title: 'распечатывание компьютерного снимка для пациента',
-        price: 200,
-        isSocial: false
-      },
-      {
-        title: 'анестезия аппликационная',
-        price: 100,
-        isSocial: false
-      },
-      {
-        title: 'анестезия инфильтрационная, проводниковая',
-        price: 400,
-        isSocial: false
-      },
-      {
-        title: 'наложение девитализирующего средства, прием с острой болью',
-        price: 1200,
-        isSocial: false
-      },
-      {
-        title: 'трепанация коронки, удаление старой пломбы более 1/2 зуба, удаление части зуба',
-        price: 600,
-        isSocial: false
-      },
-      {
-        title: 'постановка коффердама',
-        price: 500,
-        isSocial: false
-      },
-      {
-        title: 'восстановление матрицы Palodent Plus',
-        price: 400,
-        isSocial: false
-      },
-      {
-        title: 'изолирующая прокладка Ионосит',
-        price: 400,
-        isSocial: false
-      },
-      {
-        title: 'лечебная кальцийсодержащая прокладка Dycal',
-        price: 500,
-        isSocial: false
-      }
-    ]
-  }
-]
 
 const getAbsoluteCoords = (elem) => {
   const box = elem.getBoundingClientRect()
@@ -584,8 +22,10 @@ class Pricelist extends Component {
   constructor(props) {
     super(props)
 
+    this.pricelistData = this.processFetched()
+
     this.state = {
-      navbarActive: pricelistData[0].title,
+      navbarActive: this.pricelistData[0].title,
       filter: {
         'title': '',
         'isSocial': false
@@ -606,7 +46,6 @@ class Pricelist extends Component {
     this.setCategoriesTops()
 
     this.onPriceScroll = this.scrollableNode.addEventListener('scroll', e => {
-      console.log(this.isAutoScrolling)
       if (this.isAutoScrolling)
         return
 
@@ -632,8 +71,26 @@ class Pricelist extends Component {
     this.scrollableNode.removeEventListener(this.onPriceScroll)
   }
 
+  processFetched() {
+    return this.props.fetchedData.reduce((res, serv) => {
+      const category = serv.category.title
+      const exists = res.find(e => e.title === category)
+
+      if (exists) {
+        exists.services.push(serv)
+      } else {
+        res.push({
+          title: category,
+          services: [serv]
+        })
+      }
+
+      return res
+    }, [])
+  }
+
   getNearbyCategoryTitle(currentTitle, which='next') {
-    const currentIndex = pricelistData
+    const currentIndex = this.pricelistData
       .reduce((res, category, i) => {
         if (category.title === currentTitle)
           res = i
@@ -641,8 +98,8 @@ class Pricelist extends Component {
       }, 0)
 
     return (which === 'prev')
-      ? pricelistData[currentIndex - 1].title
-      : pricelistData[currentIndex + 1].title
+      ? this.pricelistData[currentIndex - 1].title
+      : this.pricelistData[currentIndex + 1].title
   }
 
   setCategoriesTops() {
@@ -718,7 +175,7 @@ class Pricelist extends Component {
       filteredCategory.title = category.title
 
       filteredCategory.services = category.services.filter(service =>
-        service.title.includes(_.lowerCase(filter.title).trim())
+        _.lowerCase(service.title).includes(_.lowerCase(filter.title).trim())
           && (service.isSocial === filter.isSocial)
       )
 
@@ -733,7 +190,7 @@ class Pricelist extends Component {
   }
 
   renderNavbar() {
-    const categoryservices = pricelistData.reduce((res, val) => {
+    const categoryservices = this.pricelistData.reduce((res, val) => {
       res.push(val.title)
       return res
     }, [])
@@ -790,7 +247,7 @@ class Pricelist extends Component {
     const renderService = (service) => (
       <div className={styles['service']}>
         <div className={styles['title']}>
-          {_.capitalize(service.title)}
+          {service.title}
         </div>
         <div className={styles['line']} />
         <div className={styles['price']}>
@@ -799,7 +256,7 @@ class Pricelist extends Component {
       </div>
     )
 
-    const filteredData = this.applyFilters(pricelistData)
+    const filteredData = this.applyFilters(this.pricelistData)
     const { filter } = this.state
 
     return (
@@ -857,4 +314,4 @@ class Pricelist extends Component {
   }
 }
 
-export default Pricelist
+export default withFetch(Pricelist)

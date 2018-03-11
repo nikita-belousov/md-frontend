@@ -9,20 +9,22 @@ import {
   Link
 } from 'react-router-dom'
 
-import Layout from './components/pages/Layout'
-import NotFound from './components/pages/NotFound'
-import HomePage from './components/pages/HomePage'
-import Pricelist from './components/pages/Pricelist'
-import ReviewsPage from './components/pages/ReviewsPage'
-import Staff from './components/pages/Staff'
-import Contacts from './components/pages/Contacts'
-import SpecialPage from './components/pages/SpecialPage'
-import NewsPage from './components/pages/NewsPage'
-
 import 'normalize-css'
 import './styles/global.css'
 import './styles/myfonts.css'
 import styles from './styles/components/App.css'
+
+import Layout from './components/pages/Layout'
+import NotFound from './components/pages/NotFound'
+import HomePage from './components/pages/HomePage'
+import ReviewsPage from './components/pages/ReviewsPage'
+import Staff from './components/pages/Staff'
+import Contacts from './components/pages/Contacts'
+import PricelistPage from './components/pages/PricelistPage'
+import SpecialPage from './components/pages/SpecialPage'
+import NewsPage from './components/pages/NewsPage'
+
+import Implantology from './components/pages/category_pages/Implantology'
 
 class App extends Component {
   static childContextTypes = {
@@ -52,7 +54,7 @@ class App extends Component {
             exact path='/pricelist'
             render={props =>
               <Layout>
-                <Pricelist />
+                <PricelistPage api='service?_limit=false&_sort=order' />
               </Layout>
             } />
           <Route
@@ -66,7 +68,7 @@ class App extends Component {
             exact path='/staff'
             render={props =>
               <Layout>
-                <Staff />
+                <Staff api='staff' />
               </Layout>
             } />
           <Route
@@ -89,6 +91,13 @@ class App extends Component {
             render={props =>
               <Layout>
                 <SpecialPage api={`special/${props.match.params.id}`} />
+              </Layout>
+            } />
+          <Route
+            exact path='/implantology'
+            render={props =>
+              <Layout>
+                <Implantology />
               </Layout>
             } />
 

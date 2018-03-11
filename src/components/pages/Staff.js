@@ -1,51 +1,26 @@
 import React, { Component } from 'react'
 import uuid from 'small-uuid'
 import styles from '../../styles/components/pages/Staff.css'
+
+import withFetch from './../HOCs/withFetch'
 import NarrowPage from './NarrowPage'
 import Paragraph from '../common/Paragraph'
 import PositionLabel from '../common/PositionLabel'
 
-const staffData = [
-  {
-    name: 'Юров Руслан Викторович',
-    positions: ['врач-стоматолог', 'ортопед'],
-    description: 'Проводит протезирование на имплантах системы Bio-tech, Straumann, Nobel, Xive, MIS, AlphaBio, изготовление прямым методом временных защитных коронок, ортопедическое лечение в полном объеме.',
-    experience: 15,
-    photo: 'yurov.png'
-  },
-  {
-    name: 'Юров Руслан Викторович',
-    positions: ['врач-стоматолог', 'ортопед'],
-    description: 'Проводит протезирование на имплантах системы Bio-tech, Straumann, Nobel, Xive, MIS, AlphaBio, изготовление прямым методом временных защитных коронок, ортопедическое лечение в полном объеме.',
-    experience: 15,
-    photo: 'yurov.png'
-  },
-  {
-    name: 'Юров Руслан Викторович',
-    positions: ['врач-стоматолог', 'ортопед'],
-    description: 'Проводит протезирование на имплантах системы Bio-tech, Straumann, Nobel, Xive, MIS, AlphaBio, изготовление прямым методом временных защитных коронок, ортопедическое лечение в полном объеме.',
-    experience: 15,
-    photo: 'yurov.png'
-  },
-  {
-    name: 'Юров Руслан Викторович',
-    positions: ['врач-стоматолог', 'ортопед'],
-    description: 'Проводит протезирование на имплантах системы Bio-tech, Straumann, Nobel, Xive, MIS, AlphaBio, изготовление прямым методом временных защитных коронок, ортопедическое лечение в полном объеме.',
-    experience: 15,
-    photo: 'yurov.png'
-  }
-]
-
 class Staff extends Component {
   renderDoctor(doctor) {
-    const photoUrl = require(`../../assets/images/staff/${doctor.photo}`)
+
+    let photoUrl
+    if (doctor.photo) {
+      photoUrl = require(`../../assets/images/staff/${doctor.photo}`)
+    }
 
     return (
       <div className={styles['doctor']}>
         <div className={styles['aside']}>
           <div
             className={styles['photo']}
-            style={{ backgroundImage: `url(${photoUrl})` }}
+            style={{ background: photoUrl ? `url(${photoUrl})` : 'grey' }}
           />
         </div>
         <div className={styles['content']}>
@@ -71,7 +46,7 @@ class Staff extends Component {
           </div>
           <div className={styles['description']}>
             <Paragraph>
-              {doctor.description}
+              {doctor.about}
             </Paragraph>
           </div>
         </div>
@@ -80,14 +55,19 @@ class Staff extends Component {
   }
 
   render() {
+    const data = this.props.fetchedData.map(item => {
+      item.positions = item.positions.split(',').map(e => e.trim())
+      return item
+    })
+
     return (
       <NarrowPage heading={'Наши врачи'} >
         <div className={styles['staff']}>
-          {staffData.map(this.renderDoctor)}
+          {data.map(this.renderDoctor)}
         </div>
       </NarrowPage>
     )
   }
 }
 
-export default Staff
+export default withFetch(Staff)
