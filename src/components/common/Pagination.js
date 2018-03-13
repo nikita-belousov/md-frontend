@@ -1,11 +1,17 @@
 import _ from 'lodash'
 import React, { Component } from 'react'
-import { BrowserRouter as Router, Route, withRouter } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import styles from './../../styles/components/common/Pagination.css'
 
 import Link from './Link'
 import NavLink from './NavLink'
+
+import {
+  BrowserRouter as Router,
+  Route,
+  Redirect,
+  withRouter
+} from 'react-router-dom'
 
 class Pagination extends Component {
   static contextTypes = {
@@ -48,9 +54,10 @@ class Pagination extends Component {
         <div className={styles['items']}>
           {this.renderItems(num)}
         </div>
-        <div className={styles['pagination']}>
-          {this.renderPagination(num)}
-        </div>
+        {(this.totalPages > 1) &&
+          <div className={styles['pagination']}>
+            {this.renderPagination(num)}
+          </div>}
       </div>
     )
   }
@@ -156,6 +163,11 @@ class Pagination extends Component {
     return (
       <Router>
         <div>
+          <Route
+            exact
+            path={`${match.path}`}
+            render={() => <Redirect to={`${match.path}/pages/0`} />}
+          />
           <Route
             exact
             path={`${match.path}/pages/:pageNum`}
