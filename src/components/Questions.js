@@ -10,6 +10,11 @@ const Questions = (props) => {
     <div>
       {props.fetchedData.map(question =>
         <div className={styles['question-wrapper']}>
+          <div className={styles['author-name']}>
+            <b>{question.author}</b>
+            {' '}
+            {'спрашивает:'}
+          </div>
           <FeedbackResponse
             hideResponse={true}
             feedback={question.question}

@@ -24,6 +24,9 @@ class AskQuestionPopup extends Component {
 
   render() {
     const constraints = {
+      author: {
+        presence: { allowEmpty: false }
+      },
       question: {
         presence: { allowEmpty: false }
       }
@@ -38,6 +41,13 @@ class AskQuestionPopup extends Component {
             onSubmit={this.onFormSubmit}
             constraints={constraints}
           >
+            <div className={styles['name-input']}>
+              <TextInput
+                alt
+                label='Имя'
+                name='author'
+              />
+            </div>
             <TextInput
               alt
               type='textarea'

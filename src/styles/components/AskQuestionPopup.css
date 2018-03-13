@@ -1,3 +1,9 @@
+@value small-input-width from '../libs/sizes.css';
+
 .wrapper {
   width: 400px;
+}
+
+.name-input {
+  width: small-input-width;
 }
