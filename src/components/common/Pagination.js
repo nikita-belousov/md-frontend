@@ -56,9 +56,9 @@ class Pagination extends Component {
   }
 
   renderItems(pageNum) {
-    const { itemsComponent, api, itemsOnPage } = this.props
+    const { itemsComponent, api, itemsOnPage, query } = this.props
     return React.createElement(itemsComponent, {
-      api: `${api}?_sort=datePublished:desc&_start=${itemsOnPage * pageNum}&_limit=${itemsOnPage}`
+      api: `${api}?_sort=published:desc&_start=${itemsOnPage * pageNum}&_limit=${itemsOnPage}&${query}`
     })
   }
 
@@ -150,7 +150,7 @@ class Pagination extends Component {
   render() {
     if (!this.state.totalItems) return null
 
-    this.totalPages = Math.round(this.state.totalItems / this.props.itemsOnPage)
+    this.totalPages = Math.ceil(this.state.totalItems / this.props.itemsOnPage)
     const { match } = this.props
 
     return (

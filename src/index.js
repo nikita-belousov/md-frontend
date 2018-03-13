@@ -18,6 +18,7 @@ import Layout from './components/pages/Layout'
 import NotFound from './components/pages/NotFound'
 import HomePage from './components/pages/HomePage'
 import ReviewsPage from './components/pages/ReviewsPage'
+import FAQPage from './components/pages/FAQPage'
 import Staff from './components/pages/Staff'
 import Contacts from './components/pages/Contacts'
 import PricelistPage from './components/pages/PricelistPage'
@@ -68,6 +69,13 @@ class App extends Component {
             render={props =>
               <Layout>
                 <ReviewsPage />
+              </Layout>
+            } />
+          <Route
+            path='/faq'
+            render={props =>
+              <Layout>
+                <FAQPage />
               </Layout>
             } />
           <Route

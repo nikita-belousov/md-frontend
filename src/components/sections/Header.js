@@ -27,10 +27,10 @@ const navLinks = [
     title: 'Контакты',
     path: '/contacts'
   },
-  // {
-  //   title: 'Вопросы',
-  //   path: '/qna'
-  // },
+  {
+    title: 'FAQ',
+    path: '/faq/pages/0'
+  },
   {
     title: 'Отзывы',
     path: '/reviews/pages/0'

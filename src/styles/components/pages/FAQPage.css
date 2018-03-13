@@ -1,13 +1,13 @@
-.give-feedback {
+.ask-question {
   display: flex;
   justify-content: center;
 }
 
-.feedback-popup {
+.question-popup {
   position: absolute;
   margin-top: 35px;
 }
 
-.reviews {
+.questions {
   padding-top: 40px;
 }
