@@ -29,11 +29,11 @@ const navLinks = [
   },
   {
     title: 'FAQ',
-    path: '/faq/pages/0'
+    path: '/faq'
   },
   {
     title: 'Отзывы',
-    path: '/reviews/pages/0'
+    path: '/reviews'
   }
 ]
 
