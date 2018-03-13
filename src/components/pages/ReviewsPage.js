@@ -60,6 +60,7 @@ class ReviewsPage extends Component {
             itemsComponent={Reviews}
             itemsOnPage={7}
             api={'reviews'}
+            query={'isPublished=true'}
           />
         </div>
       </NarrowPage>
