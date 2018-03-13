@@ -1,280 +1,24 @@
 import React, { Component } from 'react'
 import uuid from 'small-uuid'
 import styles from './../styles/components/MainMenu.css'
+
+import withFetch from './HOCs/withFetch'
 import Container from './Container'
 import Popup from './Popup'
 import Button from './common/Button'
+import Link from './common/Link'
 
-const menuData = [
-  {
-    'mainTitle': 'Имплантация',
-    'mainPath': '#',
-    'btnTitle': 'Цены на имплантацию',
-    'btnPath': '#',
-    'subLinks': [
-      {
-        'title': 'Одномоментная и отсроченая',
-        'path': '#'
-      },
-      {
-        'title': 'При полном отсутствии зубов',
-        'path': '#'
-      },
-      {
-        'title': 'Эстетическая',
-        'path': '#'
-      },
-      {
-        'title': 'Синус-лифтинг и костная пластика',
-        'path': '#'
-      },
-      {
-        'title': 'Пластика мягких тканей',
-        'path': '#'
-      },
-      {
-        'title': 'Одномоментная и отсроченая',
-        'path': '#'
-      }
-    ]
-  },
-  {
-    'mainTitle': 'Ортопедия',
-    'mainPath': '#',
-    'btnTitle': 'Цены на ортопедию',
-    'btnPath': '#',
-    'subLinks': [
-      {
-        'title': 'Одномоментная и отсроченая',
-        'path': '#'
-      },
-      {
-        'title': 'При полном отсутствии зубов',
-        'path': '#'
-      },
-      {
-        'title': 'Эстетическая',
-        'path': '#'
-      },
-      {
-        'title': 'Синус-лифтинг и костная пластика',
-        'path': '#'
-      },
-      {
-        'title': 'Пластика мягких тканей',
-        'path': '#'
-      }
-    ]
-  },
-  {
-    'mainTitle': 'Ортодонтия',
-    'mainPath': '#',
-    'btnTitle': 'Цены на ортопедию',
-    'btnPath': '#',
-    'subLinks': [
-      {
-        'title': 'Одномоментная и отсроченая',
-        'path': '#'
-      },
-      {
-        'title': 'При полном отсутствии зубов',
-        'path': '#'
-      },
-      {
-        'title': 'Эстетическая',
-        'path': '#'
-      },
-      {
-        'title': 'Синус-лифтинг и костная пластика',
-        'path': '#'
-      },
-      {
-        'title': 'Пластика мягких тканей',
-        'path': '#'
-      }
-    ]
-  },
-  {
-    'mainTitle': 'Терапевтия',
-    'mainPath': '#',
-    'btnTitle': 'Цены на ортопедию',
-    'btnPath': '#',
-    'subLinks': [
-      {
-        'title': 'Одномоментная и отсроченая',
-        'path': '#'
-      },
-      {
-        'title': 'При полном отсутствии зубов',
-        'path': '#'
-      },
-      {
-        'title': 'Эстетическая',
-        'path': '#'
-      },
-      {
-        'title': 'Синус-лифтинг и костная пластика',
-        'path': '#'
-      },
-      {
-        'title': 'Пластика мягких тканей',
-        'path': '#'
-      }
-    ]
-  },
-  {
-    'mainTitle': 'Эстетика',
-    'mainPath': '#',
-    'btnTitle': 'Цены на ортопедию',
-    'btnPath': '#',
-    'subLinks': [
-      {
-        'title': 'Одномоментная и отсроченая',
-        'path': '#'
-      },
-      {
-        'title': 'При полном отсутствии зубов',
-        'path': '#'
-      },
-      {
-        'title': 'Эстетическая',
-        'path': '#'
-      },
-      {
-        'title': 'Синус-лифтинг и костная пластика',
-        'path': '#'
-      },
-      {
-        'title': 'Пластика мягких тканей',
-        'path': '#'
-      }
-    ]
-  },
-  {
-    'mainTitle': 'Хирургия',
-    'mainPath': '#',
-    'btnTitle': 'Цены на ортопедию',
-    'btnPath': '#',
-    'subLinks': [
-      {
-        'title': 'Одномоментная и отсроченая',
-        'path': '#'
-      },
-      {
-        'title': 'При полном отсутствии зубов',
-        'path': '#'
-      },
-      {
-        'title': 'Эстетическая',
-        'path': '#'
-      },
-      {
-        'title': 'Синус-лифтинг и костная пластика',
-        'path': '#'
-      },
-      {
-        'title': 'Пластика мягких тканей',
-        'path': '#'
-      }
-    ]
-  },
-  {
-    'mainTitle': 'Гигиена',
-    'mainPath': '#',
-    'btnTitle': 'Цены на ортопедию',
-    'btnPath': '#',
-    'subLinks': [
-      {
-        'title': 'Одномоментная и отсроченая',
-        'path': '#'
-      },
-      {
-        'title': 'При полном отсутствии зубов',
-        'path': '#'
-      },
-      {
-        'title': 'Эстетическая',
-        'path': '#'
-      },
-      {
-        'title': 'Синус-лифтинг и костная пластика',
-        'path': '#'
-      },
-      {
-        'title': 'Пластика мягких тканей',
-        'path': '#'
-      }
-    ]
-  },
-  {
-    'mainTitle': 'Детская стоматология',
-    'mainPath': '#',
-    'btnTitle': 'Цены на ортопедию',
-    'btnPath': '#',
-    'subLinks': [
-      {
-        'title': 'Одномоментная и отсроченая',
-        'path': '#'
-      },
-      {
-        'title': 'При полном отсутствии зубов',
-        'path': '#'
-      },
-      {
-        'title': 'Эстетическая',
-        'path': '#'
-      },
-      {
-        'title': 'Синус-лифтинг и костная пластика',
-        'path': '#'
-      },
-      {
-        'title': 'Пластика мягких тканей',
-        'path': '#'
-      }
-    ]
-  },
-  {
-    'mainTitle': 'Ортопедия',
-    'mainPath': '#',
-    'btnTitle': 'Цены на ортопедию',
-    'btnPath': '#',
-    'subLinks': [
-      {
-        'title': 'Одномоментная и отсроченая',
-        'path': '#'
-      },
-      {
-        'title': 'При полном отсутствии зубов',
-        'path': '#'
-      },
-      {
-        'title': 'Эстетическая',
-        'path': '#'
-      },
-      {
-        'title': 'Синус-лифтинг и костная пластика',
-        'path': '#'
-      },
-      {
-        'title': 'Пластика мягких тканей',
-        'path': '#'
-      }
-    ]
-  }
-]
-
-export default class MainMenu extends Component {
+class MainMenu extends Component {
   state = {
     activeItem: null
   }
 
-  handleItemClick(e, i) {
-    e.nativeEvent.stopImmediatePropagation()
+  handleItemClick(e, i, item) {
+    if (!item.subcategories.length) return
 
-    this.setState(prevState => ({
-      activeItem: i
-    }))
+    e.preventDefault()
+    e.nativeEvent.stopImmediatePropagation()
+    this.setState(prevState => ({ activeItem: i }))
   }
 
   resetActiveItem = () => {
@@ -307,16 +51,15 @@ export default class MainMenu extends Component {
                 {item['mainTitle']}
               </a>
             </li>
-            {item['subLinks'].map(subLink =>
+            {item.subcategories.map(sub =>
               <li key={uuid.create()}>
-                <a
-                  href={subLink['path']}
+                <Link
+                  href={sub.url}
                   className={styles['sub-link']}
                 >
-                  {subLink['title']}
-                </a>
-              </li>
-            )}
+                  {sub.title}
+                </Link>
+              </li>)}
           </ul>
         </Popup>
       </div>
@@ -327,30 +70,40 @@ export default class MainMenu extends Component {
     const isActive = this.state.activeItem === i
 
     return (
-      <li key={uuid.create()}>
-        <span
-          className={
-            isActive
-              ? styles['nav-link--active']
-              : styles['nav-link']
-          }
-          onClick={(e) => this.handleItemClick(e, i)}
+      <li key={item.id}>
+        <Link
+          href={`/${item.category.url}`}
+          className={isActive
+            ? styles['nav-link--active']
+            : styles['nav-link']}
+          onClick={e => this.handleItemClick(e, i, item)}
         >
-          {item['mainTitle']}
-        </span>
-
-        {this.state.activeItem === i && this.renderDropdown(item)}
+          {_.capitalize(item.category.title)}
+        </Link>
+        {(this.state.activeItem === i) && this.renderDropdown(item)}
       </li>
     )
   }
 
   render() {
+    const links = this.props.fetchedData.reduce((res, category) =>
+      [...res, {
+        category: {
+          id: category._id,
+          title: category.title,
+          url: category.page
+        },
+        subcategories: category.subcategories
+      }]
+    , [])
+
     return (
       <div className={styles['wrapper']}>
         <div className={styles['bg']}>
           <Container>
             <ul className={styles['navigation']}>
-              {menuData.map((item, i) => this.renderItem(item, i))}
+              {links.map((item, i) =>
+                item.category.url && this.renderItem(item, i))}
             </ul>
           </Container>
         </div>
@@ -358,3 +111,5 @@ export default class MainMenu extends Component {
     )
   }
 }
+
+export default withFetch(MainMenu)

@@ -1,49 +1,67 @@
 import React, { Component } from 'react'
 import styles from './../../styles/components/pages/CategoryPage.css'
-
 import NarrowPage from './NarrowPage'
+import PricelistTable from './../PricelistTable'
 
 class CategoryPage extends Component {
   state = {
-    fetched: {
-      title: null,
-      doctor: null,
-      pricelist: null
-    }
+    title: null,
+    doctors: [],
+    pricelist: null
   }
 
   componentDidMount() {
-    fetch(`${process.env.REACT_APP_API_ROOT}/staff?_id=${this.props.doctorId}`)
-      .then(data => data.json())
-      .then(json => this.updateFetched('doctor', json[0]))
+    const { categoryId, doctors } = this.props
+
+    doctors.forEach((doctorId, i) =>
+      fetch(`${process.env.REACT_APP_API_ROOT}/staff?_id=${doctorId}`)
+        .then(data => data.json())
+        .then(json => this.setState(prev => ({
+          ...prev, doctors: [...prev.doctors, json[0]]
+        }))))
 
     fetch(`${process.env.REACT_APP_API_ROOT}/service?category=${this.props.categoryId}&_sort=order`)
       .then(data => data.json())
-      .then(json => this.updateFetched('pricelist', json))
+      .then(pricelist => this.setState(prev => _.merge(prev, { pricelist })))
 
     fetch(`${process.env.REACT_APP_API_ROOT}/category?_id=${this.props.categoryId}`)
       .then(data => data.json())
-      .then(json => this.updateFetched('title', json[0].title))
-  }
-
-  updateFetched = (key, data) => {
-    this.setState(prev => _.merge(prev, {
-      fetched: { [key]: data }
-    }))
+      .then(json => this.setState(prev => _.merge(prev, { title: json[0].title })))
   }
 
   isFetched() {
-    const { fetched } = this.state
-    return Object.keys(fetched).reduce((res, key) => {
-      return !!fetched[key]
+    return Object.keys(this.state).reduce((res, key) => {
+      if (key === 'doctors') {
+        return this.state.doctors.length === this.props.doctors.length
+      } else {
+        return !!this.state[key]
+      }
     }, true)
+  }
+
+  renderDoctor(doctor) {
+    const doctorPhoto = require(`./../../assets/images/staff/${doctor.photo}`)
+
+    return (
+      <div className={styles['doctor']}>
+        <div
+          className={styles['photo']}
+          style={{ backgroundImage: `url(${doctorPhoto})` }}
+        />
+        <div className={styles['about']}>
+          <div className={styles['name']}>
+            {doctor.name}
+          </div>
+          {doctor.positions}
+        </div>
+      </div>
+    )
   }
 
   render() {
     if (!this.isFetched()) return null
 
-    const { title, doctor, pricelist } = this.state.fetched
-    const doctorPhoto = require(`./../../assets/images/staff/${doctor.photo}`)
+    const { title, doctors, pricelist } = this.state
 
     return (
       <div>
@@ -51,24 +69,13 @@ class CategoryPage extends Component {
           <div className={styles['columns']}>
             <div className={styles['content']}>
               {this.props.renderContent()}
-              <div className={styles['pricelist']}>
-                
-              </div>
             </div>
             <div className={styles['aside']}>
-              <div className={styles['doctor']}>
-                <div
-                  className={styles['photo']}
-                  style={{ backgroundImage: `url(${doctorPhoto})` }}
-                />
-                <div className={styles['about']}>
-                  <div className={styles['name']}>
-                    {doctor.name}
-                  </div>
-                  {doctor.positions}
-                </div>
-              </div>
+              {doctors.map(this.renderDoctor)}
             </div>
+          </div>
+          <div className={styles['pricelist']}>
+            <PricelistTable data={[{ title, services: pricelist }]} />
           </div>
         </NarrowPage>
       </div>

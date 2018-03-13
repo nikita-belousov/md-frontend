@@ -197,6 +197,7 @@ class PricelistContainer extends Component {
           </div>
           <div className={styles['main']}>
             <PricelistTable
+              interactive
               data={this.applyFilters(this.pricelistData)}
               onScrollableRef={this.initScrollable}
               onCategoryRef={this.initCategory}

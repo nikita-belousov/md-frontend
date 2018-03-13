@@ -29,17 +29,23 @@ class AppointmentModal extends Component {
   }
 
   onFormSubmit = (data) => {
-    emailjs.send(
-      process.env.REACT_APP_MAIL_SERVICE,
-      '_appointment',
-      {
-        name: _.capitalize(data.name),
-        phone: data.phone,
-        problem: data.problem
-      }
-    )
-    .then(console.log)
-    .catch(console.log)
+    let doctor
+    if (data.doctor) {
+      doctor = doctorsOptions
+        .find(doc => doc.value === data.doctor)
+        .name
+    }
+
+    const emailData = {
+      name: _.capitalize(data.name),
+      phone: data.phone,
+      problem: data.problem,
+      doctor: doctor || 'не указано'
+    }
+
+    emailjs.send(process.env.REACT_APP_MAIL_SERVICE, '_appointment', emailData)
+      .then(console.log)
+      .catch(console.log)
 
     this.userName = data.name
     setTimeout(() => {

@@ -25,6 +25,12 @@ import SpecialPage from './components/pages/SpecialPage'
 import NewsPage from './components/pages/NewsPage'
 
 import Implantology from './components/pages/category_pages/Implantology'
+import Orthopedics from './components/pages/category_pages/Orthopedics'
+import Therapy from './components/pages/category_pages/Therapy'
+import Orthodontics from './components/pages/category_pages/Orthodontics'
+import Surgery from './components/pages/category_pages/Surgery'
+import ChildStomatology from './components/pages/category_pages/ChildStomatology'
+import Hygiene from './components/pages/category_pages/Hygiene'
 
 class App extends Component {
   static childContextTypes = {
@@ -94,10 +100,52 @@ class App extends Component {
               </Layout>
             } />
           <Route
-            exact path='/implantology'
+            exact path='/implantation'
             render={props =>
               <Layout>
                 <Implantology />
+              </Layout>
+            } />
+          <Route
+            exact path='/orthopedics'
+            render={props =>
+              <Layout>
+                <Orthopedics />
+              </Layout>
+            } />
+          <Route
+            exact path='/therapy'
+            render={props =>
+              <Layout>
+                <Therapy />
+              </Layout>
+            } />
+          <Route
+            exact path='/orthodontics'
+            render={props =>
+              <Layout>
+                <Orthodontics />
+              </Layout>
+            } />
+          <Route
+            exact path='/surgery'
+            render={props =>
+              <Layout>
+                <Surgery />
+              </Layout>
+            } />
+          <Route
+            exact path='/child_stomatology'
+            render={props =>
+              <Layout>
+                <ChildStomatology />
+              </Layout>
+            } />
+          <Route
+            exact path='/hygiene'
+            render={props =>
+              <Layout>
+                <Hygiene />
               </Layout>
             } />
 

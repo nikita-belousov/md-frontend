@@ -17,7 +17,24 @@ const About = (props) => (
               <div className={styles['p-background']}>
                 <div className={styles['p-inner']}>
                   <Paragraph>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas totam, atque, molestias voluptas dolor architecto nemo natus sint accusamus provident nesciunt! Nemo, quos, fuga. Impedit nostrum, blanditiis ex numquam fugiat voluptatibus dolorum minus doloribus sequi ducimus sit omnis eum, provident rem natus sunt optio aliquid doloremque, molestiae explicabo vel illo eos maxime cumque! Commodi doloribus illo modi natus laudantium voluptatem reprehenderit, et perferendis quidem. Fugiat consequatur natus laudantium suscipit molestias, officia, eaque facilis. Veniam harum corrupti saepe voluptate cum ut a nesciunt aspernatur consequuntur omnis, molestiae ex excepturi iure voluptas similique distinctio, accusantium inventore ea dolor tempora, beatae. Cum consectetur distinctio laudantium minima voluptates, quasi vitae, excepturi perferendis labore voluptatum, eius minus est autem in optio, hic ab natus! Magni quas accusantium officia fugit in. Voluptatibus amet facilis nesciunt, accusamus consequuntur dolorem saepe, quod dolores enim suscipit perspiciatis sequi similique vero totam a sed illo earum deserunt labore. Facilis aliquam accusamus quo aliquid, aperiam accusantium iusto. Ducimus neque eveniet voluptatibus, saepe et cumque quas deserunt error maxime ad numquam recusandae, ea tenetur non beatae temporibus nihil nesciunt aspernatur culpa id minima praesentium similique. In non nesciunt, consectetur obcaecati repellendus iste. Magnam ex aspernatur veritatis, optio culpa voluptate temporibus laboriosam minima!
+                    Наша стоматологическая клиника Мед-Дент начала свою работу в
+                    Домодедово 28 июля 2011 г. Мы расположены в динамично
+                    развивающемся центральном микрорайоне города, на первом
+                    этаже многоквартирного дома с развитой инфраструктурой,
+                    хорошим подъездом, что в наше время имеет немаловажное
+                    значение. Опыт и квалификация наших врачей, широкий спектр
+                    услуг по доступным ценам, удачное месторасположение - вот
+                    главные составляющие, которые вы найдете в нашей
+                    стоматологии. Мы хотим стать одними из лучших, и имеем для
+                    этого все необходимое. Основной задачей, поставленной перед
+                    персоналом нашей клиники - это индивидуальный подход к
+                    каждому пациенту, здесь каждый, и взрослый и маленький
+                    получит профессиональное лечение, комплексный подход и
+                    деликатное отношение. Мы не хотим, чтобы люди откладывали
+                    лечение из-за финансовых затруднений, именно поэтому в нашей
+                    стоматологи предусмотрена оплата лечения в кредит и в
+                    рассрочку. Кроме того, мы регулярно проводим различные
+                    акции.
                   </Paragraph>
                 </div>
               </div>

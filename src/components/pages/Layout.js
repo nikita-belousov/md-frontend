@@ -34,7 +34,7 @@ class Layout extends Component {
               />
               <Header />
             </Container>
-            <MainMenu />
+            <MainMenu api='category?_sort=order' />
             <div className='current-page'>
               {this.props.children}
             </div>

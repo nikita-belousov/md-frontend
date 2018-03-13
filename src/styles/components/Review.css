@@ -11,7 +11,7 @@
 }
 
 .top-row {
-  display: flex;
+  margin-bottom: 10px;
 
   .author, .date {
     line-height: 20px;

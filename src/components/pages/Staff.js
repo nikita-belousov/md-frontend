@@ -8,8 +8,16 @@ import Paragraph from '../common/Paragraph'
 import PositionLabel from '../common/PositionLabel'
 
 class Staff extends Component {
-  renderDoctor(doctor) {
+  constructor(props) {
+    super(props)
 
+    this.data = this.props.fetchedData.map(item => {
+      item.positions = item.positions.split(',').map(e => e.trim())
+      return item
+    })
+  }
+
+  renderDoctor(doctor) {
     let photoUrl
     if (doctor.photo) {
       photoUrl = require(`../../assets/images/staff/${doctor.photo}`)
@@ -20,7 +28,7 @@ class Staff extends Component {
         <div className={styles['aside']}>
           <div
             className={styles['photo']}
-            style={{ background: photoUrl ? `url(${photoUrl})` : 'grey' }}
+            style={{ backgroundImage: photoUrl ? `url(${photoUrl})` : 'grey' }}
           />
         </div>
         <div className={styles['content']}>
@@ -55,15 +63,10 @@ class Staff extends Component {
   }
 
   render() {
-    const data = this.props.fetchedData.map(item => {
-      item.positions = item.positions.split(',').map(e => e.trim())
-      return item
-    })
-
     return (
       <NarrowPage heading={'Наши врачи'} >
         <div className={styles['staff']}>
-          {data.map(this.renderDoctor)}
+          {this.data.map(this.renderDoctor)}
         </div>
       </NarrowPage>
     )

@@ -11,14 +11,14 @@ const navLinks = [
     title: 'Прайслист',
     path: '/pricelist'
   },
-  {
-    title: 'Акции',
-    path: '/specials'
-  },
-  {
-    title: 'Новости',
-    path: '/news'
-  },
+  // {
+  //   title: 'Акции',
+  //   path: '/specials'
+  // },
+  // {
+  //   title: 'Новости',
+  //   path: '/news'
+  // },
   {
     title: 'Врачи',
     path: '/staff'
@@ -27,10 +27,10 @@ const navLinks = [
     title: 'Контакты',
     path: '/contacts'
   },
-  {
-    title: 'Вопросы',
-    path: '/qna'
-  },
+  // {
+  //   title: 'Вопросы',
+  //   path: '/qna'
+  // },
   {
     title: 'Отзывы',
     path: '/reviews/pages/0'

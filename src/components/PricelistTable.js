@@ -7,12 +7,13 @@ import Checkbox from './common/Checkbox'
 
 class PricelistTable extends Component {
   renderCategory = (category) => {
+    const { interactive, onCategoryRef } = this.props
     const isEmpty = category.services.length === 0
 
     return (
       <div
         className={styles['category']}
-        ref={node => this.props.onCategoryRef(category.title, node)}
+        ref={interactive && (node => this.props.onCategoryRef(category.title, node))}
       >
         <div className={styles['category-title']}>
           {_.capitalize(category.title)}
@@ -44,41 +45,48 @@ class PricelistTable extends Component {
     )
   }
 
+  renderTopBar() {
+    const { filterData, onFilterChange } = this.props
+
+    return (
+      <div className={styles['top-bar']}>
+        <div className={styles['filter']}>
+          <div className={styles['by-title']}>
+            <TextInput
+              alt
+              appearance='round-transparent'
+              name='title'
+              value={filterData.title}
+              onChange={onFilterChange}
+              placeholder='Что ищете?'
+            />
+          </div>
+          <div className={styles['by-social']}>
+            <Checkbox
+              name='isSocial'
+              label='только с социальной скидкой'
+              checked={filterData.isSocial}
+              onChange={onFilterChange}
+            />
+          </div>
+        </div>
+      </div>
+    )
+  }
+
   render() {
     const {
       data,
-      filterData,
-      onFilterChange,
-      onScrollableRef
+      onScrollableRef,
+      interactive
     } = this.props
 
     return (
-      <div className={styles['prices']}>
-        <div className={styles['top-bar']}>
-          <div className={styles['filter']}>
-            <div className={styles['by-title']}>
-              <TextInput
-                alt
-                appearance='round-transparent'
-                name='title'
-                value={filterData.title}
-                onChange={onFilterChange}
-                placeholder='Что ищете?'
-              />
-            </div>
-            <div className={styles['by-social']}>
-              <Checkbox
-                name='isSocial'
-                label='только с социальной скидкой'
-                checked={filterData.isSocial}
-                onChange={onFilterChange}
-              />
-            </div>
-          </div>
-        </div>
+      <div className={interactive ? styles['prices--interactive'] : styles['prices']}>
+        {interactive && this.renderTopBar()}
         <div
-          className={styles['scrollable']}
-          ref={onScrollableRef}
+          className={styles['inner']}
+          ref={interactive && onScrollableRef}
         >
           {data.map(this.renderCategory)}
         </div>

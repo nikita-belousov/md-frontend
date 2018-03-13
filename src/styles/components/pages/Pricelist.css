@@ -139,21 +139,29 @@
 
 /* -------- Prices -------- */
 .prices {
-  height: 800px;
   width: 700px;
   margin: auto;
   border-radius: border-radius-small;
   color: #fff;
   background: #4fadbf;
 
-  .top-bar, .scrollable {
+  .inner {
     padding: 26px 40px;
   }
+}
 
-  .scrollable {
+.prices--interactive {
+  composes: prices;
+  height: 800px;
+
+  .inner {
     overflow-y: scroll;
     height: calc(100% - 100px); /* вычитаем высоту .top-bar'а */
     padding-bottom: 80px;
+  }
+
+  .top-bar {
+    padding: 26px 40px;
   }
 }
 
