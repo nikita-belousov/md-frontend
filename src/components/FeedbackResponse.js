@@ -95,7 +95,7 @@ class FeedbackResponse extends Component {
             <div className={styles['toggle-response']}>
               <Link
                 type='alt'
-                onClick={this.toggleResponse}
+                onClick={showResponse ? this.toggleResponse : null}
               >
                 {showResponse ? 'Скрыть' : 'Показать'} ответ
               </Link>
