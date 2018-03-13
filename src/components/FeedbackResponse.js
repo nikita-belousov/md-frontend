@@ -88,7 +88,10 @@ class FeedbackResponse extends Component {
             </div>}
         </div>
         {response &&
-          <div className={showResponse ? styles['response--shown'] : styles['response']}>
+          <div
+            className={showResponse ? styles['response--shown'] : styles['response']}
+            onClick={showResponse ? null : this.toggleResponse}
+          >
             <div className={styles['toggle-response']}>
               <Link
                 type='alt'

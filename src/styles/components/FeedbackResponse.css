@@ -19,6 +19,7 @@
   margin-top: 20px;
   color: #fff;
   background: primary;
+  cursor: pointer;
 
   > p {
     padding-top: 20px;
@@ -54,6 +55,7 @@
 
 .response--shown {
   composes: response;
+  cursor: default;
 
   .toggle-response::before {
     transform: rotate(90deg);
