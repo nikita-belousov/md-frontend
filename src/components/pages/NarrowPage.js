@@ -10,7 +10,7 @@ const NarrowPage = ({ heading, children, textOnly }) => (
       : styles['wrapper']
     }>
       <div className={styles['heading']}>
-        {heading}
+        {_.upperFirst(heading)}
       </div>
       <div className={styles['content']}>
         {children}

@@ -24,6 +24,7 @@ import Contacts from './components/pages/Contacts'
 import PricelistPage from './components/pages/PricelistPage'
 import SpecialPage from './components/pages/SpecialPage'
 import NewsPage from './components/pages/NewsPage'
+import NewsEntityPage from './components/pages/NewsEntityPage'
 
 import Implantology from './components/pages/category_pages/Implantology'
 import Orthopedics from './components/pages/category_pages/Orthopedics'
@@ -65,7 +66,7 @@ class App extends Component {
               </Layout>
             } />
           <Route
-            path='/news'
+            exact path='/news'
             render={props =>
               <Layout>
                 <NewsPage />
@@ -103,7 +104,7 @@ class App extends Component {
             exact path='/news/:title'
             render={props =>
               <Layout>
-                <NewsPage api={`news/${props.match.params.title}`} />
+                <NewsEntityPage api={`news/?url=${props.match.params.title}`} />
               </Layout>
             } />
           <Route
