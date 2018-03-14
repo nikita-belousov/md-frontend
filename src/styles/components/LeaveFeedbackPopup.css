@@ -11,3 +11,11 @@
 .rating-input {
   margin: 10px 0;
 }
+
+.hint {
+  padding: 1em 1em 1em 0;
+
+  > * {
+    margin: 0;
+  }
+}

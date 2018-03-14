@@ -65,9 +65,11 @@ class LeaveFeedbackPopup extends Component {
                 label='Ваша оценка'
               />
             </div>
-            <Paragraph type='small' >
-              Ваш отзыв будет опубликован в течение суток.
-            </Paragraph>
+            <div className={styles['hint']}>
+              <Paragraph type='small' >
+                Ваш отзыв будет опубликован в течение суток.
+              </Paragraph>
+            </div>
             <Button
               formSubmit
               type='popup'

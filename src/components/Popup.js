@@ -1,12 +1,20 @@
 import React, { Component } from 'react'
-import styles from './../styles/components/Popup.css'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import effectsStyles from './../styles/libs/effects.css'
+import PropTypes from 'prop-types'
+
+import styles from './../styles/components/Popup.css'
 import LoadingAnimation from './LoadingAnimation'
 import ClosesOnExternalClick from './ClosesOnExternalClick'
 import Button from './common/Button'
+import Paragraph from './common/Paragraph'
 
 class Popup extends Component {
+  static PropTypes = {
+    onClose: PropTypes.func,
+    hint: PropTypes.string
+  }
+
   renderLoader() {
     return (
       <div className={styles['loader-wrapper']}>
@@ -16,8 +24,10 @@ class Popup extends Component {
   }
 
   render() {
+    const { onClose } = this.props
+
     return (
-      <ClosesOnExternalClick onClose={this.props.onClose}>
+      <ClosesOnExternalClick onClose={onClose}>
         <ReactCSSTransitionGroup
           transitionAppear={true}
           transitionName={{

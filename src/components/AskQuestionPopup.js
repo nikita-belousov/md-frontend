@@ -55,9 +55,11 @@ class AskQuestionPopup extends Component {
               label='Вопрос'
               name='question'
             />
-            <Paragraph type='small' >
-              Ответ на ваш вопрос будет опубликован в течение суток.
-            </Paragraph>
+            <div className={styles['hint']}>
+              <Paragraph type='small' >
+                Ответ на ваш вопрос будет опубликован в течение суток.
+              </Paragraph>
+            </div>
             <Button
               formSubmit
               type='popup'

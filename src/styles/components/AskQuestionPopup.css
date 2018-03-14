@@ -7,3 +7,11 @@
 .name-input {
   width: small-input-width;
 }
+
+.hint {
+  padding: 1em 1em 1em 0;
+
+  > * {
+    margin: 0;
+  }
+}

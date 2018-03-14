@@ -45,7 +45,7 @@ class CallbackPopup extends Component {
                 mask="+7 (999) 999 99 99"
                 maskChar="_"
               />
-              <div className={styles['p-wrapper']}>
+              <div className={styles['hint']}>
                 <Paragraph type='small'>
                   Администратор клиники свяжется с вами в течение пяти минут.
                 </Paragraph>
