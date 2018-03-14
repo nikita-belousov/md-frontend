@@ -15,6 +15,7 @@ const withFetch = (WrappedComponent) => {
     }
 
     getData(api) {
+      console.log(api)
       fetch(`${process.env.REACT_APP_API_ROOT}/${api}`)
         .then(data => data.json())
         .then(json => this.setState({ fetchedData: json }))
@@ -25,10 +26,13 @@ const withFetch = (WrappedComponent) => {
       if (!this.state.fetchedData.length > 0) return null
 
       const { api, ...restProps } = this.props
+      const { fetchedData } = this.state
 
       return (
         <WrappedComponent
-          fetchedData={this.state.fetchedData}
+          fetchedData={(fetchedData.length > 1)
+            ? fetchedData
+            : fetchedData[0]}
           {...restProps}
         />
       )
