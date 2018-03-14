@@ -99,12 +99,11 @@ class App extends Component {
                 <Contacts />
               </Layout>
             } />
-
           <Route
-            exact path='/news/:id'
+            exact path='/news/:title'
             render={props =>
               <Layout>
-                <NewsPage api={`news/${props.match.params.id}`} />
+                <NewsPage api={`news/${props.match.params.title}`} />
               </Layout>
             } />
           <Route
@@ -114,6 +113,7 @@ class App extends Component {
                 <SpecialPage api={`special/${props.match.params.id}`} />
               </Layout>
             } />
+
           <Route
             exact path='/implantation'
             render={props =>

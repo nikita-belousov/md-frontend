@@ -8,7 +8,7 @@ import NarrowPage from './NarrowPage'
 import News from './../News'
 import Pagination from './../common/Pagination'
 
-class ReviewsPage extends Component {
+class NewsPage extends Component {
   state = { leaveFeedbackPopup: false }
 
   handleLeaveFeedbackClick = (e) => {
@@ -52,4 +52,4 @@ class ReviewsPage extends Component {
   }
 }
 
-export default ReviewsPage
+export default NewsPage
