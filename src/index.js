@@ -65,6 +65,13 @@ class App extends Component {
               </Layout>
             } />
           <Route
+            path='/news'
+            render={props =>
+              <Layout>
+                <NewsPage />
+              </Layout>
+            } />
+          <Route
             path='/reviews'
             render={props =>
               <Layout>

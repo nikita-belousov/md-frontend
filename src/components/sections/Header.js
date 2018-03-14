@@ -15,10 +15,10 @@ const navLinks = [
   //   title: 'Акции',
   //   path: '/specials'
   // },
-  // {
-  //   title: 'Новости',
-  //   path: '/news'
-  // },
+  {
+    title: 'Новости',
+    path: '/news'
+  },
   {
     title: 'Врачи',
     path: '/staff'
