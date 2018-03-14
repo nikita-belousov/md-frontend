@@ -1,16 +1,19 @@
 import _ from 'lodash'
 import React from 'react'
 import Container from './../Container'
-import styles from '../../styles/components/NarrowPage.css'
+import styles from './../../styles/components/pages/NarrowPage.css'
 
-const NarrowPage = props => (
+const NarrowPage = ({ heading, children, textOnly }) => (
   <Container>
-    <div className={styles['wrapper']}>
+    <div className={textOnly
+      ? styles['wrapper--text-only']
+      : styles['wrapper']
+    }>
       <div className={styles['heading']}>
-        {_.capitalize(props.heading)}
+        {heading}
       </div>
       <div className={styles['content']}>
-        {props.children}
+        {children}
       </div>
     </div>
   </Container>
