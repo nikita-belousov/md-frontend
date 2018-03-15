@@ -11,6 +11,7 @@ import Slider from 'react-slick'
 import NavArrow from './../common/NavArrow'
 import Paragraph from './../common/Paragraph'
 import Link from './../common/Link'
+import NewsPreviewPicture from './../NewsPreviewPicture'
 
 const Dummy = ({ children }) => <div>{children}</div>
 
@@ -29,21 +30,23 @@ class NewsSlider extends Component {
   renderSlider(data) {
     return (
       <Slider {...this.settings}>
-        {data.map(obj => (
+        {data.map(newsEntity => (
           <div key={uuid.create()}>
-            <div className={styles['news-obj']}>
-              <Link href={`/news/${obj.id}`}>
-                {obj.heading}
-              </Link>
-              <div className={styles['bottom-line']}>
-                <div className={styles['data']}>
-                  {formatDate(obj.published)}
-                </div>
-                <div className={styles['views']}>
-                  <span>
-                    <FontAwesome name='eye' />
-                  </span>
-                  {obj.views}
+            {console.log(newsEntity)}
+            <div className={styles['news-entity']}>
+              <div className={styles['preview']}>
+                <Link href={`/news/${newsEntity.url}`}>
+                  <NewsPreviewPicture url={require(`./../../assets/images/news/${newsEntity.previewPicture}`)} />
+                </Link>
+              </div>
+              <div className={styles['content']}>
+                <Link href={`/news/${newsEntity.url}`}>
+                  {newsEntity.heading}
+                </Link>
+                <div className={styles['bottom-line']}>
+                  <div className={styles['data']}>
+                    {formatDate(newsEntity.datePublished)}
+                  </div>
                 </div>
               </div>
             </div>

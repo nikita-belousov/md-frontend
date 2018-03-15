@@ -3,6 +3,7 @@ import styles from './../styles/components/News.css'
 import withFetch from './HOCs/withFetch'
 import Paragraph from './common/Paragraph'
 import Link from './common/Link'
+import NewsPreviewPicture from './NewsPreviewPicture'
 
 const News = ({ fetchedData }) => (
   <div>
@@ -20,10 +21,7 @@ const News = ({ fetchedData }) => (
           <div className={styles['columns']}>
             <div className={styles['side']}>
               <Link href={`/news/${entity.url}`}>
-                <div
-                  className={styles['preview-picture']}
-                  style={{ backgroundImage: preview ? `url(${preview})` : null }}
-                />
+                <NewsPreviewPicture url={preview} />
               </Link>
             </div>
             <div className={styles['news-content']}>
