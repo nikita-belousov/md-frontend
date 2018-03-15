@@ -56,7 +56,7 @@ class PricelistContainer extends Component {
   }
 
   componentWillUnmount() {
-    this.scrollableNode.removeEventListener(this.onPriceScroll)
+    this.scrollableNode.removeEventListener('scroll', this.onPriceScroll)
   }
 
   processFetched() {
@@ -150,7 +150,7 @@ class PricelistContainer extends Component {
 
     this.setState(prev => _.merge(prev, {
       filter: { [name]: value }
-    }), console.log(JSON.stringify(this.state, null, 2)))
+    }))
   }
 
   applyFilters(data) {

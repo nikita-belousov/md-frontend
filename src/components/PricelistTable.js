@@ -12,6 +12,7 @@ class PricelistTable extends Component {
 
     return (
       <div
+        key={category.title}
         className={styles['category']}
         ref={interactive && (node => this.props.onCategoryRef(category.title, node))}
       >
@@ -33,7 +34,10 @@ class PricelistTable extends Component {
 
   renderService = (service) => {
     return (
-      <div className={styles['service']}>
+      <div
+        key={service.id}
+        className={styles['service']}
+      >
         <div className={styles['title']}>
           {service.title}
         </div>

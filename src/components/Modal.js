@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import FontAwesome from 'react-fontawesome'
-import styles from './../styles/components/Modal.css'
-import effectsStyles from './../styles/libs/effects.css'
 
+import styles from './../styles/components/Modal.css'
+import AppearAnimation from './AppearAnimation'
 import ClosesOnExternalClick from './ClosesOnExternalClick'
 
 class Modal extends Component {
@@ -23,13 +23,7 @@ class Modal extends Component {
           className={styles['shadow-bg']}
           style={{ top: window.scrollY }}
         >
-          <ReactCSSTransitionGroup
-            transitionAppear={true}
-            transitionName={{
-              appear: effectsStyles['appear'],
-              appearActive: effectsStyles['appear-active']
-            }}
-          >
+          <AppearAnimation>
             <div className={styles['window']}>
               <ClosesOnExternalClick onClose={onClose}>
                 <div>
@@ -57,7 +51,7 @@ class Modal extends Component {
                 </div>
               </ClosesOnExternalClick>
             </div>
-          </ReactCSSTransitionGroup>
+          </AppearAnimation>
         </div>
     )
   }

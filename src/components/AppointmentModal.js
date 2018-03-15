@@ -43,8 +43,8 @@ class AppointmentModal extends Component {
       doctor: doctor || 'не указано'
     }
 
-    emailjs.send(process.env.REACT_APP_MAIL_SERVICE, '_appointment', emailData)
-      .then(console.log)
+    emailjs
+      .send(process.env.REACT_APP_MAIL_SERVICE, '_appointment', emailData)
       .catch(console.log)
 
     this.userName = data.name
@@ -69,18 +69,6 @@ class AppointmentModal extends Component {
   }
 
   renderForm() {
-    const textConstraints = {
-      presence: {
-        allowEmpty: false
-      }
-    }
-    const phoneConstraints = {
-      presence: {
-        allowEmpty: false
-      },
-      format: /\+7 \(9\d{2}\) \d{3} \d{2} \d{2}/
-    }
-
     return (
       <div className={styles['form']}>
         <div className={styles['input-group']}>
@@ -92,10 +80,7 @@ class AppointmentModal extends Component {
             </div>
             <div className={styles['field']}>
               <div className={styles['tiny-wrapper']}>
-                <TextInput
-                  name='name'
-                  constraints={textConstraints}
-                />
+                <TextInput name='name' />
               </div>
             </div>
           </div>
@@ -112,7 +97,6 @@ class AppointmentModal extends Component {
                   name='phone'
                   mask="+7 (999) 999 99 99"
                   maskChar="_"
-                  constraints={phoneConstraints}
                 />
               </div>
             </div>
@@ -147,7 +131,6 @@ class AppointmentModal extends Component {
               type='textarea'
               name='problem'
               rows='5'
-              constraints={textConstraints}
             />
           </div>
         </div>
@@ -156,12 +139,26 @@ class AppointmentModal extends Component {
   }
 
   render() {
+    const constraints = {
+      name: {
+        presence: { allowEmpty: false },
+      },
+      phone: {
+        presence: { allowEmpty: false, },
+        format: /\+7 \(9\d{2}\) \d{3} \d{2} \d{2}/
+      },
+      problem: {
+        presence: { allowEmpty: false },
+      }
+    }
+
     return (
       <Modal
         heading={'Запись на прием'}
         onClose={this.props.onClose}
       >
         <Form
+          constraints={constraints}
           withLoading
           onSubmit={this.onFormSubmit}
           loadingTime={LOADING_TIME}

@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import uuid from 'small-uuid'
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
+
 import styles from './../../styles/components/common/Select.css'
+import AppearAnimation from './../AppearAnimation'
 import effectsStyles from './../../styles/libs/effects.css'
 import FontAwesome from 'react-fontawesome'
 import ClosesOnExternalClick from './../ClosesOnExternalClick'
@@ -58,13 +59,7 @@ class Select extends Component {
 
   renderOptions(options) {
     return (
-      <ReactCSSTransitionGroup
-        transitionAppear={true}
-        transitionName={{
-          appear: effectsStyles['appear'],
-          appearActive: effectsStyles['appear-active']
-        }}
-      >
+      <AppearAnimation>
         <div className={styles['options-list']}>
           <ClosesOnExternalClick onClose={this.endSelecting}>
             {options.map(option => (
@@ -79,7 +74,7 @@ class Select extends Component {
             ))}
           </ClosesOnExternalClick>
         </div>
-      </ReactCSSTransitionGroup>
+      </AppearAnimation>
     )
   }
 

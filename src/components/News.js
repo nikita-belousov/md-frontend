@@ -13,7 +13,10 @@ const News = ({ fetchedData }) => (
       }
 
       return (
-        <div className={styles['news-entity']}>
+        <div
+          key={entity.id}
+          className={styles['news-entity']}
+        >
           <div className={styles['columns']}>
             <div className={styles['side']}>
               <Link href={`/news/${entity.url}`}>

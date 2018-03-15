@@ -3,13 +3,3 @@
 
 @value border-radius-small: 10px;
 @value border-radius-big: 16px;
-
-.appear {
-  opacity: 0.01;
-  transform: translateY(15px);
-}
-.appear.appear-active {
-  opacity: 1;
-  transform: translateY(0);
-  transition: all .2s ease-out;
-}

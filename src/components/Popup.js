@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
-import effectsStyles from './../styles/libs/effects.css'
 import PropTypes from 'prop-types'
 
 import styles from './../styles/components/Popup.css'
+import AppearAnimation from './AppearAnimation'
 import LoadingAnimation from './LoadingAnimation'
 import ClosesOnExternalClick from './ClosesOnExternalClick'
 import Button from './common/Button'
@@ -28,13 +27,7 @@ class Popup extends Component {
 
     return (
       <ClosesOnExternalClick onClose={onClose}>
-        <ReactCSSTransitionGroup
-          transitionAppear={true}
-          transitionName={{
-            appear: effectsStyles['appear'],
-            appearActive: effectsStyles['appear-active']
-          }}
-        >
+        <AppearAnimation>
           <div
             className={styles['popup']}
             ref={node => this.node = node}
@@ -43,7 +36,7 @@ class Popup extends Component {
               {this.props.children}
             </div>
           </div>
-        </ReactCSSTransitionGroup>
+        </AppearAnimation>
       </ClosesOnExternalClick>
     )
   }

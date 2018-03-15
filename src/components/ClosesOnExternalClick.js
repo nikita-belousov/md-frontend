@@ -4,7 +4,6 @@ class ClosesOnExternalClick extends Component {
   componentDidMount() {
     const tryClose = (e) => {
       if (this.node && !this.node.contains(e.target)) {
-        console.log(e.target, this.node)
         this.props.onClose()
         document.removeEventListener('click', tryClose)
       }

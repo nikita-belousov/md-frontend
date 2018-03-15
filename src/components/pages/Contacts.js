@@ -56,7 +56,7 @@ class Contacts extends Component {
             </div>
           </div>
           <div className={styles['map-frame']}>
-            <iframe src="https://yandex.ru/map-widget/v1/-/CBeKZ-XBgC" frameborder='0' />
+            <iframe src="https://yandex.ru/map-widget/v1/-/CBeKZ-XBgC" frameBorder='0' />
           </div>
         </div>
       </NarrowPage>

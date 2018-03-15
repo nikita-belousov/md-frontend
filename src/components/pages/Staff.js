@@ -24,7 +24,10 @@ class Staff extends Component {
     }
 
     return (
-      <div className={styles['doctor']}>
+      <div
+        key={doctor.id}
+        className={styles['doctor']}
+      >
         <div className={styles['aside']}>
           <div
             className={styles['photo']}

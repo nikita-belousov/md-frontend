@@ -19,7 +19,11 @@ class PricelistSidebar extends Component {
               : styles['nav-bar-link']
 
             return (
-              <li href="#" className={className}>
+              <li
+                key={title}
+                href="#"
+                className={className}
+              >
                 <a href="#" onClick={e => onLinkClick(e, title)}>
                   {_.capitalize(title)}
                 </a>

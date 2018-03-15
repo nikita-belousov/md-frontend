@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { validate as validateJS } from 'validate.js'
 import _ from 'lodash'
 import { recursiveReactMap } from '../../utils'
@@ -12,6 +13,18 @@ import Button from './../common/Button'
 const INPUT_TYPES = [TextInput, Checkbox, Select, RatingInput]
 
 class Form extends Component {
+  static propTypes = {
+    withLoading: PropTypes.bool,
+    onSubmit: PropTypes.func,
+    loadingTime: PropTypes.number,
+    constraints: PropTypes.object
+  }
+
+  static defaultProps = {
+    withLoading: false,
+    loadingTime: 3000
+  }
+
   constructor(props) {
     super(props)
     this.constraints = {}

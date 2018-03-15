@@ -8,7 +8,7 @@ const RatingInput = props => (
       {props.label}
     </div>
     <StarRating
-      initialRating={props.value}
+      initialRating={props.value || 0}
       onChange={value => props.onChange({ target: { name: props.name, value  } })}
     />
   </div>
