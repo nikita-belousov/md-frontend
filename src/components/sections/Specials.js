@@ -19,8 +19,8 @@ class Specials extends Component {
     draggable: false,
     autoplay: true,
     autoplaySpeed: 3000,
-    nextArrow: <div><NavArrow className={styles["arrow-next"]} type="next" /></div>,
-    prevArrow: <div><NavArrow className={styles["arrow-prev"]} type="prev" /></div>
+    prevArrow: <NavArrow wrapperClass={styles['prev-arrow-wrapper']} type="prev" />,
+    nextArrow: <NavArrow wrapperClass={styles['next-arrow-wrapper']} type="next" />
   }
 
   renderSlider(data) {

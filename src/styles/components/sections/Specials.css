@@ -14,13 +14,18 @@
   overflow-x: visible;
 }
 
-
-.arrow-prev {
-  transform: translate(-15px, -60%);
+.next-arrow-wrapper, .prev-arrow-wrapper {
+  position: absolute;
+  top: 50%;
+  margin-top: -16px;
 }
 
-.arrow-next {
-  transform: translate(15px, -60%);
+.next-arrow-wrapper {
+  right: -40px;
+}
+
+.prev-arrow-wrapper {
+  left: -40px;
 }
 
 .more-about {

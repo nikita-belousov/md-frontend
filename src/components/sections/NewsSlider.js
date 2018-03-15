@@ -12,6 +12,8 @@ import NavArrow from './../common/NavArrow'
 import Paragraph from './../common/Paragraph'
 import Link from './../common/Link'
 
+const Dummy = ({ children }) => <div>{children}</div>
+
 class NewsSlider extends Component {
   settings = {
     slidesToShow: 3,
@@ -20,8 +22,8 @@ class NewsSlider extends Component {
     draggable: false,
     autoplay: true,
     autoplaySpeed: 4000,
-    nextArrow: <div><NavArrow className={styles["arrow-next"]} type="next" /></div>,
-    prevArrow: <div><NavArrow className={styles["arrow-prev"]} type="prev" /></div>
+    nextArrow: <NavArrow wrapperClass={styles['next-arrow-wrapper']} type="next" />,
+    prevArrow: <NavArrow wrapperClass={styles['prev-arrow-wrapper']} type="prev" />
   }
 
   renderSlider(data) {

@@ -1,7 +1,8 @@
 @value primary, grey from './../../libs/colors.css';
 
-.wrapper {
+.arrow--prev {
   width: 20px;
+  height: 32px;
   display: inline-block;
   cursor: pointer;
 
@@ -14,8 +15,7 @@
   }
 }
 
-.wrapper--next {
-  composes: wrapper;
-
+.arrow--next {
+  composes: arrow--prev;
   transform: rotate(180deg);
 }

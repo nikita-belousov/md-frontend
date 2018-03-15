@@ -22,9 +22,18 @@ class Button extends Component {
       </div>
     )
   }
-  
+
   render() {
-    const { successText, children, type, width, getState, ...restProps } = this.props
+    const {
+      successText,
+      children,
+      type,
+      width,
+      getState,
+      formSubmit,
+      ...restProps
+    } = this.props
+
     const state =  getState ? getState() : 'normal'
 
     return (

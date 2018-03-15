@@ -70,7 +70,7 @@ class MainMenu extends Component {
     const isActive = this.state.activeItem === i
 
     return (
-      <li key={item.id}>
+      <li key={item.category.url}>
         <Link
           href={`/${item.category.url}`}
           className={isActive

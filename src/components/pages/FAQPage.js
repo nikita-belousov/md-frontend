@@ -42,7 +42,7 @@ class FAQPage extends Component {
     const { leaveQuestionPopup } = this.state
 
     return (
-      <NarrowPage heading='Часто задаваемые вопрсы'>
+      <NarrowPage heading='Часто задаваемые вопросы'>
         <div className={styles['ask-question']}>
           <div className={styles['question-link-wrapper']}>
             <Link

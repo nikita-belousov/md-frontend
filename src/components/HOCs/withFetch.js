@@ -15,7 +15,6 @@ const withFetch = (WrappedComponent) => {
     }
 
     getData(api) {
-      console.log(api)
       fetch(`${process.env.REACT_APP_API_ROOT}/${api}`)
         .then(data => data.json())
         .then(json => this.setState({ fetchedData: json }))

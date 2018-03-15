@@ -137,7 +137,7 @@ class Pagination extends Component {
               </NavLink>
             </div>}
           {_.times(this.totalPages).map(num =>
-            <div>
+            <div key={num}>
               <div className={styles['nav-link']}>
                 <NavLink to={`${match.url}/pages/${num}`}>
                   {num}
