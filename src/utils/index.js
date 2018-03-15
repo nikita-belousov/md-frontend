@@ -18,10 +18,17 @@ export function recursiveReactMap(children, fn) {
 
 export function formatDate(dateStr) {
   const date = new Date(dateStr)
-  return date.toLocaleDateString(
-    'ru-RU',
-    { year: 'numeric', month: 'long', day: 'numeric' }
-  )
+
+  return date
+    .toLocaleDateString('ru-RU', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    })
+    .split(' ')
+    .map((w, i) => (i === 1) ? `${w},` : w)
+    .join(' ')
+    .slice(0, -2)
 }
 
 export function getAbsoluteCoords(elem) {

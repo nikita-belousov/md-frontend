@@ -2,7 +2,7 @@
   padding: 60px 0 100px;
 }
 
-.wrapper--text-only {
+.wrapper--squeeze {
   composes: wrapper;
   width: 700px;
 
@@ -15,6 +15,10 @@
   font-size: 42px;
   font-weight: bold;
   line-height: 1.4;
+}
+
+.caption {
+  padding-top: 14px;
 }
 
 .content {

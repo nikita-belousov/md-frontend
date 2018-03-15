@@ -1,3 +1,15 @@
 .news-heading {
   margin-bottom: 20px;
 }
+
+.news-caption {
+  display: flex;
+}
+
+.caption-views {
+  margin-left: 30px;
+
+  .views-icon {
+    padding-right: 6px;
+  }
+}

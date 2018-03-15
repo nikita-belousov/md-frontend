@@ -32,7 +32,6 @@ class NewsSlider extends Component {
       <Slider {...this.settings}>
         {data.map(newsEntity => (
           <div key={uuid.create()}>
-            {console.log(newsEntity)}
             <div className={styles['news-entity']}>
               <div className={styles['preview']}>
                 <Link href={`/news/${newsEntity.url}`}>
