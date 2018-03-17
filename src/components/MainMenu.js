@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { NavLink } from 'react-router-dom'
 import uuid from 'small-uuid'
 import styles from './../styles/components/MainMenu.css'
 
@@ -71,15 +72,14 @@ class MainMenu extends Component {
 
     return (
       <li key={item.category.url}>
-        <Link
-          href={`/${item.category.url}`}
-          className={isActive
-            ? styles['nav-link--active']
-            : styles['nav-link']}
+        <NavLink
+          to={`/${item.category.url}`}
+          activeClassName={styles['category-link--active']}
+          className={styles['category-link']}
           onClick={e => this.handleItemClick(e, i, item)}
         >
           {_.capitalize(item.category.title)}
-        </Link>
+        </NavLink>
         {(this.state.activeItem === i) && this.renderDropdown(item)}
       </li>
     )

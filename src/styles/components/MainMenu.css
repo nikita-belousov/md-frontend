@@ -1,5 +1,6 @@
-@value primary-gradient, secondary from './../libs/colors.css';
+@value primary-gradient, secondary, alt-reversed, yellow from './../libs/colors.css';
 @value family, family-bold from './../libs/typography.css';
+@value border-radius-small from './../libs/effects.css';
 
 .wrapper {
   padding-top: 4em;
@@ -31,18 +32,27 @@ ul.navigation {
   }
 }
 
-.nav-link {
-  composes: link--alt from './common/Link.css';
-
-  line-height: 2.2;
-  font-weight: 600;
+.category-link {
+  position: relative;
 }
 
-.nav-link--active {
-  composes: nav-link;
-
+.category-link--active {
+  z-index: 2;
   border: 0;
-  color: secondary !important;
+  text-decoration: none;
+
+  &::after {
+    content: '';
+    z-index: 1;
+    display: block;
+    width: calc(100% + 26px);
+    height: 28px;
+    position: relative;
+    margin-top: -26px;
+    left: -12px;
+    border-radius: 100vh;
+    background: alt-reversed;
+  }
 }
 
 .dropdown-wrapper {

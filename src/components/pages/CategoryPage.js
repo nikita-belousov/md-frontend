@@ -43,7 +43,10 @@ class CategoryPage extends Component {
     const doctorPhoto = require(`./../../assets/images/staff/${doctor.photo}`)
 
     return (
-      <div className={styles['doctor']}>
+      <div
+        key={doctor.id}
+        className={styles['doctor']}
+      >
         <div
           className={styles['photo']}
           style={{ backgroundImage: `url(${doctorPhoto})` }}
