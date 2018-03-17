@@ -37,6 +37,7 @@ ul.navigation {
 }
 
 .category-link--active {
+  composes: category-link;
   z-index: 2;
   border: 0;
   text-decoration: none;
