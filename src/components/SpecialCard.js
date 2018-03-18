@@ -16,7 +16,7 @@ class SpecialCard extends Component {
 
     return (
       <div className={styles['wrapper']}>
-        <Link href='#'>
+        <Link href={`/special/${url}`}>
           <div
             className={isBig ? styles['card--big'] : styles['card']}
             style={bgStyle}

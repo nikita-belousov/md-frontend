@@ -11,10 +11,10 @@ const navLinks = [
     title: 'Прайслист',
     path: '/pricelist'
   },
-  // {
-  //   title: 'Акции',
-  //   path: '/specials'
-  // },
+  {
+    title: 'Акции',
+    path: '/special'
+  },
   {
     title: 'Новости',
     path: '/news'

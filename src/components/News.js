@@ -1,5 +1,6 @@
 import React from 'react'
 import styles from './../styles/components/News.css'
+
 import withFetch from './HOCs/withFetch'
 import Paragraph from './common/Paragraph'
 import Link from './common/Link'

@@ -64,8 +64,10 @@ class Pagination extends Component {
 
   renderItems(pageNum) {
     const { itemsComponent, api, itemsOnPage, query } = this.props
+
     return React.createElement(itemsComponent, {
-      api: `${api}?_sort=datePublished:desc&_start=${itemsOnPage * pageNum}&_limit=${itemsOnPage}`
+      api,
+      query: `${api}?_sort=datePublished:desc&_start=${itemsOnPage * pageNum}&_limit=${itemsOnPage}`
        + (query ? `&${query}` : '')
     })
   }

@@ -44,12 +44,12 @@ class Specials extends Component {
           <h2 className={styles['caption']}>
             Специальные предложения
           </h2>
-          <div className={styles['slier-wrapper']}>
+          <div className={styles['slider-wrapper']}>
             {(fetchedData && fetchedData.length > 0)
               && this.renderSlider(fetchedData)}
           </div>
           <div className={styles["more-about"]}>
-            <Link href="/specials">
+            <Link href="/special">
               Подробнее об акциях
             </Link>
           </div>
@@ -63,4 +63,4 @@ Specials.contextTypes = {
   apiURL: PropTypes.string
 }
 
-export default withFetch(Specials, 'special')
+export default withFetch(Specials)

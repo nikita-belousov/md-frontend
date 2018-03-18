@@ -22,9 +22,9 @@ import FAQPage from './components/pages/FAQPage'
 import Staff from './components/pages/Staff'
 import Contacts from './components/pages/Contacts'
 import PricelistPage from './components/pages/PricelistPage'
-import SpecialPage from './components/pages/SpecialPage'
 import NewsPage from './components/pages/NewsPage'
-import NewsEntityPage from './components/pages/NewsEntityPage'
+import SpecialsPage from './components/pages/SpecialsPage'
+import ArticlePage from './components/pages/ArticlePage'
 
 import Implantology from './components/pages/category_pages/Implantology'
 import Orthopedics from './components/pages/category_pages/Orthopedics'
@@ -73,6 +73,13 @@ class App extends Component {
               </Layout>
             } />
           <Route
+            exact path='/special'
+            render={props =>
+              <Layout>
+                <SpecialsPage />
+              </Layout>
+            } />
+          <Route
             path='/reviews'
             render={props =>
               <Layout>
@@ -101,20 +108,19 @@ class App extends Component {
               </Layout>
             } />
           <Route
-            exact path='/news/:title'
+            exact path='/news/:url'
             render={props =>
               <Layout>
-                <NewsEntityPage api={`news/?url=${props.match.params.title}`} />
+                <ArticlePage api={`news/?url=${props.match.params.url}`} />
               </Layout>
             } />
           <Route
-            exact path='/special/:id'
+            exact path='/special/:url'
             render={props =>
               <Layout>
-                <SpecialPage api={`special/${props.match.params.id}`} />
+                <ArticlePage api={`special/?url=${props.match.params.url}`} />
               </Layout>
             } />
-
           <Route
             exact path='/implantation'
             render={props =>

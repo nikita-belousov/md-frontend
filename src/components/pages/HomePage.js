@@ -4,7 +4,7 @@ import About from './../sections/About'
 
 const HomePage = () => (
   <div>
-    <Specials api='special?_sort=started:desc' />
+    <Specials api='special?_sort=datePublished:desc' />
     <About />
   </div>
 )
