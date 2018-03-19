@@ -26,9 +26,9 @@ class Specials extends Component {
   renderSlider(data) {
     return (
       <Slider {...this.settings}>
-        {data.map(specialData => (
-          <div key={specialData._id}>
-            <SpecialCard {...specialData} />
+        {data.map(special => (
+          <div key={special._id}>
+            <SpecialCard {...special} />
           </div>
         ))}
       </Slider>

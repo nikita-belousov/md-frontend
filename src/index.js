@@ -39,148 +39,168 @@ class App extends Component {
     onPageNotFound: PropTypes.func
   }
 
-  state = { pageNotFound: false }
+  state = {
+    pageNotFound: false
+  }
 
   getChildContext() {
     return {
-      onPageNotFound: () => this.setState({ pageNotFound: true })
+      onPageNotFound: () => {
+        this.setState({ pageNotFound: true })
+      }
     }
+  }
+
+  renderNotFound() {
+    return (
+      <Layout>
+        <NotFound />
+      </Layout>
+    )
   }
 
   renderRoutes() {
     return (
-      <Router>
-        <Switch>
-          <Route
-            exact path='/'
-            render={props =>
-              <Layout>
-                <HomePage />
-              </Layout>
-            } />
-          <Route
-            exact path='/pricelist'
-            render={props =>
-              <Layout>
-                <PricelistPage api='service?_limit=false&_sort=order' />
-              </Layout>
-            } />
-          <Route
-            exact path='/news'
-            render={props =>
-              <Layout>
-                <NewsPage />
-              </Layout>
-            } />
-          <Route
-            exact path='/special'
-            render={props =>
-              <Layout>
-                <SpecialsPage />
-              </Layout>
-            } />
-          <Route
-            path='/reviews'
-            render={props =>
-              <Layout>
-                <ReviewsPage />
-              </Layout>
-            } />
-          <Route
-            path='/faq'
-            render={props =>
-              <Layout>
-                <FAQPage />
-              </Layout>
-            } />
-          <Route
-            exact path='/staff'
-            render={props =>
-              <Layout>
-                <Staff api='staff' />
-              </Layout>
-            } />
-          <Route
-            exact path='/contacts'
-            render={props =>
-              <Layout>
-                <Contacts />
-              </Layout>
-            } />
-          <Route
-            exact path='/news/:url'
-            render={props =>
-              <Layout>
-                <ArticlePage api={`news/?url=${props.match.params.url}`} />
-              </Layout>
-            } />
-          <Route
-            exact path='/special/:url'
-            render={props =>
-              <Layout>
-                <ArticlePage api={`special/?url=${props.match.params.url}`} />
-              </Layout>
-            } />
-          <Route
-            exact path='/implantation'
-            render={props =>
-              <Layout>
-                <Implantology />
-              </Layout>
-            } />
-          <Route
-            exact path='/orthopedics'
-            render={props =>
-              <Layout>
-                <Orthopedics />
-              </Layout>
-            } />
-          <Route
-            exact path='/therapy'
-            render={props =>
-              <Layout>
-                <Therapy />
-              </Layout>
-            } />
-          <Route
-            exact path='/orthodontics'
-            render={props =>
-              <Layout>
-                <Orthodontics />
-              </Layout>
-            } />
-          <Route
-            exact path='/surgery'
-            render={props =>
-              <Layout>
-                <Surgery />
-              </Layout>
-            } />
-          <Route
-            exact path='/child_stomatology'
-            render={props =>
-              <Layout>
-                <ChildStomatology />
-              </Layout>
-            } />
-          <Route
-            exact path='/hygiene'
-            render={props =>
-              <Layout>
-                <Hygiene />
-              </Layout>
-            } />
+      <Switch>
+        <Route
+          exact path='/'
+          render={props =>
+            <Layout>
+              <HomePage />
+            </Layout>
+          } />
+        <Route
+          exact path='/pricelist'
+          render={props =>
+            <Layout>
+              <PricelistPage api='service?_limit=false&_sort=order' />
+            </Layout>
+          } />
+        <Route
+          exact path='/news'
+          render={props =>
+            <Layout>
+              <NewsPage />
+            </Layout>
+          } />
+        <Route
+          exact path='/special'
+          render={props =>
+            <Layout>
+              <SpecialsPage />
+            </Layout>
+          } />
+        <Route
+          path='/reviews'
+          render={props =>
+            <Layout>
+              <ReviewsPage />
+            </Layout>
+          } />
+        <Route
+          path='/faq'
+          render={props =>
+            <Layout>
+              <FAQPage />
+            </Layout>
+          } />
+        <Route
+          exact path='/staff'
+          render={props =>
+            <Layout>
+              <Staff api='staff' />
+            </Layout>
+          } />
+        <Route
+          exact path='/contacts'
+          render={props =>
+            <Layout>
+              <Contacts />
+            </Layout>
+          } />
+        <Route
+          exact path='/news/:url'
+          render={props =>
+            <Layout>
+              <ArticlePage
+                handleNotFound
+                api={`news/?url=${props.match.params.url}`}
+              />
+            </Layout>
+          } />
+        <Route
+          exact path='/special/:url'
+          render={props =>
+            <Layout>
+              <ArticlePage
+                handleNotFound
+                api={`special/?url=${props.match.params.url}`}
+              />
+            </Layout>
+          } />
+        <Route
+          exact path='/implantation'
+          render={props =>
+            <Layout>
+              <Implantology />
+            </Layout>
+          } />
+        <Route
+          exact path='/orthopedics'
+          render={props =>
+            <Layout>
+              <Orthopedics />
+            </Layout>
+          } />
+        <Route
+          exact path='/therapy'
+          render={props =>
+            <Layout>
+              <Therapy />
+            </Layout>
+          } />
+        <Route
+          exact path='/orthodontics'
+          render={props =>
+            <Layout>
+              <Orthodontics />
+            </Layout>
+          } />
+        <Route
+          exact path='/surgery'
+          render={props =>
+            <Layout>
+              <Surgery />
+            </Layout>
+          } />
+        <Route
+          exact path='/child_stomatology'
+          render={props =>
+            <Layout>
+              <ChildStomatology />
+            </Layout>
+          } />
+        <Route
+          exact path='/hygiene'
+          render={props =>
+            <Layout>
+              <Hygiene />
+            </Layout>
+          } />
 
-          <Route component={NotFound} />
-        </Switch>
-      </Router>
+        <Route render={this.renderNotFound} />
+      </Switch>
     )
   }
 
   render() {
-    return this.state.pageNotFound
-     ? <NotFound />
-     : this.renderRoutes()
+    return (
+      <Router>
+        {this.state.pageNotFound
+          ? this.renderNotFound()
+          : this.renderRoutes()}
+      </Router>
+    )
   }
 }
 

@@ -4,6 +4,10 @@ import NarrowPage from './../pages/NarrowPage'
 
 const withFetch = (WrappedComponent) => {
   class Enhancement extends Component {
+    static contextTypes = {
+      onPageNotFound: PropTypes.func
+    }
+
     constructor(props) {
       super(props)
       this.state = { fetchedData: [] }
@@ -17,8 +21,13 @@ const withFetch = (WrappedComponent) => {
     getData(query) {
       fetch(`${process.env.REACT_APP_API_ROOT}/${query}`)
         .then(data => data.json())
-        .then(json => this.setState({ fetchedData: json }))
-        .catch(console.log)
+        .then(json => {
+          if (([404, 500].includes(json.statusCode)) && (this.props.handleNotFound)) {
+            this.context.onPageNotFound()
+          } else {
+            this.setState({ fetchedData: json })
+          }
+        })
     }
 
     render() {

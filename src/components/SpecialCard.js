@@ -5,9 +5,12 @@ import styles from './../styles/components/SpecialCard.css'
 
 class SpecialCard extends Component {
   render() {
-    const { id, title, description, url, image, color, isBig } = this.props
+    const { id, title, url, image, card } = this.props
+    const { description, color } = card
 
     const imageUrl = require(`./../assets/images/specials/${image}`)
+
+    const isBig = false
     const bgStyle = {
       backgroundImage: isBig
         ? `linear-gradient(to left, transparent 0%, ${color} 60%, ${color} 100%), url(${imageUrl})`
