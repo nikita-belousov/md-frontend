@@ -1,6 +1,7 @@
+import React, { Component } from 'react'
 import { NavLink } from './../common'
 
-const PaginationControls = ({
+const Controls = ({
   api,
   totalPages,
   currentPage

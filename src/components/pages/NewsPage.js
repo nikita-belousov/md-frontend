@@ -4,13 +4,13 @@ import styles from '../../styles/components/pages/NewsPage.css'
 
 import NarrowPage from './NarrowPage'
 import Pagination from './../common/Pagination'
-import ArticleList from './../ArticleList'
+import ArticleList from './../ArticlesList'
 
 const NewsPage = () => (
   <NarrowPage heading='новости'>
     <div className={styles['news']}>
       <Pagination
-        itemsComponent={ArticleList}
+        itemsComponent={ArticlesList}
         itemsOnPage={7}
         api={'news'}
       />

@@ -1,5 +1,5 @@
-import News from './News'
+import Articles from './Articles'
 
 export {
-  News
+  Articles
 }

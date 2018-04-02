@@ -1,5 +1,7 @@
 import React from 'react'
-import styles from './../styles/components/Article.css'
+import styles from './../../styles/components/Article.css'
+import { Paragraph, Link } from './../common'
+import { PreviewPicture } from './index'
 
 const Article = ({
   id,
@@ -8,7 +10,7 @@ const Article = ({
   datePublished
 }) => {
   const thumbnail = previewPicture
-    ? require(`./../assets/images/news/${previewPicture}`)
+    ? require(`./../../assets/images/news/${previewPicture}`)
     : undefined
 
   return (
@@ -19,7 +21,7 @@ const Article = ({
       <div className={styles['columns']}>
         <div className={styles['side']}>
           <Link href={`/article/${thumbnail}`}>
-            <NewsPreviewPicture url={preview} />
+            <PreviewPicture url={preview} />
           </Link>
         </div>
         <div className={styles['article-content']}>

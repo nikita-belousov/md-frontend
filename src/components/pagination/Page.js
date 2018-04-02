@@ -1,3 +1,8 @@
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+
+import styles from './../../styles/components/common/Pagination.css'
+import withFetch from './../HOCs/withFetch'
 import { Controls, Items } from './'
 
 const Page = ({
@@ -5,11 +10,12 @@ const Page = ({
   sort,
   itemsOnPage,
   totalPages,
-  currentPage
+  pageToShow,
+  itemComponent
 }, {
   onPageNotFound
 }) => {
-  if (!_.times(totalPages).includes(currentPage)) {
+  if (!_.times(totalPages).includes(pageToShow)) {
     onPageNotFound()
     return null
   }
@@ -18,8 +24,9 @@ const Page = ({
     <div className={styles['page']}>
       <div className={styles['items-wrapper']}>
         <Items
+          itemComponent={itemComponent}
           api={api}
-          query={`_start=${itemsOnPage * currentPage}
+          query={`_start=${itemsOnPage * pageToShow}
                  &_limit=${itemsOnPage}`
             + (sort ? `&_sort=${sort}` : '')}
         />
@@ -29,7 +36,7 @@ const Page = ({
           <Controls
             api={api}
             totalPages={totalPages}
-            currentPage={currentPage}
+            pageToShow={pageToShow}
           />
         </div>}
     </div>

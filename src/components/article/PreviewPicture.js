@@ -1,10 +1,11 @@
-import styles from './../styles/components/ArticlePreviewPicture.css'
+import React, { Component } from 'react'
+import styles from './../../styles/components/PreviewPicture.css'
 
-const ArticlePreviewPicture = ({ url }) => (
+const PreviewPicture = ({ url }) => (
   <div
     style={{ backgroundImage: url ? `url(${url})` : null }}
     className={styles['preview-picture']}
   />
 )
 
-export default ArticlePreviewPicture
+export default PreviewPicture

@@ -1,10 +1,10 @@
-import Container from './Container'
+import Pagination from './Pagination'
 import Page from './Page'
 import Controls from './Controls'
 import Items from './Items'
 
 export {
-  Container,
+  Pagination,
   Page,
   Controls,
   Items

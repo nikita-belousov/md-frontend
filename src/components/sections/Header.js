@@ -13,7 +13,7 @@ const navLinks = [
   },
   {
     title: 'Акции',
-    path: '/special'
+    path: '/specials'
   },
   {
     title: 'Новости',

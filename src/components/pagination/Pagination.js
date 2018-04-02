@@ -1,3 +1,5 @@
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { Page } from './'
 
 class Pagination extends Component {
@@ -12,14 +14,12 @@ class Pagination extends Component {
   static defaultProps = {
     itemsOnPage: 7
   }
-  
+
   static contextTypes = {
     onPageNotFound: PropTypes.func
   }
 
-  this.state = {
-    totalItems: null
-  }
+  state = { totalItems: null }
 
   componentDidMount() {
     fetch(`${process.env.REACT_APP_API_ROOT}/${this.props.api}-quantity`)
@@ -32,13 +32,14 @@ class Pagination extends Component {
     const { itemsOnPage } = this.props
 
     if (!totalItems) return null
-    totalPages = Math.ceil(totalItems / itemsOnPage)
+    const totalPages = Math.ceil(totalItems / itemsOnPage)
 
-    return
+    return (
       <Page
         {...this.props}
         totalPages={totalPages}
       />
+    )
   }
 }
 

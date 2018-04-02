@@ -1,9 +1,14 @@
+import React, { Component } from 'react'
+import styles from './../../styles/components/pagination/Items.css'
 import { withFetch } from './../HOCs'
 
-const Items = ({ dataItems, itemComponent }) => (
+const Items = ({ fetchedData, itemComponent, api }) => (
   <div>
-    {dataItems.map(item =>
-      <div key={item.id}>
+    {fetchedData.map(item =>
+      <div
+        key={item.id}
+        className={styles['pagination-item']}
+      >
         {React.createElement(itemComponent, { ...item, api })}
       </div>
     )}

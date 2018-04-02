@@ -1,13 +1,14 @@
 import React from 'react'
 import { withFetch } from './../HOCs'
 import { NarrowPage } from './../pages'
+import { Article } from './../article/index'
 
-const ArticlePage = ({ dataArticle }) => (
+const ArticlePage = ({ fetchedData }) => (
   <NarrowPage
     squeeze={true}
-    title={dataArticle.title}
+    title={fetchedData.title}
   >
-    <Article {...dataArticle} />
+    <Article {...fetchedData} />
   </NarrowPage>
 )
 

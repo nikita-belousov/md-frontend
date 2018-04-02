@@ -11,7 +11,7 @@ import Slider from 'react-slick'
 import NavArrow from './../common/NavArrow'
 import Paragraph from './../common/Paragraph'
 import Link from './../common/Link'
-import NewsPreviewPicture from './../NewsPreviewPicture'
+import { PreviewPicture } from './../article'
 
 const Dummy = ({ children }) => <div>{children}</div>
 
@@ -35,7 +35,7 @@ class NewsSlider extends Component {
             <div className={styles['news-entity']}>
               <div className={styles['preview']}>
                 <Link href={`/news/${newsEntity.url}`}>
-                  <NewsPreviewPicture
+                  <PreviewPicture
                     url={require('./../../assets/images' + newsEntity.thumbnailPath)}
                   />
                 </Link>
