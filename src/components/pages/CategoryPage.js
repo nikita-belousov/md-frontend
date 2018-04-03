@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import styles from './../../styles/components/pages/CategoryPage.css'
 import NarrowPage from './NarrowPage'
-import PricelistTable from './../PricelistTable'
+import { PricelistTable } from './../pricelist'
 
 class CategoryPage extends Component {
   state = {

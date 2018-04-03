@@ -26,8 +26,7 @@ const Page = ({
         <Items
           itemComponent={itemComponent}
           api={api}
-          query={`_start=${itemsOnPage * pageToShow}
-                 &_limit=${itemsOnPage}`
+          query={`?_start=${itemsOnPage * pageToShow}&_limit=${itemsOnPage}`
             + (sort ? `&_sort=${sort}` : '')}
         />
       </div>
@@ -47,4 +46,4 @@ Page.contextTypes = {
   onPageNotFound: PropTypes.func
 }
 
-export default withFetch(Page)
+export default Page

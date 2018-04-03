@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import NarrowPage from './../pages/NarrowPage'
 
-const withFetch = (WrappedComponent) => {
+const withFetch = (WrappedComponent, options) => {
   class Enhancement extends Component {
     static contextTypes = {
       onPageNotFound: PropTypes.func
@@ -11,15 +11,20 @@ const withFetch = (WrappedComponent) => {
     constructor(props) {
       super(props)
       this.state = { fetchedData: [] }
-      this.getData(this.props.api)
+
+      if (options) {
+        this.getData(options.api, options.query)
+      } else {
+        this.getData(props.api, props.query)
+      }
     }
 
     componentWillReceiveProps(nextProps) {
       this.getData(nextProps.api)
     }
 
-    getData(query) {
-      fetch(`${process.env.REACT_APP_API_ROOT}/${query}`)
+    getData(api, query) {
+      fetch(`${process.env.REACT_APP_API_ROOT}/${api}${query}`)
         .then(data => data.json())
         .then(json => {
           if (([404, 500].includes(json.statusCode)) && (this.props.handleNotFound)) {

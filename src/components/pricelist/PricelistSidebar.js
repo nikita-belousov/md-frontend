@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import styles from './../styles/components/pages/Pricelist.css'
+import styles from './../../styles/components/pages/Pricelist.css'
 
 class PricelistSidebar extends Component {
   render() {

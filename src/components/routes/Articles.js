@@ -1,7 +1,7 @@
 import React from 'react'
 import { Route, Redirect } from 'react-router-dom'
-
-import { NarrowPage, ArticlePage } from './../pages'
+import { NarrowPage } from './../pages'
+import ArticlePage from './../pages/ArticlePage'
 import { Pagination } from './../pagination'
 import { Preview, Article } from './../article'
 

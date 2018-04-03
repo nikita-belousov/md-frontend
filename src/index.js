@@ -58,14 +58,12 @@ class App extends Component {
       <Switch>
         <Route
           exact path='/'
-          render={props =>
-            <HomePage />
-          } />
+          render={HomePage}
+        />
         <Route
           exact path='/pricelist'
-          render={props =>
-            <PricelistPage api='service?_limit=false&_sort=order' />
-          } />
+          render={PricelistPage}
+        />
         <routes.Articles
           path='/news'
           title='Новости'
@@ -78,14 +76,12 @@ class App extends Component {
         />
         <Route
           path='/reviews'
-          render={props =>
-            <ReviewsPage />
-          } />
+          render={ReviewsPage}
+       />
         <Route
           path='/faq'
-          render={props =>
-            <FAQPage />
-          } />
+          render={FAQPage}
+        />
         <Route
           exact path='/staff'
           render={props =>
@@ -93,61 +89,52 @@ class App extends Component {
           } />
         <Route
           exact path='/contacts'
-          render={props =>
-            <Contacts />
-          } />
+          render={Contacts}
+        />
         <Route
           exact path='/news/:url'
-          render={props =>
+          render={({ match }) =>
             <ArticlePage
               handleNotFound
-              api={`news/?url=${props.match.params.url}`}
+              api={`news/?url=${match.params.url}`}
             />
           } />
         <Route
           exact path='/special/:url'
-          render={props =>
+          render={({ match }) =>
             <ArticlePage
               handleNotFound
-              api={`special/?url=${props.match.params.url}`}
+              api={`special/?url=${match.params.url}`}
             />
           } />
         <Route
           exact path='/implantation'
-          render={props =>
-            <Implantology />
-          } />
+          render={Implantology}
+        />
         <Route
           exact path='/orthopedics'
-          render={props =>
-            <Orthopedics />
-          } />
+          render={Orthopedics}
+        />
         <Route
           exact path='/therapy'
-          render={props =>
-            <Therapy />
-          } />
+          render={Therapy}
+        />
         <Route
           exact path='/orthodontics'
-          render={props =>
-            <Orthodontics />
-          } />
+          render={Orthodontics}
+        />
         <Route
           exact path='/surgery'
-          render={props =>
-            <Surgery />
-          } />
+          render={Surgery}
+        />
         <Route
           exact path='/child_stomatology'
-          render={props =>
-            <ChildStomatology />
-          } />
+          render={ChildStomatology}
+        />
         <Route
           exact path='/hygiene'
-          render={props =>
-            <Hygiene />
-          } />
-
+          render={Hygiene}
+        />
         <Route render={this.renderNotFound} />
       </Switch>
     )

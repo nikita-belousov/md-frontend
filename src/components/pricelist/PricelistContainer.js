@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
 import scrollToWithAnimation from 'scrollto-with-animation'
-import styles from './../../styles/components/pages/Pricelist.css'
 
-import withFetch from './../HOCs/withFetch'
-import PricelistSidebar from './../PricelistSidebar'
-import PricelistTable from './../PricelistTable'
+import styles from './../../styles/components/pages/Pricelist.css'
+import { withFetch } from './../HOCs'
+import { PricelistSidebar, PricelistTable } from './index'
 
 class PricelistContainer extends Component {
   constructor(props) {
@@ -211,4 +210,7 @@ class PricelistContainer extends Component {
   }
 }
 
-export default withFetch(PricelistContainer)
+export default withFetch(PricelistContainer, {
+  api: 'service',
+  query: '?_limit=false&_sort=order'
+})

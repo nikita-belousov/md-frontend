@@ -1,45 +1,33 @@
 import React from 'react'
 import styles from './../../styles/components/Article.css'
-import { Paragraph, Link } from './../common'
-import { PreviewPicture } from './index'
+import { Paragraph } from './../common'
+import FontAwesome from 'react-fontawesome'
 
 const Article = ({
-  id,
   url,
-  previewPicture,
-  datePublished
-}) => {
-  const thumbnail = previewPicture
-    ? require(`./../../assets/images/news/${previewPicture}`)
-    : undefined
-
-  return (
-    <div
-      key={entity.id}
-      className={styles['article-entity']}
-    >
-      <div className={styles['columns']}>
-        <div className={styles['side']}>
-          <Link href={`/article/${thumbnail}`}>
-            <PreviewPicture url={preview} />
-          </Link>
-        </div>
-        <div className={styles['article-content']}>
-          <div className={styles['headline-link']}>
-            <Link href={`/article/${entity.url}`}>
-              {entity.heading}
-            </Link>
-          </div>
-          <div className={styles['date']}>
-            {utils.formatDate(datePublished)}
-          </div>
-          <Paragraph>
-            {entity.text}
-          </Paragraph>
-        </div>
+  datePublished,
+  title,
+  text,
+  views
+}) => (
+  <div className={styles['article']}>
+    <div className={styles['caption']}>
+      <div className={styles['date']}>
+        {utils.formatDate(datePublished)}
+      </div>
+      <div className={styles['views']}>
+        <span className={styles['eye-icon']}>
+          <FontAwesome name='eye' />
+        </span>
+        {views}
       </div>
     </div>
-  )
-}
+    <div className={styles['text']}>
+      <Paragraph>
+        {text}
+      </Paragraph>
+    </div>
+  </div>
+)
 
 export default Article

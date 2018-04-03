@@ -1,10 +1,10 @@
 import React from 'react'
 import NarrowPage from './NarrowPage'
-import PricelistContainer from './../containers/PricelistContainer'
+import { PricelistContainer } from './../pricelist'
 
-const PricelistPage = ({ api }) => (
+const PricelistPage = () => (
   <NarrowPage heading='прайслист'>
-    <PricelistContainer api={api} />
+    <PricelistContainer />
   </NarrowPage>
 )
 

@@ -1,9 +1,6 @@
 import React, { Component } from 'react'
-import styles from './../styles/components/pages/Pricelist.css'
-
-import Paragraph from './common/Paragraph'
-import TextInput from './common/TextInput'
-import Checkbox from './common/Checkbox'
+import styles from './../../styles/components/pages/Pricelist.css'
+import { Paragraph, TextInput, Checkbox } from './../common'
 
 class PricelistTable extends Component {
   renderCategory = (category) => {
