@@ -23,8 +23,8 @@ const withFetch = (WrappedComponent, options) => {
       this.getData(nextProps.api)
     }
 
-    getData(api, query) {
-      fetch(`${process.env.REACT_APP_API_ROOT}/${api}${query}`)
+    getData(api, query = '') {
+      fetch(process.env.REACT_APP_API_ROOT + `/${api}` + query)
         .then(data => data.json())
         .then(json => {
           if (([404, 500].includes(json.statusCode)) && (this.props.handleNotFound)) {

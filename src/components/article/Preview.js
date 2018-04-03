@@ -13,8 +13,8 @@ const Preview = ({
   truncate
 }) => {
   const thumbnail = thumbnailPath
-    ? require('./../../assets/images' + thumbnailPath)
-    : undefined
+    ? require('./../../assets/images/' + thumbnailPath)
+    : undefine
 
   return (
     <div className={styles['article-entity']}>

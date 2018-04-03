@@ -1,16 +1,15 @@
+import path from 'path'
 import React, { Component } from 'react'
-import Link from './common/Link'
-import Paragraph from './common/Paragraph'
-import styles from './../styles/components/SpecialCard.css'
+import styles from './../../styles/components/SpecialCard.css'
+import { Paragraph, Link } from './../common'
 
 class SpecialCard extends Component {
   render() {
     const { id, title, url, image, card } = this.props
     const { description, color } = card
 
-    const imageUrl = require(`./../assets/images/specials/${image}`)
-
     const isBig = false
+    const imageUrl = require('./../../assets/images/specials/' + image)
     const bgStyle = {
       backgroundImage: isBig
         ? `linear-gradient(to left, transparent 0%, ${color} 60%, ${color} 100%), url(${imageUrl})`

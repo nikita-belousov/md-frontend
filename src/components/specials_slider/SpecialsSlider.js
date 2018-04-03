@@ -1,17 +1,16 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import uuid from 'small-uuid'
-import styles from './../../styles/components/sections/Specials.css'
-
 import Slider from 'react-slick'
-import withFetch from './../HOCs/withFetch'
+
+import styles from './../../styles/components/sections/SpecialsSlider.css'
+import { withFetch } from './../HOCs'
 import Section from './../Section'
 import Container from './../Container'
-import SpecialCard from './../SpecialCard'
-import NavArrow from './../common/NavArrow'
-import Link from './../common/Link'
+import { SpecialCard } from './index'
+import { NavArrow, Link } from './../common'
 
-class Specials extends Component {
+class SpecialsSlider extends Component {
   settings = {
     slidesToShow: 4,
     infinite: true,
@@ -24,6 +23,8 @@ class Specials extends Component {
   }
 
   renderSlider(data) {
+    console.log(JSON.stringify(data, null, 2))
+
     return (
       <Slider {...this.settings}>
         {data.map(special => (
@@ -46,10 +47,10 @@ class Specials extends Component {
           </h2>
           <div className={styles['slider-wrapper']}>
             {(fetchedData && fetchedData.length > 0)
-              && this.renderSlider(fetchedData)}
+              && this.renderSlider(fetchedData.filter(e => e.card))}
           </div>
           <div className={styles["more-about"]}>
-            <Link href="/special">
+            <Link href="/specials">
               Подробнее об акциях
             </Link>
           </div>
@@ -59,8 +60,7 @@ class Specials extends Component {
   }
 }
 
-Specials.contextTypes = {
-  apiURL: PropTypes.string
-}
-
-export default withFetch(Specials)
+export default withFetch(SpecialsSlider, {
+  api: 'special',
+  query: '?_sort=datePublished'
+})

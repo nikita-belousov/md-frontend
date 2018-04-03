@@ -1,10 +1,10 @@
 import React from 'react'
-import Specials from './../sections/Specials'
+import { SpecialsSlider } from './../specials_slider'
 import About from './../sections/About'
 
 const HomePage = () => (
   <div>
-    <Specials api='special?_sort=datePublished:desc' />
+    <SpecialsSlider />
     <About />
   </div>
 )

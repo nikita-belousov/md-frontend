@@ -36,7 +36,7 @@ class NewsSlider extends Component {
               <div className={styles['preview']}>
                 <Link href={`/news/${newsEntity.url}`}>
                   <PreviewPicture
-                    url={require('./../../assets/images' + newsEntity.thumbnailPath)}
+                    url={require('./../../assets/images/' + newsEntity.thumbnailPath)}
                   />
                 </Link>
               </div>
