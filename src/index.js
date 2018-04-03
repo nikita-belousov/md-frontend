@@ -32,6 +32,7 @@ import Surgery from './components/pages/category_pages/Surgery'
 import ChildStomatology from './components/pages/category_pages/ChildStomatology'
 import Hygiene from './components/pages/category_pages/Hygiene'
 
+import * as pages from './components/pages'
 import * as routes from './components/routes'
 
 class App extends Component {
@@ -59,6 +60,10 @@ class App extends Component {
           component={HomePage}
         />
         <Route
+          exact path='/about-us'
+          component={pages.AboutUsPage}
+        />
+        <Route
           exact path='/pricelist'
           component={PricelistPage}
         />
@@ -76,7 +81,7 @@ class App extends Component {
         <routes.Questions />
         <Route
           exact path='/staff'
-          component={Staff} 
+          component={Staff}
         />
         <Route
           exact path='/contacts'
