@@ -4,6 +4,7 @@ import { Link, Paragraph } from './../common'
 import { PreviewPicture } from './'
 
 const Preview = ({
+  path,
   api,
   url,
   thumbnailPath,
@@ -20,14 +21,14 @@ const Preview = ({
     <div className={styles['article-entity']}>
       <div className={styles['columns']}>
         <div className={styles['side']}>
-          <Link href={`/${api}/${url}`}>
+          <Link href={`${path}/${url}`}>
             <PreviewPicture url={thumbnail} />
           </Link>
         </div>
         <div className={styles['content']}>
           <div className={styles['caption']}>
             <div className={styles['headline-link']}>
-              <Link href={`/${api}/${url}`}>
+              <Link href={`${path}/${url}`}>
                 {title}
               </Link>
             </div>

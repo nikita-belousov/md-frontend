@@ -5,7 +5,7 @@ import styles from './../../styles/components/sections/Header.css'
 const navLinks = [
   {
     title: 'О нас',
-    path: '/about'
+    path: '/about-us'
   },
   {
     title: 'Прайслист',
@@ -28,8 +28,8 @@ const navLinks = [
     path: '/contacts'
   },
   {
-    title: 'FAQ',
-    path: '/faq'
+    title: 'Вопросы',
+    path: '/questions'
   },
   {
     title: 'Отзывы',

@@ -76,4 +76,4 @@ class Staff extends Component {
   }
 }
 
-export default withFetch(Staff)
+export default withFetch(Staff, { api: 'staff' })

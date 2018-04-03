@@ -56,12 +56,7 @@ class ReviewsPage extends Component {
           {leaveFeedbackPopup && this.renderPopup()}
         </div>
         <div className={styles['reviews']}>
-          <Pagination
-            itemsComponent={Reviews}
-            itemsOnPage={7}
-            api={'reviews'}
-            query={'isPublished=true'}
-          />
+          {this.props.children}
         </div>
       </NarrowPage>
     )

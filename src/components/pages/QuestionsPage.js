@@ -1,15 +1,14 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import styles from '../../styles/components/pages/FAQPage.css'
+import styles from '../../styles/components/pages/QuestionsPage.css'
 
 import withFetch from './../HOCs/withFetch'
 import Link from './../common/Link'
 import NarrowPage from './NarrowPage'
-import Questions from './../Questions'
 import AskQuestionPopup from './../AskQuestionPopup'
 import Pagination from './../common/Pagination'
 
-class FAQPage extends Component {
+class QuestionsPage extends Component {
   state = { leaveQuestionPopup: false }
 
   handleAskQuestionClick = (e) => {
@@ -56,16 +55,11 @@ class FAQPage extends Component {
           {leaveQuestionPopup && this.renderPopup()}
         </div>
         <div className={styles['questions']}>
-          <Pagination
-            itemsComponent={Questions}
-            itemsOnPage={7}
-            api={'question'}
-            query={'answer_ne=empty'}
-          />
+          {this.props.children}
         </div>
       </NarrowPage>
     )
   }
 }
 
-export default FAQPage
+export default QuestionsPage

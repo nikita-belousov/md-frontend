@@ -20,7 +20,7 @@ const withFetch = (WrappedComponent, options) => {
     }
 
     componentWillReceiveProps(nextProps) {
-      this.getData(nextProps.api)
+      this.getData(nextProps.api, nextProps.query)
     }
 
     getData(api, query = '') {

@@ -23,8 +23,6 @@ class SpecialsSlider extends Component {
   }
 
   renderSlider(data) {
-    console.log(JSON.stringify(data, null, 2))
-
     return (
       <Slider {...this.settings}>
         {data.map(special => (

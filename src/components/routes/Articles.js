@@ -32,6 +32,7 @@ const Articles = ({ path, title, api }) => (
         >
           <Pagination
             api={api}
+            path={path}
             itemComponent={Preview}
             pageToShow={parseInt(match.params.num)}
             sort='datePublished'

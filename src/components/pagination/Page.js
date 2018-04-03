@@ -7,11 +7,11 @@ import { Controls, Items } from './'
 
 const Page = ({
   api,
-  sort,
   itemsOnPage,
   totalPages,
   pageToShow,
-  itemComponent
+  itemComponent,
+  path
 }, {
   onPageNotFound
 }) => {
@@ -25,9 +25,9 @@ const Page = ({
       <div className={styles['items-wrapper']}>
         <Items
           itemComponent={itemComponent}
+          path={path}
           api={api}
-          query={`?_start=${itemsOnPage * pageToShow}&_limit=${itemsOnPage}`
-            + (sort ? `&_sort=${sort}` : '')}
+          query={`?_sort=datePublished:desc&_start=${itemsOnPage * pageToShow}&_limit=${itemsOnPage}`}
         />
       </div>
       {(totalPages > 1) &&

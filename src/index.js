@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom'
 import {
   BrowserRouter as Router,
   Route,
-  Switch,
+  div,
   Link
 } from 'react-router-dom'
 
@@ -18,12 +18,10 @@ import Layout from './components/pages/Layout'
 import NotFound from './components/pages/NotFound'
 import HomePage from './components/pages/HomePage'
 import ReviewsPage from './components/pages/ReviewsPage'
-import FAQPage from './components/pages/FAQPage'
 import Staff from './components/pages/Staff'
 import Contacts from './components/pages/Contacts'
 import PricelistPage from './components/pages/PricelistPage'
 import NewsPage from './components/pages/NewsPage'
-// import SpecialsPage from './components/pages/SpecialsPage'
 import ArticlePage from './components/pages/ArticlePage'
 
 import Implantology from './components/pages/category_pages/Implantology'
@@ -55,14 +53,14 @@ class App extends Component {
 
   renderRoutes() {
     return (
-      <Switch>
+      <div>
         <Route
           exact path='/'
-          render={HomePage}
+          component={HomePage}
         />
         <Route
           exact path='/pricelist'
-          render={PricelistPage}
+          component={PricelistPage}
         />
         <routes.Articles
           path='/news'
@@ -74,69 +72,46 @@ class App extends Component {
           title='Акции'
           api='special'
         />
-        <Route
-          path='/reviews'
-          render={ReviewsPage}
-       />
-        <Route
-          path='/faq'
-          render={FAQPage}
-        />
+        <routes.Reviews />
+        <routes.Questions />
         <Route
           exact path='/staff'
-          render={props =>
-            <Staff api='staff' />
-          } />
-        <Route
-          exact path='/contacts'
-          render={Contacts}
+          component={Staff} 
         />
         <Route
-          exact path='/news/:url'
-          render={({ match }) =>
-            <ArticlePage
-              handleNotFound
-              api={`news/?url=${match.params.url}`}
-            />
-          } />
-        <Route
-          exact path='/special/:url'
-          render={({ match }) =>
-            <ArticlePage
-              handleNotFound
-              api={`special/?url=${match.params.url}`}
-            />
-          } />
+          exact path='/contacts'
+          component={Contacts}
+        />
         <Route
           exact path='/implantation'
-          render={Implantology}
+          component={Implantology}
         />
         <Route
           exact path='/orthopedics'
-          render={Orthopedics}
+          component={Orthopedics}
         />
         <Route
           exact path='/therapy'
-          render={Therapy}
+          component={Therapy}
         />
         <Route
           exact path='/orthodontics'
-          render={Orthodontics}
+          component={Orthodontics}
         />
         <Route
           exact path='/surgery'
-          render={Surgery}
+          component={Surgery}
         />
         <Route
           exact path='/child_stomatology'
-          render={ChildStomatology}
+          component={ChildStomatology}
         />
         <Route
           exact path='/hygiene'
-          render={Hygiene}
+          component={Hygiene}
         />
         <Route render={this.renderNotFound} />
-      </Switch>
+      </div>
     )
   }
 
