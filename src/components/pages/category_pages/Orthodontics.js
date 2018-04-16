@@ -52,7 +52,6 @@ const Orthodontics = props => {
   return (
     <CategoryPage
       categoryId='5aa185d82e70495974bff014'
-      doctors={['5aa2f7ee91ce0038c42499d9']}
       renderContent={renderContent}
       renderAside={renderAside}
     />

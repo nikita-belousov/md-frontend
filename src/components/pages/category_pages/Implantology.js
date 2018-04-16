@@ -59,7 +59,7 @@ const Implantology = props => {
   return (
     <CategoryPage
       categoryId='5aa011110c8d66733cd75249'
-      doctors={['5aa2f77791ce0038c42499d6', '5aa2f65091ce0038c42499d0']}
+      doctors={['5aa2f77791ce0038c42499d6']}
       renderContent={renderContent}
       renderAside={renderAside}
     />

@@ -18,9 +18,10 @@ class Staff extends Component {
   }
 
   renderDoctor(doctor) {
-    let photoUrl
-    if (doctor.photo) {
-      photoUrl = require(`../../assets/images/staff/${doctor.photo}`)
+    let thumbSrc
+    const { imageSource } = doctor
+    if (imageSource) {
+      thumbSrc = require(`../../assets/images/staff/${imageSource}/thumb.png`)
     }
 
     return (
@@ -31,7 +32,7 @@ class Staff extends Component {
         <div className={styles['aside']}>
           <div
             className={styles['photo']}
-            style={{ backgroundImage: photoUrl ? `url(${photoUrl})` : 'grey' }}
+            style={{ backgroundImage: thumbSrc ? `url(${thumbSrc})` : 'grey' }}
           />
         </div>
         <div className={styles['content']}>
@@ -52,7 +53,7 @@ class Staff extends Component {
               )}
             </div>
             <div className={styles['experience']}>
-              {`Стаж ${doctor.experience} лет`}
+              {`Стаж ${doctor.experience}`}
             </div>
           </div>
           <div className={styles['description']}>
