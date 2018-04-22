@@ -42,7 +42,6 @@
     "small-uuid": "^1.0.1",
     "superagent": "^3.8.2",
     "superagent-promise": "^1.1.0",
-    "try-require": "^1.2.1",
     "underscore": "^1.8.3",
     "validate.js": "^0.12.0"
   },

@@ -1,5 +1,6 @@
 import React from 'react'
-import { PositionLabel, Paragraph } from './common'
+import { Paragraph } from './common'
+import PositionLabel from './common/PositionLabel'
 import styles from './../styles/components/Dentist.css'
 
 const Dentist = ({ imageFolder, name, about, positions, experience }) => {

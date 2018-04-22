@@ -1,13 +1,41 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import styles from './../styles/components/ChangingReviews.css'
 
 import Paragraph from './common/Paragraph'
 import Link from './common/Link'
 import StaticRating from './StaticRating'
 
+import { Reviews as api } from './../agent'
+
+import {
+  CHANGING_REVIEWS_LOADED,
+  CHANGING_REVIEWS_UNLOADED
+} from './../constants/actionTypes'
+
+const mapStateToProps = state => ({
+  reviews: state.changingReviews.reviews
+})
+
+const mapDispatchToProps = dispatch => ({
+  onLoad: payload =>
+    dispatch({ type: CHANGING_REVIEWS_LOADED, payload }),
+  onUnload: () =>
+    dispatch({ type: CHANGING_REVIEWS_UNLOADED })
+})
+
 class ChangingReviews extends Component {
   state = { current: 0 }
-  quantity = 4
+  quantity = 8
+
+  componentWillMount() {
+    const { onLoad, quantity } = this.props
+    onLoad(api.page(quantity, 0))
+  }
+
+  componentWillUnmount() {
+    this.props.onUnload()
+  }
 
   componentDidMount() {
     this.interval = setInterval(() => {
@@ -32,7 +60,7 @@ class ChangingReviews extends Component {
             {words.slice(0, maxLength).join(' ') + '...'}
           </Paragraph>
           <div className={styles['more-link']}>
-            <Link type='alt' href={review.url}>
+            <Link type='alt'>
               Читать полностью
             </Link>
           </div>
@@ -41,30 +69,33 @@ class ChangingReviews extends Component {
     } else return review.review
   }
 
-  renderReview(num) {
+  render() {
+    const { reviews } = this.props
+
+    if (!reviews || reviews.length === 0) {
+      return null
+    }
+
+    const { current } = this.state
+
     return (
       <div>
         <div>
           <div className={styles['review-bg']}>
-            {this.renderContent(fetchedData[num])}
+            {this.renderContent(reviews[current])}
           </div>
           <div className={styles['author']}>
             <div className={styles['name']}>
-              {fetchedData[num].author}
+              {reviews[current].author}
             </div>
             <div className={styles['rating']}>
-              <StaticRating value={fetchedData[num].rating} />
+              <StaticRating value={reviews[current].rating} />
             </div>
           </div>
         </div>
       </div>
     )
   }
-
-  render() {
-    return null
-    // return this.renderReview(this.state.current)
-  }
 }
 
-export default ChangingReviews
+export default connect(mapStateToProps, mapDispatchToProps)(ChangingReviews)

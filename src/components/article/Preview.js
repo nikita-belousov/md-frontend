@@ -1,4 +1,3 @@
-import tryRequire from 'try-require'
 import React, { Component } from 'react'
 import styles from './../../styles/components/article/Preview.css'
 import { Link, Paragraph } from './../common'
