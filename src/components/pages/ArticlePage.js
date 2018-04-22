@@ -1,15 +1,22 @@
 import React from 'react'
-import { withFetch } from './../HOCs'
+import { connect } from 'react-redux'
 import { NarrowPage } from './../pages'
 import { Article } from './../article'
 
-const ArticlePage = ({ fetchedData }) => (
+const mapStateToProps = state => ({
+  title: state.articlePage.title
+})
+
+const ArticlePage = ({ api, slug, title }) => (
   <NarrowPage
     squeeze={true}
-    heading={fetchedData.title}
+    heading={title}
   >
-    <Article {...fetchedData} />
+    <Article
+      api={api}
+      slug={slug}
+    />
   </NarrowPage>
 )
 
-export default withFetch(ArticlePage)
+export default connect(mapStateToProps, null)(ArticlePage)

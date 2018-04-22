@@ -33,7 +33,7 @@ class Pagination extends Component {
   }
 
   static defaultProps = {
-    itemsOnPage: 7
+    itemsOnPage: 8
   }
 
   static contextTypes = {
@@ -52,7 +52,7 @@ class Pagination extends Component {
 
   componentWillUpdate(nextProps) {
     if (nextProps.pageToShow !== this.props.pageToShow) {
-      
+
       const { api, path, onLoad, itemsOnPage } = this.props
       onLoad(
         api.page,
@@ -83,7 +83,7 @@ class Pagination extends Component {
 
     const totalPages = Math.ceil(count / itemsOnPage)
 
-    if (!_.times(totalPages).includes(pageToShow)) {
+    if (!_.times(totalPages).includes(pageToShow - 1)) {
       this.context.onPageNotFound()
       return null
     }

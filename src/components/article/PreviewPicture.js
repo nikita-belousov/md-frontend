@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import styles from './../../styles/components/PreviewPicture.css'
 
-const PreviewPicture = ({ url }) => (
+const PreviewPicture = ({ src }) => (
   <div
-    style={{ backgroundImage: url ? `url(${url})` : null }}
+    style={{ backgroundImage: src ? `url(${src})` : null }}
     className={styles['preview-picture']}
   />
 )

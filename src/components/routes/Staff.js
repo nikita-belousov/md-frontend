@@ -10,7 +10,7 @@ const Staff = () => (
     <Route
       exact
       path='/staff'
-      render={() => <Redirect to='/staff/pages/0' />}
+      render={() => <Redirect to='/staff/pages/1' />}
     />
     <Route
       exact

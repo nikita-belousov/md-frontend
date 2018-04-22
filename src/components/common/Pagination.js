@@ -24,8 +24,8 @@ class Pagination extends Component {
     api: PropTypes.string
   }
 
-  static defaultTypes = {
-    itemsOnPage: 7
+  static defaultProps = {
+    itemsOnPage: 8
   }
 
   constructor(props) {
@@ -45,7 +45,9 @@ class Pagination extends Component {
   }
 
   renderPage(num) {
-    if (!_.times(this.totalPages).includes(num)) {
+    console.log(this.totalPages, num)
+
+    if (!_.times(this.totalPages).includes(num - 1)) {
       this.context.onPageNotFound()
     }
 

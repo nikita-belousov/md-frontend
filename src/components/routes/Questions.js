@@ -10,7 +10,7 @@ const Questions = () => (
     <Route
       exact
       path='/questions'
-      render={() => <Redirect to='/questions/pages/0' />}
+      render={() => <Redirect to='/questions/pages/1' />}
     />
     <Route
       exact

@@ -5,7 +5,7 @@ import { NavLink } from './../common'
 const Controls = ({ path, totalPages, pageToShow }) => (
   <div className={styles['nav']}>
     <div className={styles['links-inner']}>
-      {(pageToShow > 0) &&
+      {(pageToShow > 1) &&
         <div className={styles['prev']}>
           <NavLink to={`/${path}/pages/${pageToShow - 1}`}>
             ←
@@ -14,12 +14,12 @@ const Controls = ({ path, totalPages, pageToShow }) => (
       {_.times(totalPages).map(num =>
         <div key={num}>
           <div className={styles['nav-link']}>
-            <NavLink to={`/${path}/pages/${num}`}>
-              {num}
+            <NavLink to={`/${path}/pages/${num + 1}`}>
+              {num + 1}
             </NavLink>
           </div>
         </div>)}
-      {(pageToShow < totalPages - 1) &&
+      {(pageToShow < totalPages) &&
         <div className={styles['next']}>
           <NavLink to={`/${path}/pages/${pageToShow + 1}`}>
             →

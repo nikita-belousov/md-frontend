@@ -10,7 +10,7 @@ const Reviews = () => (
     <Route
       exact
       path='/reviews'
-      render={() => <Redirect to='/reviews/pages/0' />}
+      render={() => <Redirect to='/reviews/pages/1' />}
     />
     <Route
       exact

@@ -66,16 +66,8 @@ class App extends Component {
           exact path='/pricelist'
           component={PricelistPage}
         />
-        <routes.Articles
-          path='/news'
-          title='Новости'
-          api='news'
-        />
-        <routes.Articles
-          path='/specials'
-          title='Акции'
-          api='special'
-        />
+        <routes.Specials />
+        <routes.News />
         <routes.Reviews />
         <routes.Questions />
         <routes.Staff />

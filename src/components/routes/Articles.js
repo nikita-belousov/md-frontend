@@ -3,33 +3,30 @@ import { Route, Redirect } from 'react-router-dom'
 import { NarrowPage } from './../pages'
 import ArticlePage from './../pages/ArticlePage'
 import { Pagination } from './../pagination'
-import { Preview, Article } from './../article'
+import { Preview } from './../article'
 
 const Articles = ({ path, title, api }) => (
   <div>
     <Route
       exact
-      path={path}
-      render={() => <Redirect to={`${path}/pages/0`} />}
+      path={`/${path}`}
+      render={() => <Redirect to={`/${path}/pages/1`} />}
     />
     <Route
       exact
-      path={`${path}/:url`}
+      path={`/${path}/:slug`}
       render={({ match }) =>
         <ArticlePage
           api={api}
-          query={`?url=${match.params.url}`}
+          slug={match.params.slug}
         />
       }
     />
     <Route
       exact
-      path={`${path}/pages/:num`}
+      path={`/${path}/pages/:num`}
       render={({ match }) =>
-        <NarrowPage
-          squeeze={true}
-          heading={title}
-        >
+        <NarrowPage heading={title}>
           <Pagination
             api={api}
             path={path}

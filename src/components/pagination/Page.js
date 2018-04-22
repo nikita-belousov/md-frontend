@@ -20,6 +20,7 @@ const Page = ({
       <div className={styles['items-wrapper']}>
         <Items
           docs={docs}
+          path={path}
           itemComponent={itemComponent}
         />
       </div>

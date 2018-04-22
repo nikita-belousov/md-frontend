@@ -24,13 +24,13 @@ const requests = {
     superagent.post(`${API_ROOT}${url}`, body).use(tokenPlugin).then(getBody)
 }
 
-const pageQuery = (count, page = 0) => `_limit=${count}&_start=${page * count}`
+const pageQuery = (count, page = 0) => `_limit=${count}&_start=${(page - 1) * count}`
 
 export const Reviews = {
   all: () =>
     requests.get('/reviews'),
   page: (itemsOnPage, page) =>
-    requests.get(`/reviews/?${pageQuery(itemsOnPage, page)}&isPublished=true`)
+    requests.get(`/reviews/?${pageQuery(itemsOnPage, page)}&isPublished=true&_sort=createdAt:desc`)
 }
 
 export const Staff = {
@@ -44,11 +44,31 @@ export const Questions = {
   all: () =>
     requests.get('/questions'),
   page: (itemsOnPage, page) =>
-    requests.get(`/questions/?${pageQuery(itemsOnPage, page)}`)
+    requests.get(`/questions/?${pageQuery(itemsOnPage, page)}&_sort=createdAt:desc`)
+}
+
+export const Specials = {
+  all: () =>
+    requests.get('/specials/?_sort=createdAt:desc'),
+  page: (itemsOnPage, page) =>
+    requests.get(`/specials/?${pageQuery(itemsOnPage, page)}&_sort=createdAt:desc`),
+  article: slug =>
+    requests.get(`/specials/${slug}`)
+}
+
+export const News = {
+  all: () =>
+    requests.get('/news'),
+  page: (itemsOnPage, page) =>
+    requests.get(`/news/?${pageQuery(itemsOnPage, page)}&_sort=createdAt:desc`),
+  article: slug =>
+    requests.get(`/news/${slug}`)
 }
 
 export default {
   Reviews,
   Staff,
-  Questions
+  Questions,
+  News,
+  Specials
 }
