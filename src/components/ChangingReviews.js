@@ -1,11 +1,9 @@
 import React, { Component } from 'react'
 import styles from './../styles/components/ChangingReviews.css'
-import withFetch from './HOCs/withFetch'
+
 import Paragraph from './common/Paragraph'
 import Link from './common/Link'
 import StaticRating from './StaticRating'
-
-import _ from 'lodash'
 
 class ChangingReviews extends Component {
   state = { current: 0 }
@@ -44,8 +42,6 @@ class ChangingReviews extends Component {
   }
 
   renderReview(num) {
-    const { fetchedData } = this.props
-
     return (
       <div>
         <div>
@@ -66,8 +62,9 @@ class ChangingReviews extends Component {
   }
 
   render() {
-    return this.renderReview(this.state.current)
+    return null
+    // return this.renderReview(this.state.current)
   }
 }
 
-export default withFetch(ChangingReviews)
+export default ChangingReviews

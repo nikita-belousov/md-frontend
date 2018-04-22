@@ -1,5 +1,5 @@
 {
-  "name": "med-dent",
+  "name": "md-frontend",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -29,15 +29,19 @@
     "react-input-mask": "^1.1.2",
     "react-photo-gallery": "^6.0.22",
     "react-rating": "^1.0.5",
-    "react-redux": "^5.0.6",
+    "react-redux": "^5.0.7",
     "react-router-dom": "^4.2.2",
     "react-slick": "^0.17.1",
     "react-svg": "^2.2.11",
+    "redux-devtools-extension": "^2.13.2",
+    "redux-logger": "^3.0.6",
     "sass-loader": "^6.0.6",
     "scrollto-with-animation": "^4.5.2",
     "shortid": "^2.2.8",
     "slick-carousel": "^1.8.1",
     "small-uuid": "^1.0.1",
+    "superagent": "^3.8.2",
+    "superagent-promise": "^1.1.0",
     "try-require": "^1.2.1",
     "underscore": "^1.8.3",
     "validate.js": "^0.12.0"

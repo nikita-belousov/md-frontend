@@ -1,23 +1,38 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import uuid from 'small-uuid'
-import styles from '../../styles/components/pages/Staff.css'
 
-import withFetch from './../HOCs/withFetch'
+import { STAFF_PAGE_LOADED } from './../../constants/actionTypes'
+import { ITEMS_ON_PAGE } from './../../constants/config'
+import { Staff as StaffApi } from './../../agent'
+
 import NarrowPage from './NarrowPage'
 import Paragraph from '../common/Paragraph'
 import PositionLabel from '../common/PositionLabel'
 
-class Staff extends Component {
-  constructor(props) {
-    super(props)
+import styles from '../../styles/components/pages/Staff.css'
 
-    this.data = this.props.fetchedData.map(item => {
-      item.positions = item.positions.split(',').map(e => e.trim())
-      return item
-    })
+const mapStateToProps = state => ({
+  ...state.staff
+})
+
+const mapDispatchToProps = dispatch => ({
+  onLoad: (pager, payload) =>
+    dispatch({ type: STAFF_PAGE_LOADED, pager, payload }),
+  onUnload: () =>
+    dispatch({ type: STAFF_PAGE_UNLOADED })
+})
+
+class Staff extends Component {
+  componentWillMount() {
+    this.props.onLoad(StaffApi.page, StaffApi.all())
   }
 
-  renderDoctor(doctor) {
+  componentWillUnmount() {
+    this.props.onUnload()
+  }
+
+  renderDentist(doctor) {
     let thumbSrc
     const { imageSource } = doctor
     if (imageSource) {
@@ -67,14 +82,17 @@ class Staff extends Component {
   }
 
   render() {
+    const { staff } = this.props
+    if (!staff || staff.length === 0) return null
+
     return (
       <NarrowPage heading={'Наши врачи'} >
         <div className={styles['staff']}>
-          {this.data.map(this.renderDoctor)}
+          {staff.map(this.renderDentist)}
         </div>
       </NarrowPage>
     )
   }
 }
 
-export default withFetch(Staff, { api: 'staff' })
+export default connect(mapStateToProps, mapDispatchToProps)(Staff)

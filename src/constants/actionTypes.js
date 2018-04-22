@@ -1,0 +1,1 @@
+export const STAFF_PAGE_LOADED = 'STAFF_PAGE_LOADED'

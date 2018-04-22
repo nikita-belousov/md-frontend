@@ -86,7 +86,10 @@ class MainMenu extends Component {
   }
 
   render() {
-    const links = this.props.fetchedData.reduce((res, category) =>
+    const { fetchedData } = this.props
+    if (!fetchedData) return null
+
+    const links = fetchedData.reduce((res, category) =>
       [...res, {
         category: {
           id: category._id,
