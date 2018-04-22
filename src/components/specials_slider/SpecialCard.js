@@ -5,11 +5,10 @@ import { Paragraph, Link } from './../common'
 
 class SpecialCard extends Component {
   render() {
-    const { id, title, url, image, card } = this.props
-    const { description, color } = card
+    const { shortDecription, slug, image, color, title } = this.props
 
     const isBig = false
-    const imageUrl = require('./../../assets/images/specials/' + image)
+    const imageUrl = require('./../../assets/images/' + image)
     const bgStyle = {
       backgroundImage: isBig
         ? `linear-gradient(to left, transparent 0%, ${color} 60%, ${color} 100%), url(${imageUrl})`
@@ -18,7 +17,7 @@ class SpecialCard extends Component {
 
     return (
       <div className={styles['wrapper']}>
-        <Link href={`/specials/${url}`}>
+        <Link href={`/specials/${slug}`}>
           <div
             className={isBig ? styles['card--big'] : styles['card']}
             style={bgStyle}
@@ -29,7 +28,7 @@ class SpecialCard extends Component {
               </div>
               <div className={styles['description']}>
                 <Paragraph type='small'>
-                  {description}
+                  {shortDecription}
                 </Paragraph>
               </div>
             </div>

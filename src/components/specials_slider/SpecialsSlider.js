@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 import uuid from 'small-uuid'
 import Slider from 'react-slick'
 
@@ -9,6 +10,26 @@ import Section from './../Section'
 import Container from './../Container'
 import { SpecialCard } from './index'
 import { NavArrow, Link } from './../common'
+
+import { Specials as api } from './../../agent'
+
+import {
+  SPECIALS_SLIDER_LOADED,
+  SPECIALS_SLIDER_UNLOADED
+} from './../../constants/actionTypes'
+
+const mapStateToProps = state => ({
+  cards: state.specialsSlider.cards
+})
+
+const mapDispatchToProps = dispatch => ({
+  onLoad: payload => {
+    dispatch({ type: SPECIALS_SLIDER_LOADED, payload })
+  },
+  onUnload: () => {
+    dispatch({ type: SPECIALS_SLIDER_UNLOADED })
+  }
+})
 
 class SpecialsSlider extends Component {
   settings = {
@@ -22,12 +43,20 @@ class SpecialsSlider extends Component {
     nextArrow: <NavArrow wrapperClass={styles['next-arrow-wrapper']} type="next" />
   }
 
-  renderSlider(data) {
+  componentWillMount() {
+    this.props.onLoad(api.cards())
+  }
+
+  componentWillUnmount() {
+    this.props.onUnload()
+  }
+
+  renderSlider(card) {
     return (
       <Slider {...this.settings}>
-        {data.map(special => (
-          <div key={special._id}>
-            <SpecialCard {...special} />
+        {card.map(card => (
+          <div key={card.slug}>
+            <SpecialCard {...card} />
           </div>
         ))}
       </Slider>
@@ -35,7 +64,11 @@ class SpecialsSlider extends Component {
   }
 
   render() {
-    const { fetchedData } = this.props
+    const { cards } = this.props
+
+    if (!cards || cards.length === 0) {
+      return null
+    }
 
     return (
       <div className={styles['wrapper']}>
@@ -44,8 +77,7 @@ class SpecialsSlider extends Component {
             Специальные предложения
           </h2>
           <div className={styles['slider-wrapper']}>
-            {(fetchedData && fetchedData.length > 0)
-              && this.renderSlider(fetchedData.filter(e => e.card))}
+            {this.renderSlider(cards)}
           </div>
           <div className={styles["more-about"]}>
             <Link href="/specials">
@@ -58,7 +90,4 @@ class SpecialsSlider extends Component {
   }
 }
 
-export default withFetch(SpecialsSlider, {
-  api: 'special',
-  query: '?_sort=datePublished'
-})
+export default connect(mapStateToProps, mapDispatchToProps)(SpecialsSlider)
