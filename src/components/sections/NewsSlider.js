@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 import styles from './../../styles/components/sections/NewsSlider.css'
-import uuid from 'small-uuid'
 import { formatDate } from './../../utils'
 
 import withFetch from './../HOCs/withFetch'
@@ -13,7 +13,26 @@ import Paragraph from './../common/Paragraph'
 import Link from './../common/Link'
 import { PreviewPicture } from './../article'
 
+import { News as api } from './../../agent'
+
+import {
+  NEWS_SLIDER_LOADED,
+  NEWS_SLIDER_UNLOADED
+} from './../../constants/actionTypes'
+
 const Dummy = ({ children }) => <div>{children}</div>
+
+const mapStateToProps = state => ({
+  news: state.newsSlider.news
+})
+
+const mapDispatchToProps = dispatch => ({
+  onLoad: payload =>
+    dispatch({ type: NEWS_SLIDER_LOADED, payload }),
+  onUnload: () => {
+    dispatch({ type: NEWS_SLIDER_UNLOADED })
+  }
+})
 
 class NewsSlider extends Component {
   settings = {
@@ -27,26 +46,34 @@ class NewsSlider extends Component {
     prevArrow: <NavArrow wrapperClass={styles['prev-arrow-wrapper']} type="prev" />
   }
 
-  renderSlider(data) {
+  componentWillMount() {
+    this.props.onLoad(api.all())
+  }
+
+  componentWillUnmount() {
+    this.props.onUnload()
+  }
+
+  renderSlider(news) {
     return (
       <Slider {...this.settings}>
-        {data.map(newsEntity => (
-          <div key={uuid.create()}>
+        {news.map(doc => (
+          <div key={doc.slug}>
             <div className={styles['news-entity']}>
               <div className={styles['preview']}>
-                <Link href={`/news/${newsEntity.url}`}>
+                <Link href={`/news/${doc.slug}`}>
                   <PreviewPicture
-                    url={require('./../../assets/images/' + newsEntity.thumbnailPath)}
+                    src={require('./../../assets/images/' + doc.thumbnail)}
                   />
                 </Link>
               </div>
               <div className={styles['content']}>
-                <Link href={`/news/${newsEntity.url}`}>
-                  {newsEntity.heading}
+                <Link href={`/news/${doc.slug}`}>
+                  {doc.title}
                 </Link>
                 <div className={styles['bottom-line']}>
                   <div className={styles['data']}>
-                    {formatDate(newsEntity.datePublished)}
+                    {formatDate(doc.createdAt)}
                   </div>
                 </div>
               </div>
@@ -58,18 +85,21 @@ class NewsSlider extends Component {
   }
 
   render() {
-    const { fetchedData } = this.props
+    const { news } = this.props
+
+    if (!news || news.length === 0) {
+      return null
+    }
 
     return (
       <div className={styles['section-wrapper']}>
         <Container>
           <h3>Новости</h3>
-          {(fetchedData && fetchedData.length > 0)
-            && this.renderSlider(fetchedData)}
+          {this.renderSlider(news)}
         </Container>
       </div>
     )
   }
 }
 
-export default withFetch(NewsSlider)
+export default connect(mapStateToProps, mapDispatchToProps)(NewsSlider)
