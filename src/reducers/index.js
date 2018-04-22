@@ -1,7 +1,6 @@
 import { combineReducers } from 'redux'
-import staff from './staff'
-
+import paginatedPage from './paginatedPage'
 
 export default combineReducers({
-  staff
+  paginatedPage
 })

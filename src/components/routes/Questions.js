@@ -3,6 +3,7 @@ import { Route, Redirect } from 'react-router-dom'
 import QuestionsPage from './../pages/QuestionsPage'
 import Question from './../Question'
 import { Pagination } from './../pagination'
+import { Questions as api } from './../../agent'
 
 const Questions = () => (
   <div>
@@ -17,7 +18,8 @@ const Questions = () => (
       render={({ match }) =>
         <QuestionsPage>
           <Pagination
-            api='question'
+            api={api}
+            path='questions'
             itemComponent={Question}
             pageToShow={parseInt(match.params.num)}
           />

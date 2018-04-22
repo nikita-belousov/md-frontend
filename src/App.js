@@ -18,7 +18,6 @@ import Layout from './components/pages/Layout'
 import NotFound from './components/pages/NotFound'
 import HomePage from './components/pages/HomePage'
 import ReviewsPage from './components/pages/ReviewsPage'
-import Staff from './components/pages/Staff'
 import Contacts from './components/pages/Contacts'
 import PricelistPage from './components/pages/PricelistPage'
 import NewsPage from './components/pages/NewsPage'
@@ -79,10 +78,7 @@ class App extends Component {
         />
         <routes.Reviews />
         <routes.Questions />
-        <Route
-          exact path='/staff'
-          component={Staff}
-        />
+        <routes.Staff />
         <Route
           exact path='/contacts'
           component={Contacts}

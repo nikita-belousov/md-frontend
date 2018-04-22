@@ -6,34 +6,28 @@ import withFetch from './../HOCs/withFetch'
 import { Controls, Items } from './'
 
 const Page = ({
-  api,
-  itemsOnPage,
+  pager,
   totalPages,
   pageToShow,
   itemComponent,
-  path
+  path,
+  docs
 }, {
   onPageNotFound
 }) => {
-  if (!_.times(totalPages).includes(pageToShow)) {
-    onPageNotFound()
-    return null
-  }
-
   return (
     <div className={styles['page']}>
       <div className={styles['items-wrapper']}>
         <Items
+          docs={docs}
           itemComponent={itemComponent}
-          path={path}
-          api={api}
-          query={`?_sort=datePublished:desc&_start=${itemsOnPage * pageToShow}&_limit=${itemsOnPage}`}
         />
       </div>
       {(totalPages > 1) &&
         <div className={styles['controls-wrapper']}>
           <Controls
-            api={api}
+            path={path}
+            pager={pager}
             totalPages={totalPages}
             pageToShow={pageToShow}
           />

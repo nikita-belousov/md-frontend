@@ -6,11 +6,6 @@ import withFetch from './HOCs/withFetch'
 const Question = ({ author, question, answer }) => {
   return (
     <div className={styles['question-wrapper']}>
-      <div className={styles['author-name']}>
-        <b>{author}</b>
-        {' '}
-        {'спрашивает:'}
-      </div>
       <FeedbackResponse
         hideResponse={true}
         feedback={question}

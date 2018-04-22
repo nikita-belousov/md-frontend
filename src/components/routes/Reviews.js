@@ -3,6 +3,7 @@ import { Route, Redirect } from 'react-router-dom'
 import ReviewsPage from './../pages/ReviewsPage'
 import Review from './../Review'
 import { Pagination } from './../pagination'
+import { Reviews as api } from './../../agent'
 
 const Reviews = () => (
   <div>
@@ -17,7 +18,8 @@ const Reviews = () => (
       render={({ match }) =>
         <ReviewsPage>
           <Pagination
-            api='reviews'
+            api={api}
+            path='reviews'
             itemComponent={Review}
             pageToShow={parseInt(match.params.num)}
           />

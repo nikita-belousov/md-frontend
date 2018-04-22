@@ -26,7 +26,7 @@ const requests = {
 
 const pageQuery = (count, page = 0) => `_limit=${count}&_start=${page * count}`
 
-const Reviews = {
+export const Reviews = {
   all: () =>
     requests.get('/reviews'),
   page: (itemsOnPage, page) =>
@@ -37,10 +37,18 @@ export const Staff = {
   all: () =>
     requests.get('/staff'),
   page: (itemsOnPage, page) =>
-    requests.get(`/staff/?${pageQuery(itemsOnPage, page)}&isPublished=true`)
+    requests.get(`/staff/?${pageQuery(itemsOnPage, page)}`)
+}
+
+export const Questions = {
+  all: () =>
+    requests.get('/questions'),
+  page: (itemsOnPage, page) =>
+    requests.get(`/questions/?${pageQuery(itemsOnPage, page)}`)
 }
 
 export default {
   Reviews,
-  Staff
+  Staff,
+  Questions
 }

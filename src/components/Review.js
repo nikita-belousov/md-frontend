@@ -11,12 +11,12 @@ class Review extends Component {
     let {
       author,
       rating,
-      datePublished,
+      createdAt,
       review,
       response
     } = this.props
 
-    const date = new Date(datePublished)
+    const date = new Date(createdAt)
 
     return (
       <div className={styles['wrapper']}>

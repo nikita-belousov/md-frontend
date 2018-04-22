@@ -5,6 +5,7 @@ import Link from './Link'
 import TextInput from './TextInput'
 import Checkbox from './Checkbox'
 import NavArrow from './NavArrow'
+import PositionLabel from './PositionLabel'
 
 export {
   Pagination,
@@ -13,5 +14,6 @@ export {
   Link,
   TextInput,
   Checkbox,
-  NavArrow
+  NavArrow,
+  PositionLabel
 }

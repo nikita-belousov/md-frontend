@@ -75,60 +75,6 @@ class Pagination extends Component {
   renderPagination(pageNum) {
     const { match, api, itemsOnPage } = this.props
 
-    // const median = this.firstVisibleNum + 2
-    //
-    // if (pageNum === nums[0]) {
-    //   this.firstVisibleNum = nums[0]
-    // } else if (pageNum === nums.slice(-1)[0]) {
-    //   this.firstVisibleNum = nums.slice(-1)[0] - 5
-    // } else if (pageNum > median && (this.firstVisibleNum + 5) < totalPages) {
-    //   this.firstVisibleNum += 1
-    // } else if (pageNum < median && this.firstVisibleNum > 0) {
-    //   this.firstVisibleNum -= 1
-    // }
-
-    // let pageLinks
-    // if (totalPages > 6) {
-    //   pages = (
-    //     <ul>
-    //       {(this.firstVisibleNum !== 0) &&
-    //         <li>
-    //           <NavLink to={`${match.url}/pages/${nums[0]}`}>
-    //             {nums[0]}
-    //           </NavLink>
-    //         </li>}
-    //       {(this.firstVisibleNum !== 0) &&
-    //         <li> ... </li>}
-    //       {nums.slice(this.firstVisibleNum, this.firstVisibleNum + 5).map(num =>
-    //         <li>
-    //           <NavLink to={`${match.url}/pages/${num}`}>
-    //             {num}
-    //           </NavLink>
-    //         </li>)}
-    //       {(this.firstVisibleNum < (nums.slice(-1)[0] - 5)) &&
-    //         <li> ... </li>}
-    //       {(this.firstVisibleNum < (nums.slice(-1)[0] - 5)) &&
-    //         <li>
-    //           <NavLink to={`${match.url}/pages/${nums.slice(-1)[0]}`}>
-    //             {nums.slice(-1)[0]}
-    //           </NavLink>
-    //         </li>}
-    //     </ul>
-    //   )
-    // } else {
-    //   pageLinks = (
-    //     <ul>
-    //       {nums.map(num =>
-    //         <li>
-    //           <NavLink to={`${match.url}/pages/${num}`}>
-    //             {num}
-    //           </NavLink>
-    //         </li>
-    //       )}
-    //     </ul>
-    //   )
-    // }
-
     return (
       <div className={styles['nav']}>
         <div className={styles['links-inner']}>

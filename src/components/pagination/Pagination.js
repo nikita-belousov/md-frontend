@@ -1,16 +1,37 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { Page } from './'
 
+import {
+  PAGINATED_PAGE_LOADED,
+  PAGINATED_PAGE_UNLOADED
+} from './../../constants/actionTypes'
+
+const mapStateToProps = state => ({
+  ...state.paginatedPage
+})
+
+const mapDispatchToProps = dispatch => ({
+  onLoad: (pager, payload, path) => {
+    dispatch({ type: 'PAGINATED_PAGE_LOADED', payload, path })
+  },
+  onUnload: () => {
+    dispatch({ type: 'PAGINATED_PAGE_UNLOADED' })
+  }
+})
+
 class Pagination extends Component {
   static propTypes = {
-    api: PropTypes.string.isRequired,
+    api: PropTypes.object.isRequired,
+    path: PropTypes.string.isRequired,
     pageToShow: PropTypes.number.isRequired,
     itemsComponent: PropTypes.func,
     itemComponent: PropTypes.func,
     itemsOnPage: PropTypes.number,
     sort: PropTypes.string
   }
+
   static defaultProps = {
     itemsOnPage: 7
   }
@@ -19,28 +40,66 @@ class Pagination extends Component {
     onPageNotFound: PropTypes.func
   }
 
-  state = { totalItems: null }
+  componentWillMount() {
+    const { api, path, onLoad, pageToShow, itemsOnPage } = this.props
 
-  componentDidMount() {
-    fetch(`${process.env.REACT_APP_API_ROOT}/${this.props.api}-quantity`)
-      .then(data => data.json())
-      .then(json => this.setState({ totalItems: json.quantity }))
+    onLoad(
+      api.page,
+      api.page(itemsOnPage, pageToShow),
+      path
+    )
+  }
+
+  componentWillUpdate(nextProps) {
+    if (nextProps.pageToShow !== this.props.pageToShow) {
+      
+      const { api, path, onLoad, itemsOnPage } = this.props
+      onLoad(
+        api.page,
+        api.page(itemsOnPage, nextProps.pageToShow),
+        path
+      )
+    }
+  }
+
+  componentWillUnmount() {
+    this.props.onUnload()
   }
 
   render() {
-    const { totalItems } = this.state
-    const { itemsOnPage } = this.props
+    const {
+      count,
+      docs,
+      pageToShow,
+      itemsOnPage,
+      pager,
+      itemComponent,
+      path
+    } = this.props
 
-    if (!totalItems) return null
-    const totalPages = Math.ceil(totalItems / itemsOnPage)
+    if (!count || !docs) {
+      return null
+    }
+
+    const totalPages = Math.ceil(count / itemsOnPage)
+
+    if (!_.times(totalPages).includes(pageToShow)) {
+      this.context.onPageNotFound()
+      return null
+    }
 
     return (
       <Page
-        {...this.props}
+        count={count}
+        docs={docs}
+        pager={pager}
+        pageToShow={pageToShow}
         totalPages={totalPages}
+        itemComponent={itemComponent}
+        path={path}
       />
     )
   }
 }
 
-export default Pagination
+export default connect(mapStateToProps, mapDispatchToProps)(Pagination)
