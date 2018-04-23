@@ -67,10 +67,17 @@ export const News = {
     requests.get(`/news/${slug}`)
 }
 
+
+export const serviceCategories = {
+  all: () =>
+    requests.get('/service_categories')
+}
+
 export default {
   Reviews,
   Staff,
   Questions,
   News,
-  Specials
+  Specials,
+  serviceCategories
 }

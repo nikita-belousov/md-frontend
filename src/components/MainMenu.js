@@ -1,30 +1,53 @@
 import React, { Component } from 'react'
 import { NavLink } from 'react-router-dom'
-import uuid from 'small-uuid'
-import styles from './../styles/components/MainMenu.css'
+import { connect } from 'react-redux'
 
-import withFetch from './HOCs/withFetch'
+import styles from './../styles/components/MainMenu.css'
 import Container from './Container'
 import Popup from './Popup'
 import Button from './common/Button'
 import Link from './common/Link'
 
+import { serviceCategories as api } from './../agent'
+
+import {
+  SERVICE_CATEGORIES_LOADED,
+  SERVICE_CATEGORIES_UNLOADED
+} from './../constants/actionTypes'
+
+const mapStateToProps = state => ({
+  links: state.common.serviceCategories
+})
+
+const mapDispatchToProps = dispatch => ({
+  onLoad: payload =>
+    dispatch({ type: SERVICE_CATEGORIES_LOADED, payload }),
+  onUnload: () =>
+    dispatch({ type: SERVICE_CATEGORIES_UNLOADED })
+})
+
 class MainMenu extends Component {
-  state = {
-    activeItem: null
+  state = { activeLink: null }
+
+  componentWillMount() {
+    this.props.onLoad(api.all())
   }
 
-  handleItemClick(e, i, item) {
-    if (!item.subcategories.length) return
+  componentWillUnount() {
+    this.props.onUnload()
+  }
+
+  handleItemClick(e, i, category) {
+    if (!category.subcategories.length) return
 
     e.preventDefault()
     e.nativeEvent.stopImmediatePropagation()
-    this.setState(prevState => ({ activeItem: i }))
+    this.setState(prevState => ({ activeLink: i }))
   }
 
   resetActiveItem = () => {
     this.setState({
-      activeItem: null
+      activeLink: null
     })
   }
 
@@ -36,24 +59,24 @@ class MainMenu extends Component {
     )
   }
 
-  renderDropdown(item) {
+  renderDropdown(category) {
     return (
       <div className={styles['dropdown-wrapper']}>
         <Popup
-          renderButton={() => this.renderPopupButton(item['btnTitle'])}
+          renderButton={() => this.renderPopupButton(category['btnTitle'])}
           onClose={this.resetActiveItem}
         >
           <ul className={styles['dropdown']}>
             <li>
               <a
-                href={item['mainPath']}
+                href={category['mainPath']}
                 className={styles['main']}
               >
-                {item['mainTitle']}
+                {category['mainTitle']}
               </a>
             </li>
-            {item.subcategories.map(sub =>
-              <li key={uuid.create()}>
+            {category.subcategories.map(sub =>
+              <li key={sub.id}>
                 <Link
                   href={sub.url}
                   className={styles['sub-link']}
@@ -67,46 +90,38 @@ class MainMenu extends Component {
     )
   }
 
-  renderItem(item, i) {
-    const isActive = this.state.activeItem === i
+  renderLink = (category, i) => {
+    const isActive = this.state.activeLink === i
 
     return (
-      <li key={item.category.url}>
+      <li key={category.slug}>
         <NavLink
-          to={`/${item.category.url}`}
+          to={`/${category.slug}`}
           activeClassName={styles['category-link--active']}
           className={styles['category-link']}
-          onClick={e => this.handleItemClick(e, i, item)}
+          onClick={e => this.handleItemClick(e, i, category)}
         >
-          {_.capitalize(item.category.title)}
+          {_.capitalize(category.title)}
         </NavLink>
-        {(this.state.activeItem === i) && this.renderDropdown(item)}
       </li>
     )
   }
 
   render() {
-    const { fetchedData } = this.props
-    if (!fetchedData) return null
+    let { links } = this.props
 
-    const links = fetchedData.reduce((res, category) =>
-      [...res, {
-        category: {
-          id: category._id,
-          title: category.title,
-          url: category.page
-        },
-        subcategories: category.subcategories
-      }]
-    , [])
+    if (!links || links.length === 0) {
+      return null
+    }
+
+    links = links.sort((a, b) => a.order > b.order)
 
     return (
       <div className={styles['wrapper']}>
         <div className={styles['bg']}>
           <Container>
             <ul className={styles['navigation']}>
-              {links.map((item, i) =>
-                item.category.url && this.renderItem(item, i))}
+              {links.map(this.renderLink)}
             </ul>
           </Container>
         </div>
@@ -115,4 +130,4 @@ class MainMenu extends Component {
   }
 }
 
-export default withFetch(MainMenu)
+export default connect(mapStateToProps, mapDispatchToProps)(MainMenu)
