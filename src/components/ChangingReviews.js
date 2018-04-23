@@ -25,12 +25,18 @@ const mapDispatchToProps = dispatch => ({
 })
 
 class ChangingReviews extends Component {
-  state = { current: 0 }
-  quantity = 8
+  state = {
+    current: 0,
+    fullMode: false
+  }
+
+  static defaultProps = {
+    quantity: 8
+  }
 
   componentWillMount() {
     const { onLoad, quantity } = this.props
-    onLoad(api.page(quantity, 0))
+    onLoad(api.page(quantity, 1))
   }
 
   componentWillUnmount() {
@@ -40,13 +46,22 @@ class ChangingReviews extends Component {
   componentDidMount() {
     this.interval = setInterval(() => {
       this.setState(prev => (
-        { current: prev.current < this.quantity - 1 ? prev.current + 1 : 0 }
+        { current: prev.current < this.props.quantity - 1 ? prev.current + 1 : 0 }
       ))
     }, this.props.interval)
   }
 
   componentWillUnmount() {
     clearInterval(this.interval)
+  }
+
+  onFullClick = e => {
+    e.preventDefault()
+
+    this.setState(prev => ({
+      ...prev,
+      fullMode: true
+    }))
   }
 
   renderContent(review) {
@@ -60,7 +75,10 @@ class ChangingReviews extends Component {
             {words.slice(0, maxLength).join(' ') + '...'}
           </Paragraph>
           <div className={styles['more-link']}>
-            <Link type='alt'>
+            <Link
+              onClick={this.onFullClick}
+              type='alt'
+            >
               Читать полностью
             </Link>
           </div>
