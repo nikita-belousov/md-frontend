@@ -37,7 +37,9 @@ export const Staff = {
   all: () =>
     requests.get('/staff'),
   page: (itemsOnPage, page) =>
-    requests.get(`/staff/?${pageQuery(itemsOnPage, page)}`)
+    requests.get(`/staff/?${pageQuery(itemsOnPage, page)}`),
+  byId: id =>
+    requests.get(`/staff/${id}`),
 }
 
 export const Questions = {
@@ -75,7 +77,9 @@ export const ServiceCategories = {
 
 export const Services = {
   all: () =>
-    requests.get('/services')
+    requests.get('/services'),
+  byCategory: id =>
+    requests.get(`/services/?category=${id}&_sort=order`)
 }
 
 export default {

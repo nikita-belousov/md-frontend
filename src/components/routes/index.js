@@ -4,6 +4,7 @@ import Questions from './Questions'
 import Staff from './Staff'
 import News from './News'
 import Specials from './Specials'
+import ServiceCategories from './ServiceCategories'
 
 export {
   Articles,
@@ -11,5 +12,6 @@ export {
   Questions,
   Staff,
   News,
-  Specials
+  Specials,
+  ServiceCategories
 }

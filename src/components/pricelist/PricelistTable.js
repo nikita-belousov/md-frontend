@@ -9,7 +9,7 @@ class PricelistTable extends Component {
 
     return (
       <div
-        key={title}
+        key={id}
         className={styles['category']}
         ref={interactive &&
           (node => onCategoryRef(id, node))}
@@ -19,7 +19,7 @@ class PricelistTable extends Component {
         </div>
         <div className={styles['services']}>
           {!isEmpty
-            ? services.map(service => this.renderService(service))
+            ? services.map(this.renderService)
             : <div className={styles['no-results']}>
                 <Paragraph>
                   Нет результатов...
@@ -30,18 +30,18 @@ class PricelistTable extends Component {
     )
   }
 
-  renderService = (service) => {
+  renderService = ({ title, price }) => {
     return (
       <div
-        key={service.order}
+        key={title}
         className={styles['service']}
       >
         <div className={styles['title']}>
-          {service.title}
+          {title}
         </div>
         <div className={styles['line']} />
         <div className={styles['price']}>
-          {service.price + '₽'}
+          {price + '₽'}
         </div>
       </div>
     )

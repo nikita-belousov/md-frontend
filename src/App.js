@@ -23,14 +23,6 @@ import PricelistPage from './components/pages/PricelistPage'
 import NewsPage from './components/pages/NewsPage'
 import ArticlePage from './components/pages/ArticlePage'
 
-import Implantology from './components/pages/category_pages/Implantology'
-import Orthopedics from './components/pages/category_pages/Orthopedics'
-import Therapy from './components/pages/category_pages/Therapy'
-import Orthodontics from './components/pages/category_pages/Orthodontics'
-import Surgery from './components/pages/category_pages/Surgery'
-import ChildStomatology from './components/pages/category_pages/ChildStomatology'
-import Hygiene from './components/pages/category_pages/Hygiene'
-
 import * as pages from './components/pages'
 import * as routes from './components/routes'
 
@@ -66,43 +58,19 @@ class App extends Component {
           exact path='/pricelist'
           component={PricelistPage}
         />
+        <Route
+          exact path='/contacts'
+          component={Contacts}
+        />
+
         <routes.Specials />
         <routes.News />
         <routes.Reviews />
         <routes.Questions />
         <routes.Staff />
-        <Route
-          exact path='/contacts'
-          component={Contacts}
-        />
-        <Route
-          exact path='/implantation'
-          component={Implantology}
-        />
-        <Route
-          exact path='/orthopedics'
-          component={Orthopedics}
-        />
-        <Route
-          exact path='/therapy'
-          component={Therapy}
-        />
-        <Route
-          exact path='/orthodontics'
-          component={Orthodontics}
-        />
-        <Route
-          exact path='/surgery'
-          component={Surgery}
-        />
-        <Route
-          exact path='/child_stomatology'
-          component={ChildStomatology}
-        />
-        <Route
-          exact path='/hygiene'
-          component={Hygiene}
-        />
+
+        <routes.ServiceCategories />
+
         <Route render={this.renderNotFound} />
       </div>
     )

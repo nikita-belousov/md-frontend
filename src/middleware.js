@@ -6,9 +6,9 @@ export const promiseMiddleware = store => next => action => {
       action.payload = res
       store.dispatch(action)
     })
+  } else {
+    next(action)
   }
-
-  next(action)
 }
 
 export const localStorageMiddleware = store => next => action => {

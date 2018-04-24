@@ -58,6 +58,7 @@ const Implantology = props => {
 
   return (
     <CategoryPage
+      title='Имплантология'
       categoryId='5aa011110c8d66733cd75249'
       doctors={['5aa2f77791ce0038c42499d6']}
       renderContent={renderContent}
