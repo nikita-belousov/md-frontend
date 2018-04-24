@@ -5,6 +5,7 @@ import styles from './../styles/components/ChangingReviews.css'
 import Paragraph from './common/Paragraph'
 import Link from './common/Link'
 import StaticRating from './StaticRating'
+import ClosesOnExternalClick from './ClosesOnExternalClick'
 
 import { Reviews as api } from './../agent'
 
@@ -45,9 +46,13 @@ class ChangingReviews extends Component {
 
   componentDidMount() {
     this.interval = setInterval(() => {
-      this.setState(prev => (
-        { current: prev.current < this.props.quantity - 1 ? prev.current + 1 : 0 }
-      ))
+      if (!this.state.fullMode) {
+        this.setState(prev => (
+          { current: prev.current < this.props.quantity - 1
+            ? prev.current + 1
+            : 0 }
+          ))
+      }
     }, this.props.interval)
   }
 
@@ -64,11 +69,18 @@ class ChangingReviews extends Component {
     }))
   }
 
+  onFullExit = () => {
+    this.setState(prev => ({
+      ...prev,
+      fullMode: false
+    }))
+  }
+
   renderContent(review) {
     const { maxLength } = this.props
     const words = _.words(review.review)
 
-    if (words.length > maxLength) {
+    if (words.length > maxLength && !this.state.fullMode) {
       return (
         <div>
           <Paragraph>
@@ -87,30 +99,44 @@ class ChangingReviews extends Component {
     } else return review.review
   }
 
+  renderReview() {
+    const { reviews } = this.props
+    const { current } = this.state
+
+    return (
+      <div>
+        <div className={styles['review-bg']}>
+          {this.renderContent(reviews[current])}
+        </div>
+        <div className={styles['author']}>
+          <div className={styles['name']}>
+            {reviews[current].author}
+          </div>
+          <div className={styles['rating']}>
+            <StaticRating value={reviews[current].rating} />
+          </div>
+        </div>
+      </div>
+    )
+  }
+
   render() {
     const { reviews } = this.props
+    const { fullMode } = this.state
 
     if (!reviews || reviews.length === 0) {
       return null
     }
 
-    const { current } = this.state
+    const wrapperClass = fullMode ? 'wrapper-full': 'wrapper'
 
     return (
-      <div>
-        <div>
-          <div className={styles['review-bg']}>
-            {this.renderContent(reviews[current])}
-          </div>
-          <div className={styles['author']}>
-            <div className={styles['name']}>
-              {reviews[current].author}
-            </div>
-            <div className={styles['rating']}>
-              <StaticRating value={reviews[current].rating} />
-            </div>
-          </div>
-        </div>
+      <div className={styles[wrapperClass]}>
+        {fullMode
+          ? <ClosesOnExternalClick onClose={this.onFullExit}>
+              {this.renderReview()}
+            </ClosesOnExternalClick>
+          : this.renderReview()}
       </div>
     )
   }
