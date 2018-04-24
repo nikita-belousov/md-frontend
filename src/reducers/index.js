@@ -6,6 +6,7 @@ import articlePage from './articlePage'
 import specialsSlider from './specialsSlider'
 import newsSlider from './newsSlider'
 import changingReviews from './changingReviews'
+import pricelist from './pricelist'
 
 export default combineReducers({
   common,
@@ -13,5 +14,6 @@ export default combineReducers({
   articlePage,
   specialsSlider,
   newsSlider,
-  changingReviews
+  changingReviews,
+  pricelist
 })

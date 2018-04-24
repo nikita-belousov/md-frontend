@@ -3,22 +3,23 @@ import styles from './../../styles/components/pages/Pricelist.css'
 import { Paragraph, TextInput, Checkbox } from './../common'
 
 class PricelistTable extends Component {
-  renderCategory = (category) => {
+  renderCategory = ({ id, title, services }) => {
     const { interactive, onCategoryRef } = this.props
-    const isEmpty = category.services.length === 0
+    const isEmpty = services.length === 0
 
     return (
       <div
-        key={category.title}
+        key={title}
         className={styles['category']}
-        ref={interactive && (node => this.props.onCategoryRef(category.title, node))}
+        ref={interactive &&
+          (node => onCategoryRef(id, node))}
       >
         <div className={styles['category-title']}>
-          {_.capitalize(category.title)}
+          {_.capitalize(title)}
         </div>
         <div className={styles['services']}>
           {!isEmpty
-            ? category.services.map(service => this.renderService(service))
+            ? services.map(service => this.renderService(service))
             : <div className={styles['no-results']}>
                 <Paragraph>
                   Нет результатов...
@@ -32,7 +33,7 @@ class PricelistTable extends Component {
   renderService = (service) => {
     return (
       <div
-        key={service.id}
+        key={service.order}
         className={styles['service']}
       >
         <div className={styles['title']}>
@@ -64,9 +65,9 @@ class PricelistTable extends Component {
           </div>
           <div className={styles['by-social']}>
             <Checkbox
-              name='isSocial'
+              name='social'
               label='только с социальной скидкой'
-              checked={filterData.isSocial}
+              checked={filterData.social}
               onChange={onFilterChange}
             />
           </div>

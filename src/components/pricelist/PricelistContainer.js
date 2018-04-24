@@ -1,118 +1,166 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import scrollToWithAnimation from 'scrollto-with-animation'
 
 import styles from './../../styles/components/pages/Pricelist.css'
 import { withFetch } from './../HOCs'
 import { PricelistSidebar, PricelistTable } from './index'
 
+import { Services as api } from './../../agent'
+
+import {
+  PRICELIST_LOADED,
+  PRICELIST_UNLOADED
+} from './../../constants/actionTypes'
+
+const mapStateToProps = state => ({
+  ...state.pricelist
+})
+
+const mapDispatchToProps = dispatch => ({
+  onLoad: payload =>
+    dispatch({ type: PRICELIST_LOADED, payload }),
+  onUnload: () =>
+    dispatch({ type: PRICELIST_UNLOADED })
+})
+
 class PricelistContainer extends Component {
   constructor(props) {
     super(props)
 
-    this.pricelistData = this.processFetched()
-
     this.state = {
-      navbarActive: this.pricelistData[0].title,
       filter: {
         'title': '',
-        'isSocial': false
-      }
+        'social': false
+      },
+      scrollable: null,
+      categories: []
     }
 
     this.isInitialRender = true
-    this.categories = {}
     this.scrollAnimationTime = 800
     this.isAutoScrolling = false
     this.scrollAnimationQueue = []
   }
 
-  componentDidMount() {
+  componentWillMount() {
+    this.props.onLoad(api.all())
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { services } = this.props
+    const nextServices = nextProps.services
+
+    if (!services || services.length === 0) {
+      if (!nextServices || nextServices.length === 0) {
+        return null
+      }
+
+      this.data = this.prettify(nextServices)
+
+      this.setState(prev => ({
+        ...prev,
+        navbarActive: this.data[0].id
+      }))
+    }
+  }
+
+  componentDidUpdate(nextProps) {
+    const { scrollable, categories } = this.state
+
+    if (this.data &&
+        this.isInitialRender &&
+        scrollable &&
+        categories.length === this.data.length) {
+      this.initScrolling()
+    }
+  }
+
+  initScrolling() {
+    const { scrollable, categories, navbarActive } = this.state
+
     this.isInitialRender = false
-    this.pricesTop = utils.getAbsoluteCoords(this.scrollableNode).top
-    this.pricesCenter = Math.round(this.scrollableNode.offsetHeight / 2)
+
+    this.pricesTop = utils.getAbsoluteCoords(scrollable).top
+    this.pricesCenter = Math.round(scrollable.offsetHeight / 2)
     this.setCategoriesTops()
 
-    this.onPriceScroll = this.scrollableNode.addEventListener('scroll', e => {
-      if (this.isAutoScrolling)
-        return
+    this.onPriceScroll = scrollable.addEventListener('scroll', e => {
+      if (this.isAutoScrolling) {
+        return null
+      }
 
-      const current = this.categories[this.state.navbarActive]
+      const current = categories.find(el => el.id === navbarActive)
+
       const currentTop = utils.getAbsoluteCoords(current.node).top
         - this.pricesTop
       const currentBottom = utils.getAbsoluteCoords(current.node).top
         + current.node.offsetHeight
         - this.pricesTop
 
-      let newTitle
       if (currentTop > this.pricesCenter) {
-        newTitle = this.getNearbyCategoryTitle(current.title, 'prev')
+        this.setNavbarActive(current.id - 1)
       } else if (currentBottom < this.pricesCenter) {
-        newTitle = this.getNearbyCategoryTitle(current.title, 'next')
+        this.setNavbarActive(current.id + 1)
       }
-
-      if (newTitle) this.setNavbarActive(newTitle)
     })
   }
 
   componentWillUnmount() {
-    this.scrollableNode.removeEventListener('scroll', this.onPriceScroll)
+    this.state.scrollable.removeEventListener('scroll', this.onPriceScroll)
+    this.props.onUnload()
   }
 
-  processFetched() {
-    return this.props.fetchedData.reduce((res, serv) => {
-      const category = serv.category.title
-      const exists = res.find(e => e.title === category)
+  prettify(data) {
+    return data
+      .reduce((res, serv) => {
+        const { title, order } = serv.category
+        const exists = res.find(e => e.title === title)
 
-      if (exists) {
-        exists.services.push(serv)
-      } else {
-        res.push({
-          title: category,
-          services: [serv]
-        })
-      }
+        if (exists) {
+          exists.services.push(serv)
+        } else {
+          res.push({
+            id: order,
+            title,
+            services: [serv]
+          })
+        }
 
-      return res
-    }, [])
-  }
-
-  getNearbyCategoryTitle(currentTitle, which='next') {
-    const currentIndex = this.pricelistData
-      .reduce((res, category, i) => {
-        if (category.title === currentTitle)
-          res = i
         return res
-      }, 0)
-
-    return (which === 'prev')
-      ? this.pricelistData[currentIndex - 1].title
-      : this.pricelistData[currentIndex + 1].title
+      }, [])
+      .sort((a, b) => a.id > b.id)
   }
 
   setCategoriesTops() {
-    Object.keys(this.categories).forEach((title, i) => {
-      const category = this.categories[title]
+    const { categories, scrollable } = this.state
 
-      let top
-      if (i === 0) {
-        top = 0
-      } else {
-        top = utils.getAbsoluteCoords(category.node).top
-          + this.scrollableNode.scrollTop
-          - this.pricesTop
-      }
-      category.top = top
-    })
+    categories
+      .forEach((category) => {
+        let top
+        if (category.id === 0) {
+          top = 0
+        } else {
+          top = utils.getAbsoluteCoords(category.node).top
+            + scrollable.scrollTop
+            - this.pricesTop
+        }
+        category.top = top
+      })
   }
 
-  scrollTo(categoryTitle) {
-    const dest = this.categories[categoryTitle].top
+  scrollTo(id) {
+    const { categories, scrollable } = this.state
+
+    const dest = categories
+      .find(el => el.id === id)
+      .top
 
     this.isAutoScrolling = true
     this.scrollAnimationQueue.push(true)
 
     scrollToWithAnimation(
-      this.scrollableNode,
+      scrollable,
       'scrollTop',
       dest,
       this.scrollAnimationTime,
@@ -125,19 +173,19 @@ class PricelistContainer extends Component {
     )
   }
 
-  setNavbarActive = (categoryTitle) => {
+  setNavbarActive = id => {
     this.setState(prev => ({
       ...prev,
-      navbarActive: categoryTitle
+      navbarActive: id
     }))
   }
 
-  handleNavbarLinkClick = (e, categoryTitle) => {
+  handleNavbarLinkClick = (e, id) => {
     e.preventDefault()
 
     this.setCategoriesTops()
-    this.setNavbarActive(categoryTitle)
-    this.scrollTo(categoryTitle)
+    this.setNavbarActive(id)
+    this.scrollTo(id)
   }
 
   handleFilterChange = (e) => {
@@ -153,43 +201,78 @@ class PricelistContainer extends Component {
   }
 
   applyFilters(data) {
-    const { filter } = this.state
+    const { title, social } = this.state.filter
 
-    return data.reduce((result, category) => {
-      let filteredCategory = {}
-      filteredCategory.title = category.title
+    const byTitle = el =>
+      _.lowerCase(el.title).includes(_.lowerCase(title).trim())
 
-      filteredCategory.services = category.services.filter(service =>
-        _.lowerCase(service.title).includes(_.lowerCase(filter.title).trim())
-          && (service.isSocial === filter.isSocial)
+    const bySocial = el =>
+      el.social === social
+
+    const applyChain = (data, chain) =>
+      data.filter(el =>
+        chain.reduce((res, f) =>
+          f(el) ? res : false
+        , true)
       )
 
-      result.push(filteredCategory)
-      return result
-    }, [])
+    const filterChain = []
+    if (title) filterChain.push(byTitle)
+    if (social) filterChain.push(bySocial)
+
+    return data.reduce((res, category) =>
+      res.concat({
+        ...category,
+        services: applyChain(category.services, filterChain)
+      })
+    , [])
   }
 
-  initCategory = (title, node) => {
-    if (this.isInitialRender)
-      this.categories[title] = { title, node }
+  initCategory = (id, node) => {
+    const exists = this.state.categories
+      .find(el => el.id === id)
+
+    if (this.isInitialRender && !exists) {
+      this.setState(prev => ({
+        ...prev,
+        categories: [
+          ...prev.categories,
+          { id, node }
+        ]
+      }))
+    }
   }
 
   initScrollable = (node) => {
-    this.scrollableNode = node
+    if (!this.state.scrollable) {
+      this.setState(prev => ({
+        ...prev,
+        scrollable: node
+      }))
+    }
   }
 
   render() {
+    let { services } = this.props
+    const { title, social } = this.state.filter
+
+    if (!services || services.length === 0) {
+      return null
+    }
+
     const { navbarActive, filter } = this.state
 
-    const siderbarLinks = this.pricelistData
-      .reduce((res, serv) => [...res, serv.title], [])
+    const sidebarLinks = this.data
+      .reduce((res, { title, id }) => [...res, { title, id }], [])
+
+    const data = this.applyFilters(this.data)
 
     return (
       <div>
         <div className={styles['columns']}>
           <div className={styles['side']}>
             <PricelistSidebar
-              links={siderbarLinks}
+              links={sidebarLinks}
               active={navbarActive}
               onLinkClick={this.handleNavbarLinkClick}
             />
@@ -197,7 +280,7 @@ class PricelistContainer extends Component {
           <div className={styles['main']}>
             <PricelistTable
               interactive
-              data={this.applyFilters(this.pricelistData)}
+              data={data}
               onScrollableRef={this.initScrollable}
               onCategoryRef={this.initCategory}
               onFilterChange={this.handleFilterChange}
@@ -210,7 +293,4 @@ class PricelistContainer extends Component {
   }
 }
 
-export default withFetch(PricelistContainer, {
-  api: 'service',
-  query: '?_limit=false&_sort=order'
-})
+export default connect(mapStateToProps, mapDispatchToProps)(PricelistContainer)

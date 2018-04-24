@@ -68,9 +68,14 @@ export const News = {
 }
 
 
-export const serviceCategories = {
+export const ServiceCategories = {
   all: () =>
     requests.get('/service_categories')
+}
+
+export const Services = {
+  all: () =>
+    requests.get('/services')
 }
 
 export default {
@@ -79,5 +84,6 @@ export default {
   Questions,
   News,
   Specials,
-  serviceCategories
+  ServiceCategories,
+  Services
 }

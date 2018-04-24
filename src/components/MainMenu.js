@@ -8,7 +8,7 @@ import Popup from './Popup'
 import Button from './common/Button'
 import Link from './common/Link'
 
-import { serviceCategories as api } from './../agent'
+import { ServiceCategories as api } from './../agent'
 
 import {
   SERVICE_CATEGORIES_LOADED,

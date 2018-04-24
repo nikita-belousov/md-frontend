@@ -12,19 +12,19 @@ class PricelistSidebar extends Component {
     return (
       <div className={styles['nav-bar']}>
         <ul>
-          {links.map(title => {
-            const isActive = active === title
+          {links.map(({ title, id }) => {
+            const isActive = active === id
             const className = isActive
               ? styles['nav-bar-link--active']
               : styles['nav-bar-link']
 
             return (
               <li
-                key={title}
+                key={id}
                 href="#"
                 className={className}
               >
-                <a href="#" onClick={e => onLinkClick(e, title)}>
+                <a href="#" onClick={e => onLinkClick(e, id)}>
                   {_.capitalize(title)}
                 </a>
               </li>
