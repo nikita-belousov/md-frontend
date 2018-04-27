@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import styles from './../styles/components/FeedbackResponse.css'
-
 import Paragraph from './common/Paragraph'
 import Link from './common/Link'
 
@@ -19,12 +18,7 @@ class FeedbackResponse extends Component {
   constructor(props) {
     super(props)
 
-    const {
-      feedback,
-      response,
-      previewLength,
-      hideResponse
-    } = this.props
+    const { feedback, response, previewLength, hideResponse } = this.props
     const prepState = {}
 
     if (feedback.length > previewLength) {
@@ -34,6 +28,7 @@ class FeedbackResponse extends Component {
         separator: ' '
       })
     }
+    
     if (response && hideResponse) {
       prepState.showResponse = false
     }
@@ -43,6 +38,7 @@ class FeedbackResponse extends Component {
 
   toggleResponse = e => {
     e.preventDefault()
+
     this.setState(prev => ({
       ...prev,
       showResponse: !prev.showResponse
@@ -51,6 +47,7 @@ class FeedbackResponse extends Component {
 
   toggleFeedback = e => {
     e.preventDefault()
+
     this.setState(prev => ({
       ...prev,
       previewMode: !prev.previewMode

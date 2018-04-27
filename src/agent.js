@@ -43,6 +43,8 @@ export const Staff = {
 }
 
 export const Questions = {
+  create: data =>
+    requests.post('/questions', data),
   all: () =>
     requests.get('/questions'),
   page: (itemsOnPage, page) =>

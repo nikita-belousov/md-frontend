@@ -10,16 +10,11 @@ import Button from './common/Button'
 import RatingInput from './common/RatingInput'
 import Popup from './Popup'
 
+import { Questions as api } from './../agent'
+
 class AskQuestionPopup extends Component {
-  onFormSubmit = (data) => {
-    fetch(`${process.env.REACT_APP_API_ROOT}/question`, {
-      method: 'POST',
-      headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({
-        ...data,
-        answer: 'empty'
-      })
-    })
+  onFormSubmit = data => {
+    api.create(data)
   }
 
   render() {
