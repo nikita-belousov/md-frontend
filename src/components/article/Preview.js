@@ -1,3 +1,5 @@
+import _ from 'lodash'
+import utils from 'utils'
 import React, { Component } from 'react'
 import styles from './../../styles/components/article/Preview.css'
 import { Link, Paragraph } from './../common'

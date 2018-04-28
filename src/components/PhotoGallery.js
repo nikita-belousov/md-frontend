@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import _ from 'lodash'
 import Gallery from 'react-photo-gallery'
 import Lightbox from 'react-images'
 

@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import utils from 'utils'
 import { connect } from 'react-redux'
 import styles from './../../styles/components/Article.css'
 import { Paragraph } from './../common'

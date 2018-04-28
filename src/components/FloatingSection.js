@@ -1,4 +1,5 @@
 import React from 'react'
+import _ from 'lodash'
 import styles from './../styles/components/FloatingSection.css'
 import Button from './common/Button'
 import Link from './common/Link'
@@ -52,16 +53,16 @@ class FloatingSection extends React.Component {
   }
 
   onCallbackSubmit(data) {
-    emailjs.send(
-      process.env.REACT_APP_MAIL_SERVICE,
-      '_callback',
-      {
-        name: _.capitalize(data.name),
-        phone: data.phone
-      }
-    )
-    .then(console.log)
-    .catch(console.log)
+    // emailjs.send(
+    //   process.env.REACT_APP_MAIL_SERVICE,
+    //   '_callback',
+    //   {
+    //     name: _.capitalize(data.name),
+    //     phone: data.phone
+    //   }
+    // )
+    // .then(console.log)
+    // .catch(console.log)
   }
 
   renderPopupForm() {

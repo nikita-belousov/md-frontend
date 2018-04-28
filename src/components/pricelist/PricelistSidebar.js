@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import _ from 'lodash'
 import styles from './../../styles/components/pages/Pricelist.css'
 
 class PricelistSidebar extends Component {

@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import _ from 'lodash'
 
 class FlatPricelist extends Component {
   renderCategory() {

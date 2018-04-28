@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import _ from 'lodash'
 import styles from './../../styles/components/sections/CountReview.css'
 import FontAwesome from 'react-fontawesome'
 
@@ -42,17 +43,17 @@ class CountReview extends Component {
   }
 
   onCallbackSubmit = (data) => {
-    emailjs.send(
-      process.env.REACT_APP_MAIL_SERVICE,
-      '_count_price',
-      {
-        problem: this.problemValue,
-        name: _.capitalize(data.name),
-        phone: data.phone
-      }
-    )
-    .then(console.log)
-    .catch(console.log)
+    // emailjs.send(
+    //   process.env.REACT_APP_MAIL_SERVICE,
+    //   '_count_price',
+    //   {
+    //     problem: this.problemValue,
+    //     name: _.capitalize(data.name),
+    //     phone: data.phone
+    //   }
+    // )
+    // .then(console.log)
+    // .catch(console.log)
   }
 
   renderPopupForm() {

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import styles from './../../styles/components/sections/NewsSlider.css'
-import { formatDate } from './../../utils'
+import { formatDate } from 'utils'
 
 import withFetch from './../HOCs/withFetch'
 import FontAwesome from 'react-fontawesome'

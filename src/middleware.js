@@ -1,4 +1,5 @@
 import agent from './agent'
+import { LOGIN, LOGOUT } from './constants/actionTypes'
 
 export const promiseMiddleware = store => next => action => {
   if (isPromise(action.payload)) {

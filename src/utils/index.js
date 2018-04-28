@@ -39,3 +39,9 @@ export function getAbsoluteCoords(elem) {
     left: Math.round(box.left + window.pageXOffset)
   }
 }
+
+export default {
+  recursiveReactMap,
+  formatDate,
+  getAbsoluteCoords
+}

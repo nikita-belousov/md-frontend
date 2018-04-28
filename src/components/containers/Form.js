@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
+import _ from 'lodash'
 import PropTypes from 'prop-types'
 import { validate as validateJS } from 'validate.js'
-import _ from 'lodash'
-import { recursiveReactMap } from '../../utils'
+import { recursiveReactMap } from 'utils'
 
 import TextInput from './../common/TextInput'
 import Select from './../common/Select'

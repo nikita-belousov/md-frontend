@@ -43,9 +43,9 @@ class AppointmentModal extends Component {
       doctor: doctor || 'не указано'
     }
 
-    emailjs
-      .send(process.env.REACT_APP_MAIL_SERVICE, '_appointment', emailData)
-      .catch(console.log)
+    // emailjs
+    //   .send(process.env.REACT_APP_MAIL_SERVICE, '_appointment', emailData)
+    //   .catch(console.log)
 
     this.userName = data.name
     setTimeout(() => {

@@ -20,7 +20,6 @@ import HomePage from './components/pages/HomePage'
 import ReviewsPage from './components/pages/ReviewsPage'
 import Contacts from './components/pages/Contacts'
 import PricelistPage from './components/pages/PricelistPage'
-import NewsPage from './components/pages/NewsPage'
 import ArticlePage from './components/pages/ArticlePage'
 
 import * as pages from './components/pages'

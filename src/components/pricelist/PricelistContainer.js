@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import _ from 'lodash'
+import utils from 'utils'
 import { connect } from 'react-redux'
 import scrollToWithAnimation from 'scrollto-with-animation'
 

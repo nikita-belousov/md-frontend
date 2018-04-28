@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import _ from 'lodash'
 import PropTypes from 'prop-types'
 import styles from './../styles/components/FeedbackResponse.css'
 import Paragraph from './common/Paragraph'
@@ -28,7 +29,7 @@ class FeedbackResponse extends Component {
         separator: ' '
       })
     }
-    
+
     if (response && hideResponse) {
       prepState.showResponse = false
     }

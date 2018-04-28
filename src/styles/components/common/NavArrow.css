@@ -5,7 +5,14 @@
   height: 32px;
   display: inline-block;
   cursor: pointer;
+}
 
+.arrow--next {
+  composes: arrow--prev;
+  transform: rotate(180deg);
+}
+
+.arrow--next, .arrow--prev {
   svg {
     fill: grey;
 
@@ -13,9 +20,4 @@
       fill: primary;
     }
   }
-}
-
-.arrow--next {
-  composes: arrow--prev;
-  transform: rotate(180deg);
 }
