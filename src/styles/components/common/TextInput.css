@@ -39,7 +39,7 @@
 
 .with-error {
   box-shadow: 0 0 0 1px red,
-              0 0 12px 1px rgba(red, .6);
+              0 0 12px 1px color(red a(60%));
 }
 
 .text-field {
@@ -53,14 +53,14 @@
 
 /* -------- appearance -------- */
 .round-transparent {
-  background-color: rgba(#fff, .2);
+  background-color: color(white a(20%));
   border-radius: 100vh;
   color: #fff;
-  box-shadow: 0 2px 12px 0 rgba(black, .1);
+  box-shadow: 0 2px 12px 0 color(black a(10%));
   transition: none;
 
   &:focus {
-    background: linear-gradient(to top, #2f9fbd 0%,#257288 100%);
+    background: linear-gradient(to top, #2f9fbd 0%, #257288 100%);
     box-shadow: none;
 
     &::placeholder {

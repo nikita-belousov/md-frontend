@@ -131,7 +131,7 @@
 
       &:hover {
         opacity: 1;
-        text-shadow:  0 0 8px rgba(black, .2);
+        text-shadow:  0 0 8px color(black a(20%));
       }
     }
   }

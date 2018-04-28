@@ -79,7 +79,7 @@
   }
   &::-webkit-scrollbar-thumb {
   	border-radius: 10px;
-  	background-color: rgba(#fff, .4);
+  	background-color: color(white a(40%));
   }
 }
 

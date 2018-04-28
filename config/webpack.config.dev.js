@@ -184,6 +184,7 @@ module.exports = {
                   plugins: () => [
                     require('postcss-nested'),
                     require('postcss-modules-values'),
+                    require('postcss-color-function'),
                     require('postcss-flexbugs-fixes'),
                     autoprefixer({
                       browsers: [

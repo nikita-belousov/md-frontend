@@ -1,11 +1,10 @@
-@value primary from './../../libs/colors.css';
-@value secondary from './../../libs/colors.css';
+@value primary, secondary from './../../libs/colors.css';
 
 a, link, .link {
   cursor: pointer;
   color: primary;
   outline: 0;
-  border-bottom: 1px solid rgba(#2ac4ff, .4);
+  border-bottom: 1px solid color(#2ac4ff a(40%));
   text-decoration: none;
   transition: border-bottom-color ease-in-out .2s;
   font-weight: 600;
@@ -27,23 +26,20 @@ a, link, .link {
 
 .link--alt {
   composes: link;
-
   color: #fff;
-  border-bottom: 1px solid rgba(#fff, .4);
+  border-bottom: 1px solid rgba(255,255,255, .4);
 
   &:hover {
-    border-bottom-color: #fff;
+    border-bottom-color: white;
   }
 }
 
 .dashed-link {
   composes: link;
-
   border-bottom-style: dashed;
 }
 
 .dashed-link--alt {
   composes: link--alt;
-
   border-bottom-style: dashed;
 }

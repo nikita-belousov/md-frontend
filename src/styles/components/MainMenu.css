@@ -13,10 +13,10 @@
 
   a {
     color: #fff;
-    border-bottom-color: rgba(#fff, .4);
+    border-bottom-color: rgba(255,255,255, .4);
 
     &:hover {
-      border-bottom-color: #fff;
+      border-bottom-color: white;
     }
   }
 }
