@@ -62,16 +62,16 @@ class Select extends Component {
       <AppearAnimation>
         <div className={styles['options-list']}>
           <ClosesOnExternalClick onClose={this.endSelecting}>
-            {options.map(option => (
+            {options.map(({ value, name }) =>
               <div
                 className={styles['option']}
-                key={uuid.create()}
-                value={option.value}
-                onClick={(e) => this.handleOptionClick(e, option.value)}
+                key={value}
+                value={value}
+                onClick={e => this.handleOptionClick(e, value)}
               >
-                {option.name}
+                {name}
               </div>
-            ))}
+            )}
           </ClosesOnExternalClick>
         </div>
       </AppearAnimation>

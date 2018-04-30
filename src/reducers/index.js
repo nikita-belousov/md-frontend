@@ -8,6 +8,7 @@ import newsSlider from './newsSlider'
 import changingReviews from './changingReviews'
 import pricelist from './pricelist'
 import categoryPage from './categoryPage'
+import appointment from './appointment'
 
 export default combineReducers({
   common,
@@ -17,5 +18,6 @@ export default combineReducers({
   newsSlider,
   changingReviews,
   pricelist,
-  categoryPage
+  categoryPage,
+  appointment
 })

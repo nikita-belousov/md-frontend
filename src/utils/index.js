@@ -1,5 +1,11 @@
 import React from 'react'
 
+export const cutName = name =>
+  name
+    .split(' ')
+    .map((word, i) => i === 0 ? word : `${word[0]}.`)
+    .join(' ')
+
 export function recursiveReactMap(children, fn) {
   return React.Children.map(children, child => {
     if (!React.isValidElement(child)) {
@@ -41,6 +47,7 @@ export function getAbsoluteCoords(elem) {
 }
 
 export default {
+  cutName,
   recursiveReactMap,
   formatDate,
   getAbsoluteCoords

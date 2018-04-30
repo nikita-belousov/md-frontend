@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 import validate from 'validate.js'
+import utils from 'utils'
 import _ from 'lodash'
 import styles from './../styles/components/AppointmentModal.css'
 
@@ -9,6 +12,13 @@ import Button from './common/Button'
 import TextInput from './common/TextInput'
 import Select from './common/Select'
 import Paragraph from './common/Paragraph'
+
+import {
+  APPOINTMENT_LOADED,
+  APPOINTMENT_UNLOADED
+} from './../constants/actionTypes'
+
+import { Staff as StaffApi } from './../agent'
 
 const doctorsOptions = [
   { name: 'Не выбрано', value: '' },
@@ -20,26 +30,43 @@ const doctorsOptions = [
   { name: 'Кяргина Н.Н. (ортодонт)', value: 'kyargina' }
 ]
 
+const mapStateToProps = state => ({
+  ...state.appointment
+})
+
+const mapDispatchToProps = dispatch => ({
+  onLoad: payload =>
+    dispatch({ type: APPOINTMENT_LOADED, payload }),
+  onUnload: () =>
+    dispatch({ type: APPOINTMENT_UNLOADED })
+})
+
 const LOADING_TIME = 2500
 const SUCCESS_TEXT = 'Спасибо, %username%! Через несколько минут с вами свяжется администратор клиники для уточнения деталей приема.'
 
 class AppointmentModal extends Component {
+  static propTypes = {
+    onClose: PropTypes.func.isRequired,
+    staff: PropTypes.array
+  }
+
   state = {
     contentState: 'form' // or 'success'
   }
 
-  onFormSubmit = (data) => {
-    let doctor
-    if (data.doctor) {
-      doctor = doctorsOptions
-        .find(doc => doc.value === data.doctor)
-        .name
-    }
+  componentWillMount() {
+    this.props.onLoad(StaffApi.options())
+  }
 
+  componentWillUnmount() {
+    this.props.onUnload()
+  }
+
+  onFormSubmit = ({ name, phone, problem, doctor }) => {
     const emailData = {
-      name: _.capitalize(data.name),
-      phone: data.phone,
-      problem: data.problem,
+      name: _.capitalize(name),
+      phone,
+      problem,
       doctor: doctor || 'не указано'
     }
 
@@ -47,10 +74,24 @@ class AppointmentModal extends Component {
     //   .send(process.env.REACT_APP_MAIL_SERVICE, '_appointment', emailData)
     //   .catch(console.log)
 
-    this.userName = data.name
-    setTimeout(() => {
+    this.userName = name
+
+    setTimeout(() =>
       this.setState({ contentState: 'success' })
-    }, LOADING_TIME)
+    , LOADING_TIME)
+  }
+
+  toSelectOptions(data) {
+    return data.reduce((res, { name, positions }) => {
+      const initials = utils.cutName(name)
+      return [
+        ...res,
+        {
+          name: `${initials} (${positions.slice(0, 2).join(', ')})`,
+          value: initials
+        }
+      ]
+    }, [])
   }
 
   renderSuccess() {
@@ -115,7 +156,7 @@ class AppointmentModal extends Component {
             <div className={styles['tiny-wrapper']}>
               <Select
                 name='doctor'
-                options={doctorsOptions}
+                options={this.toSelectOptions(this.props.staff)}
               />
             </div>
           </div>
@@ -139,6 +180,12 @@ class AppointmentModal extends Component {
   }
 
   render() {
+    const { staff, onClose } = this.props
+
+    if (!staff || staff.length === 0) {
+      return null
+    }
+
     const constraints = {
       name: {
         presence: { allowEmpty: false },
@@ -155,7 +202,7 @@ class AppointmentModal extends Component {
     return (
       <Modal
         heading={'Запись на прием'}
-        onClose={this.props.onClose}
+        onClose={onClose}
       >
         <Form
           constraints={constraints}
@@ -179,4 +226,4 @@ class AppointmentModal extends Component {
   }
 }
 
-export default AppointmentModal
+export default connect(mapStateToProps, mapDispatchToProps)(AppointmentModal)

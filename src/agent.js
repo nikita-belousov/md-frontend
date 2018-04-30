@@ -40,6 +40,8 @@ export const Staff = {
     requests.get(`/staff/?${pageQuery(itemsOnPage, page)}`),
   byId: id =>
     requests.get(`/staff/${id}`),
+  options: () =>
+    requests.get('/staff/selectOptions')
 }
 
 export const Questions = {
