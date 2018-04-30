@@ -3,7 +3,7 @@
 
 .select {
   border: 0;
-  position: relative;
+  /* position: relative; */
 }
 
 .select--selecting {
@@ -52,9 +52,10 @@
 }
 
 .options-list {
-  width: 100%;
-  top: 44px;
+  /* width: 100%; */
   position: absolute;
+  top: 60%;
+  margin-bottom: 40px;
   z-index: 10000;
   background: #fff;
   box-shadow: shadow-primary;
